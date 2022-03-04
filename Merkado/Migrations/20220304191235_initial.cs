@@ -117,6 +117,7 @@ namespace Merkado.Migrations
                     DateCreated = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     OrderState = table.Column<int>(type: "int", nullable: false),
                     PaymentState = table.Column<int>(type: "int", nullable: false),
+                    Provider = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")

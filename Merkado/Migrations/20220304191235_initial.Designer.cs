@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Merkado.Migrations
 {
     [DbContext(typeof(MerkadoDbContext))]
-    [Migration("20220304162617_initial")]
+    [Migration("20220304191235_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,9 @@ namespace Merkado.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Provider")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
