@@ -1,9 +1,22 @@
-var builder = WebApplication.CreateBuilder(args);
+using Merkado.DAL;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+string connString = builder.Configuration.GetConnectionString("MerkadoConnectionString");
+
+
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<MerkadoDbContext>(options =>
+{
+    options.UseMySql(connString, ServerVersion.AutoDetect(connString));
+});
+
+
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
