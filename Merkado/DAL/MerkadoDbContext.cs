@@ -15,5 +15,8 @@ namespace Merkado.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<Opinion> Opinions { get; set; }
+        public DbSet<ObservedProduct> ObservedProducts { get; set; }
     }
 }

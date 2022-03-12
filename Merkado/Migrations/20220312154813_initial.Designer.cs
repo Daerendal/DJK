@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Merkado.Migrations
 {
     [DbContext(typeof(MerkadoDbContext))]
-    [Migration("20220304191235_initial")]
+    [Migration("20220312154813_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,74 @@ namespace Merkado.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Merkado.Models.FavouriteSeller", b =>
+                {
+                    b.Property<int>("FavouriteSellerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("SellerId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("FavouriteSellerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteSeller");
+                });
+
+            modelBuilder.Entity("Merkado.Models.ObservedProduct", b =>
+                {
+                    b.Property<int>("ObservedProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("ObservedProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ObservedProducts");
+                });
+
+            modelBuilder.Entity("Merkado.Models.Opinion", b =>
+                {
+                    b.Property<int>("OpinionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReviewerId")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("OpinionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Opinions");
+                });
+
             modelBuilder.Entity("Merkado.Models.Order", b =>
                 {
                     b.Property<int>("OrderId")
@@ -55,7 +123,7 @@ namespace Merkado.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Provider")
+                    b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
@@ -64,6 +132,8 @@ namespace Merkado.Migrations
                     b.HasKey("OrderId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ProviderId");
 
                     b.HasIndex("UserId");
 
@@ -113,7 +183,7 @@ namespace Merkado.Migrations
 
             modelBuilder.Entity("Merkado.Models.ProductImage", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductImageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
@@ -124,11 +194,26 @@ namespace Merkado.Migrations
                     b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductImageId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImage");
+                });
+
+            modelBuilder.Entity("Merkado.Models.Provider", b =>
+                {
+                    b.Property<int>("ProviderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ProviderId");
+
+                    b.ToTable("Providers");
                 });
 
             modelBuilder.Entity("Merkado.Models.User", b =>
@@ -203,6 +288,52 @@ namespace Merkado.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ProductProvider", b =>
+                {
+                    b.Property<int>("ProductsProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProvidersProviderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductsProductId", "ProvidersProviderId");
+
+                    b.HasIndex("ProvidersProviderId");
+
+                    b.ToTable("ProductProvider");
+                });
+
+            modelBuilder.Entity("Merkado.Models.FavouriteSeller", b =>
+                {
+                    b.HasOne("Merkado.Models.User", null)
+                        .WithMany("FavouriteSellers")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Merkado.Models.ObservedProduct", b =>
+                {
+                    b.HasOne("Merkado.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Merkado.Models.User", "User")
+                        .WithMany("ObservedProducts")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Merkado.Models.Opinion", b =>
+                {
+                    b.HasOne("Merkado.Models.User", null)
+                        .WithMany("Opinions")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Merkado.Models.Order", b =>
                 {
                     b.HasOne("Merkado.Models.Product", "Product")
@@ -211,11 +342,19 @@ namespace Merkado.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Merkado.Models.Provider", "Provider")
+                        .WithMany()
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Merkado.Models.User", null)
                         .WithMany("UserOrders")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Product");
+
+                    b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Merkado.Models.Product", b =>
@@ -240,6 +379,21 @@ namespace Merkado.Migrations
                         .HasForeignKey("ProductId");
                 });
 
+            modelBuilder.Entity("ProductProvider", b =>
+                {
+                    b.HasOne("Merkado.Models.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Merkado.Models.Provider", null)
+                        .WithMany()
+                        .HasForeignKey("ProvidersProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Merkado.Models.Product", b =>
                 {
                     b.Navigation("Images");
@@ -247,6 +401,12 @@ namespace Merkado.Migrations
 
             modelBuilder.Entity("Merkado.Models.User", b =>
                 {
+                    b.Navigation("FavouriteSellers");
+
+                    b.Navigation("ObservedProducts");
+
+                    b.Navigation("Opinions");
+
                     b.Navigation("UserOrders");
 
                     b.Navigation("UserProducts");

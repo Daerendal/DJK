@@ -8,7 +8,10 @@ namespace Merkado.Models
         New,
 
         [Display(Name = "Wysłane")]
-        Shipped
+        Shipped,
+
+        [Display(Name = "Zrealizowane")]
+        Realized
     }
 
     public enum PaymentState
@@ -18,21 +21,6 @@ namespace Merkado.Models
 
         [Display(Name = "Nie zapłacono")]
         Unpaid
-    }
-
-    public enum Provider
-    {
-        [Display(Name = "Inpost")]
-        Inpost,
-
-        [Display(Name = "Kurier")]
-        Courier,
-
-        [Display(Name = "Poczta Polska")]
-        Post,
-
-        [Display(Name = "Odbiór osobisty")]
-        Self
     }
 
     public class Order

@@ -3,6 +3,7 @@ using Merkado.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Merkado.Controllers
 {
@@ -22,6 +23,7 @@ namespace Merkado.Controllers
             var productList = _db.Products
                                 .Include(c => c.Category)
                                 .Include(i => i.Images)
+                                .Include(p => p.Providers)
                                 .ToList();
 
             return View(productList);

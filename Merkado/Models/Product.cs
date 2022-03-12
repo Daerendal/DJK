@@ -20,6 +20,8 @@ namespace Merkado.Models
         public DateTime AddedDate { get; set; }
         [Required]
         public Category Category { get; set; }
+        [Required]
+        public List<Provider> Providers { get; set; }
         public List<ProductImage>? Images { get; set; }
 
     }

@@ -2,7 +2,7 @@
 {
     public class ProductImage
     {
-        public int Id { get; set; }
+        public int ProductImageId { get; set; }
         public string ImageURL { get; set; }
     }
 }
