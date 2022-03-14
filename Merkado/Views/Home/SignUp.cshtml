@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+    <script src="~/js/signup.js" defer></script>
+</head>
+@{
+    ViewData["Title"] = "SignUp";
+}
+<h1>@ViewData["Title"]</h1>
+<body>
+    <form data-multi-step class="multi-step-form">
+        <div class="card" data-step>
+
+            <h3 class="step-title">Krok 1 - dane logowania</h3>            
+            <div class=form-group>
+                <label for="email">Email</label>
+                <input type= "email" name="email" id="email" />
+            </div>
+            <div class=form-group>
+                <label for="password">Hasło</label>
+                <input type= "password" name="password" id="password" />
+            </div>
+            <div class=form-group>
+                <label for="cPassword">Potwierdź Hasło</label>
+                <input type= "password" name="Cpassword" id="Cpassword" />
+            </div>
+            <button type="button" data-next>Następny</button>
+ 
+        </div>
+        <div class="card" data-step>
+            <h3 class="step-title">Krok 2 - Przedstaw się</h3>
+            <div class=form-group>
+                <label for="firstName">Imię</label>
+                <input type= "text" name="firstName" id="firstName" />
+            </div>
+            <div class=form-group>
+                <label for="lastName">Nazwisko</label>
+                <input type= "text" name="lastName" id="lastName" />
+            </div>
+
+            <button type="button" data-next>Następny</button>
+            <button type="button" data-previous>Poprzedni</button>
+        </div>
+        <div class="card" data-step>
+            <h3 class="step-title">Krok 3 - Adres</h3>
+            <div class=form-group>
+                <label for="city">Miasto</label>
+                <input type= "text" name="city" id="city" />
+            </div>
+            <div class=form-group>
+                <label for="street">Ulica</label>
+                <input type= "text" name="street" id="street" />
+            </div>
+            <div class=form-group>
+                <label for="postalCode">Kod Pocztowy</label>
+                <input type= "text" name="postalCode" id="postalCode" />
+            </div>
+            <button type="button" data-previous>Poprzedni</button>
+            <button type="Submit">Potwierdź</button>
+        </div>
+    </form>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
