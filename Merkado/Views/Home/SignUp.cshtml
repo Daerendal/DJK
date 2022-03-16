@@ -8,61 +8,64 @@
     <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
     <script src="~/js/signup.js" defer></script>
 </head>
-@{
-    ViewData["Title"] = "SignUp";
-}
-<h1>@ViewData["Title"]</h1>
 <body>
-    <form data-multi-step class="multi-step-form">
-        <div class="card" data-step>
-
-            <h3 class="step-title">Krok 1 - dane logowania</h3>            
+    <form data-multi-step class="multi-step-form"> 
+        <div class="card col-sm col-12" data-step>            
+            <h3 class="step-title">Wybierz metodę rejestracji</h3>            
             <div class=form-group>
                 <label for="email">Email</label>
-                <input type= "email" name="email" id="email" />
+                <input type= "email" name="email" id="email"placeholder="Wprowadź email" />
             </div>
             <div class=form-group>
                 <label for="password">Hasło</label>
-                <input type= "password" name="password" id="password" />
+                <input type= "password" name="password" id="password" placeholder="Wprowadź hasło"/>
             </div>
             <div class=form-group>
                 <label for="cPassword">Potwierdź Hasło</label>
-                <input type= "password" name="Cpassword" id="Cpassword" />
+                <input  type= "password" name="Cpassword" id="Cpassword" placeholder="Potwierdź hasło"/>
             </div>
-            <button type="button" data-next>Następny</button>
- 
+            <button type="button" class="btn btn-success" data-next>Następny</button>
+              <div class="or-container">
+            <div class="line-separator"></div>
+            <div class="or-label">lub</div>
+            <div class="line-separator"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#"><img 
+                src="https://img.icons8.com/color/16/000000/google-logo.png"> Zarejestruj się przez Googla!</a> </div>
+        </div> <br>
+        <p class="text-inverse text-center">Masz już konto? <a href="<?= base_url() ?>auth/login" data-abc="true">Zaloguj się!</a></p>
+           
         </div>
         <div class="card" data-step>
-            <h3 class="step-title">Krok 2 - Przedstaw się</h3>
+            <h3 class="step-title">Przedstaw się! </h3>
             <div class=form-group>
                 <label for="firstName">Imię</label>
-                <input type= "text" name="firstName" id="firstName" />
+                <input type= "text" name="firstName" id="firstName"placeholder="Wpisz imię" />
             </div>
             <div class=form-group>
                 <label for="lastName">Nazwisko</label>
-                <input type= "text" name="lastName" id="lastName" />
-            </div>
-
-            <button type="button" data-next>Następny</button>
-            <button type="button" data-previous>Poprzedni</button>
-        </div>
-        <div class="card" data-step>
-            <h3 class="step-title">Krok 3 - Adres</h3>
-            <div class=form-group>
-                <label for="city">Miasto</label>
-                <input type= "text" name="city" id="city" />
+                <input type= "text" name="lastName" id="lastName"placeholder="Wpisz nazwisko" />
             </div>
             <div class=form-group>
                 <label for="street">Ulica</label>
-                <input type= "text" name="street" id="street" />
+                <input type= "text" name="street" id="street"placeholder="Wpisz ulica" />
+            </div>
+            <div class=form-group>
+                <label for="city">Miasto</label>
+                <input type= "text" name="city" id="city"placeholder="Wpisz miasto" />
             </div>
             <div class=form-group>
                 <label for="postalCode">Kod Pocztowy</label>
-                <input type= "text" name="postalCode" id="postalCode" />
+                <input type= "text" name="postalCode" id="postalCode"placeholder="Wpisz kod pocztowy" />
             </div>
-            <button type="button" data-previous>Poprzedni</button>
-            <button type="Submit">Potwierdź</button>
-        </div>
+
+            <div class="or-container">
+                                <div class="line-separator"></div>
+             </div>
+             <button type="button" class="btn btn-secondary" data-previous>Wróć</button>
+            <button type="Submit" class="btn btn-success">Potwierdź</button>
+        </div>       
     </form>
      <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
