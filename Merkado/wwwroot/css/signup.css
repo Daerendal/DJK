@@ -1,12 +1,18 @@
 ﻿.card {
-    background-color: #FFFAFA;
-    border: 1px solid #333;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
     border-radius: .5rem;
     padding: .5rem;
-    max-width: 50%;
-    max-height:50%;
-    margin: 0 auto;
-    animation: fade 250ms ease-in-out forwards;
+    animation: fade 250ms ease-in-out forwards;    
+    position:center;
+}
+.loginform {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .5rem;
+    padding: .5rem;
+    position: center;
+
 }
 body {
     background: #dee2e6;
@@ -15,17 +21,58 @@ body {
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: .5rem;
     gap: .25em;
 }
 input {
-    background: DimGray;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+    height: 30px;
+    width: 50%;
+    align-self: center;
 }
-button {    
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#A9A9A9), to(#808080));
+button {
+    align-self: center;
+    background: #eff1f3;
     cursor: pointer;
+    height: 30%;
+    width: 25%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    float: left;
 }
-label{
+
+.row{
+    align-self:center;
+}
+.btn-google {
+    color: #545454;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 1px #ddd
+}
+
+.or-container {
+    align-items: center;
+    color: #ccc;
+    display: flex;
+    margin: 25px 0
+}
+
+.line-separator {
+    background-color: #ccc;
+    flex-grow: 5;
+    height: 1px
+}
+
+.or-label {
+    flex-grow: 1;
+    margin: 0 15px;
+    text-align: center
+}
+label {
+    margin-top:1%;
+    text-align:center;
     cursor: text;
 }
 .form-group:last-child {
@@ -34,21 +81,22 @@ label{
 
 .form-group > label {
         font-weight: bold;
-        font-size: .8em;
+        font-size: 20px;
         color: #333;
 }
 
 .form-group > input {
-        border: 1px solid #333;
-        border-radius: .25em;
-        font-size: 1rem;
-        padding: .25em;
+    border: 1px solid #ced4da;
+    border-radius: .25em;
+    font-size: 1rem;
+    padding: .25em;
 }
 
 .step-title {
-    margin: 0;
     margin-bottom: 1rem;
+    margin-top: 1rem;
     text-align: center;
+    font-size:40px;
 }
 
 .card.active {
@@ -57,7 +105,7 @@ label{
 
 .multi-step-form {
     overflow: hidden;
-    position: relative;
+    position: center;
 }
 
 .hide {
@@ -92,35 +140,3 @@ label{
         transform: scale(0);
     }
 }
-.form__icon{
-    height:72px;
-    width:72px;
-    border:solid 3px rgba(255,255,255,0.6);
-    border-radius:50%;
-    box-shadow:0px 8px 24px 0 rgba(0, 0,0,0.3);
-    margin:0 auto 24px;
-}
-    .form__icon:before {
-        background: rgba(255, 255, 255, 0.7);
-        bottom: 0;
-        border-radius: 50%;
-        content: "";
-        display: block;
-        height: 24px;
-        left: 50%;
-        position: absolute;
-        transform: translateX(-50%);
-        width: 48px;
-    }
-    .form__icon:after {
-        background: rgba(255, 255, 255, 0.7);
-        bottom: 45%;
-        border-radius: 50%;
-        content: "";
-        display: block;
-        height: 24px;
-        left: 50%;
-        position: absolute;
-        transform: translateX(-50%);
-        width: 24px;
-    }
