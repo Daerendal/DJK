@@ -25,7 +25,38 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Signup">Rejestracja</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Logowanie</a>
+                        </li>
+                        
                     </ul>
+                    <!--- Wyszukiwarka -->
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" >
+                            <input type="search" class="form-control rounded" placeholder="Wpisz czego szukasz" aria-label="Search" aria-describedby="search-addon" />
+                            <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Dropdown link
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        
+                                            <li><a class="dropdown-item" href="#">1</a></li>
+                                            <li><a class="dropdown-item" href="#">2</a></li>
+                                      
+                                            <li><a class="dropdown-item" href="#">1</a></li>
+                                            <li><a class="dropdown-item" href="#">2</a></li>
+                                        
+                                             
+
+                                          
+                                    </ul>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary">Wyszukaj</button>
+                    </div>
+                
                 </div>
             </div>
         </nav>
