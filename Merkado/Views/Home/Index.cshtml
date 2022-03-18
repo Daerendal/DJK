@@ -9,9 +9,10 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @foreach (var item in Model.OrderByDescending(x => x.AddedDate).Take(8))
                     {
+                        <div class="main page items, rounded" style="background-color: #fff;">
                         <div class="col mb-5">
                             <a class="btn mt-auto" href="#">
-                                <div class="card h-100">
+                                <div class="card h-100" style="border:hidden">
                                     <!-- Product image-->
                                     <img class="card-img-top" src="@Url.Content(item.CoverURL)" />
                                     <!-- Product details-->
@@ -25,6 +26,7 @@
                                     </div>
                                 </div>
                             </a>
+                        </div>
                         </div>
                     }
                 </div>
