@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<Product>
 @{
+    ViewData["Title"] = "Search Result";
 }
+
+
+
+<div class="text-center">
+    <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    @foreach (var item in Model.OrderByDescending(x => x.AddedDate).Take(30))
+                    {
+                        <div class="main page items, rounded" style="background-color: #fff;">
+                        <div class="col mb-5">
+                            <a class="btn mt-auto" href="#">
+                                <div class="card h-100" style="border:hidden">
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="@Url.Content(item.CoverURL)" />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        <div class="text-center">
+                                            <!-- Product name-->
+                                            <h5 class="fw-bolder">@item.Name</h5>
+                                            <!-- Product price-->
+                                            @item.Price
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        </div>
+                    }
+                </div>
+            </div>         
+    </section>
+</div>

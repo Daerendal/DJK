@@ -46,14 +46,11 @@
   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
 </svg>Logowanie</a>
                         </li>
-                        
-                    </ul>
-                    @if (ViewContext.RouteData.Values["action"].ToString() != "SignUp" && ViewContext.RouteData.Values["action"].ToString() != "Login")
-                    {
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between" >
-                            <input type="search" class="form-control rounded" placeholder="Wpisz czego szukasz" aria-label="Search" aria-describedby="search-addon" />
+                        <!-- 
+                        <li class="nav-item">
+
                             <div class="dropdown">
-                                    <a class="btn btn-secondary dropdown-toggle" asp-controller="Search" asp-action="Listing" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="btn btn-secondary dropdown-toggle"  role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                             Dropdown link
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -65,7 +62,22 @@
                                             <li><a class="dropdown-item" href="#">2</a></li> 
                                     </ul>
                             </div>
-                            <button type="button" class="btn btn-outline-primary">Wyszukaj</button>
+
+                        </li>
+                        -->
+                        
+                    </ul>
+                    @if (ViewContext.RouteData.Values["action"].ToString() != "SignUp" && ViewContext.RouteData.Values["action"].ToString() != "Login")
+                    {
+                    <div class=" flex-end" >
+
+                        <form asp-controller="Search" asp-action="Index">
+                        
+                           <input type="text" name="SearchString" class="rounded" placeholder="Wpisz czego szukasz" />
+                            <input type="submit" class="btn btn-outline-primary" value="Wyszukaj" />
+
+                        </form>
+
                     </div>
                     }
                 </div>
