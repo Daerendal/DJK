@@ -31,7 +31,7 @@ namespace Merkado.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                searchResult = searchResult.Where(s => s.Name!.Contains(searchString)).ToList();
+                searchResult = searchResult.Where(s => s.Name!.ToLower().Contains(searchString.Trim().ToLower())).ToList();
             }  
 
             return View(searchResult);
