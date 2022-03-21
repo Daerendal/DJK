@@ -10,17 +10,32 @@ namespace Merkado.Controllers
     public class SearchController : Controller
     {
 
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<SearchController> _logger;
         private readonly MerkadoDbContext _db;
 
-        public SearchController(ILogger<HomeController> logger, MerkadoDbContext db)
+        public SearchController(ILogger<SearchController> logger, MerkadoDbContext db)
         {
             _logger = logger;
             _db = db;
         }
-        public IActionResult Index()
+      
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View();
+            var searchResult = _db.Products
+                                .Include(c => c.Category)
+                                .Include(i => i.Images)
+                                .Include(p => p.Providers)
+                                .ToList();
+
+            
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchResult = searchResult.Where(s => s.Name!.ToLower().Contains(searchString.Trim().ToLower())).ToList();
+            }  
+
+            return View(searchResult);
         }
+
     }
 }
