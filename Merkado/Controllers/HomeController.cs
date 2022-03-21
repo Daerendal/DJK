@@ -48,5 +48,12 @@ namespace Merkado.Controllers
         {
             return View();
         }
+        public IActionResult AddProduct()
+        {
+            var list = new List<string>() { "Ogród", "Motoryzacja", "AGD" };
+            ViewBag.list = list;
+            return View();
+        }
+
     }
 }

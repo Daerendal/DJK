@@ -17,3 +17,37 @@ body {
     margin-bottom: 60px;
     background: #dee2e6;
 }
+#Description {
+    resize: none;
+}
+.addproductcard {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .5rem;
+    padding: .5rem;
+    position: center;
+    display:flex;
+    flex-wrap:wrap;
+}
+.imagepost{
+    margin:6px;
+}
+.provider {
+    margin-left:6px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+#Providers {
+    margin:3px,0px,0px,5px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.btnaddproduct{
+    margin-top:10px;
+    position:center;
+}
+.providersconteiner {
+    border: 3px solid #ced4da;
+}
