@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Merkado.Migrations
 {
     [DbContext(typeof(MerkadoDbContext))]
-    [Migration("20220312154813_initial")]
+    [Migration("20220324124126_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -157,6 +157,10 @@ namespace Merkado.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Localization")
                         .IsRequired()
                         .HasColumnType("longtext");
 
