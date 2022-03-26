@@ -1,0 +1,108 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Rejestracja";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+    <script src="~/js/signup.js" defer></script>
+</head>
+
+<div class="row loginform">
+    <div class="col-md-6 offset-md-3">
+        <form data-multi-step class="multi-step-form" id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post"> 
+            <div class="card border-0" data-step>            
+                <h3 class="step-title">Wybierz metodę rejestracji</h3>            
+                <div class=form-group>
+                    <label asp-for="Input.Email">E-mail</label>
+                    <input asp-for="Input.Email" class="form-control form-control-lg w-75" placeholder="Wprowadź adres e-mail" autocomplete="username" aria-required="true" />
+
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password">Hasło</label>
+                    <input asp-for="Input.Password" class="form-control form-control-lg w-75" placeholder="Wprowadź hasło użytkownika" autocomplete="new-password" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.ConfirmPassword">Potwierdź hasło</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control form-control-lg w-75" placeholder="Potwierdź hasło użytkownika" autocomplete="new-password" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success" data-next>Dalej</button>
+                </div>
+                
+                <div class="or-container">
+                    <div class="line-separator"></div>
+                    <div class="or-label">lub</div>
+                    <div class="line-separator"></div>
+                </div>
+                <div class=form-group>
+                    <div class="row">
+                        <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#">
+                            <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Zarejestruj się przez Googla!</a> 
+                        </div>
+                    </div>
+                </div> 
+                <br>
+                <div class="text-inverse text-center">
+                    <p>
+                        <a>Masz już konto?</a>
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Zaloguj się!</a>
+                    </p>
+                </div>
+            </div>
+        
+            <div class="card border-0" data-step>
+                <h3 class="step-title">Przedstaw się! </h3>
+                <div class=form-group>
+                    <label asp-for="Input.FirstName">Imię</label>
+                    <input asp-for="Input.FirstName" class="form-control form-control-lg w-75" placeholder="Wprowadź imię" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <label asp-for="Input.LastName">Nazwisko</label>
+                    <input asp-for="Input.LastName" class="form-control form-control-lg w-75" placeholder="Wprowadź nazwisko" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <label asp-for="Input.Street">Ulica</label>
+                    <input asp-for="Input.Street" class="form-control form-control-lg w-75" placeholder="Wprowadź ulicę" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.Street" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <label asp-for="Input.City">Miasto</label>
+                    <input asp-for="Input.City" class="form-control form-control-lg w-75" placeholder="Wprowadź miasto" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.City" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <label asp-for="Input.PostalCode">Kod pocztowy</label>
+                    <input asp-for="Input.PostalCode" class="form-control form-control-lg w-75" placeholder="Wpisz kod pocztowy" aria-required="true" />
+                    
+                    <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+                </div>
+                <div class="or-container">
+                    <div class="line-separator"></div>
+                 </div>
+                 <button type="button" class="btn btn-secondary" data-previous>Wróć</button>
+                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-success">Utwórz konto</button>
+             </div>       
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

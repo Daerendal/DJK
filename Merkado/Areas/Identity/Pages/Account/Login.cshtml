@@ -1,0 +1,101 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Logowanie";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+</head>
+
+<div class="row loginform">
+    <div class="col-md-6 offset-md-3">
+        <form id="account" method="post"> 
+            <div >            
+                <h3 class="step-title">Zaloguj się</h3>  
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <div class="form-group">
+                    <label asp-for="Input.Email" class="form-label">E-mail</label>
+                    <input asp-for="Input.Email" class="form-control form-control-lg w-75" autocomplete="username" aria-required="true" placeholder="Wprowadź adres e-mail" />
+
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <label asp-for="Input.Password" class="form-label">Hasło</label>
+                    <input asp-for="Input.Password" class="form-control form-control-lg w-75" autocomplete="current-password" aria-required="true" placeholder="Wprowadź hasło" />
+
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class=form-group>
+                    <button id="login-submit" type="submit" class="btn btn-success">Zaloguj</button>
+                </div>
+
+                <div class="or-container">
+                    <div class="line-separator"></div>
+                    <div class="or-label">lub</div>
+                    <div class="line-separator"></div>
+                </div>
+                <div class=form-group>
+                    <div class="row">
+                        <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#">
+                            <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Zaloguj się przez Googla!</a> 
+                        </div>
+                    </div>
+                </div> 
+                <br>
+                <div class="text-inverse text-center">
+                    <p>
+                        <a>Nie masz konta?</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Zarejestruj się!</a>
+                    </p>
+                    <p>
+                        <a>Zapomniałeś hasła?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Przypomnij je!</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    @*How to add external authentication services*@
+
+@*
+        <section>
+            <h3>Use another service to log in.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>*@
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
