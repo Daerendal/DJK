@@ -19,9 +19,11 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Merkado.DAL;
 using Merkado.Utility;
+using AspNetCore.ReCaptcha;
 
 namespace Merkado.Areas.Identity.Pages.Account
 {
+    [ValidateReCaptcha]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
@@ -84,6 +86,8 @@ namespace Merkado.Areas.Identity.Pages.Account
             public string City { get; set; }
             [Required]
             public string PostalCode { get; set; }
+           
+            
         }
 
 
@@ -156,7 +160,15 @@ namespace Merkado.Areas.Identity.Pages.Account
 
             return Page();
         }
+        
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+                return Page();
 
+            TempData["Message"] = "Your form has been sent!";
+            return RedirectToPage();
+        }
         private IUserEmailStore<User> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

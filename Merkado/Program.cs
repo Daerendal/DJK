@@ -2,6 +2,7 @@ using Merkado.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Merkado.Models;
+using AspNetCore.ReCaptcha;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString = builder.Configuration.GetConnectionString("MerkadoConnectionString");
@@ -18,6 +19,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddReCaptcha(builder.Configuration.GetSection("GoogleReCaptcha"));
 
 
 var app = builder.Build();
