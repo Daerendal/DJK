@@ -23,13 +23,13 @@
                     <label asp-for="Input.Email" class="form-label">E-mail</label>
                     <input asp-for="Input.Email" class="form-control form-control-lg w-75" autocomplete="username" aria-required="true" placeholder="Wprowadź adres e-mail" />
 
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <span asp-validation-for="Input.Email" class="align-self-center text text-danger small"></span>
                 </div>
                 <div class=form-group>
                     <label asp-for="Input.Password" class="form-label">Hasło</label>
                     <input asp-for="Input.Password" class="form-control form-control-lg w-75" autocomplete="current-password" aria-required="true" placeholder="Wprowadź hasło" />
 
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    <span asp-validation-for="Input.Password" class="align-self-center text text-danger small"></span>
                 </div>
                 <div class=form-group>
                     <button id="login-submit" type="submit" class="btn btn-success">Zaloguj</button>

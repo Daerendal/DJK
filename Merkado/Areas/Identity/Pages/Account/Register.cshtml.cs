@@ -1,29 +1,22 @@
 ﻿#nullable disable
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Merkado.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using Merkado.DAL;
 using Merkado.Utility;
 using AspNetCore.ReCaptcha;
 
 namespace Merkado.Areas.Identity.Pages.Account
 {
-    [ValidateReCaptcha]
+    //[ValidateReCaptcha]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
@@ -60,34 +53,41 @@ namespace Merkado.Areas.Identity.Pages.Account
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
+            [Required(ErrorMessage = "Pole E-mail jest wymagane.")]
+            [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", ErrorMessage = "Niepoprawny adres e-mail")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [StringLength(100, ErrorMessage = "{0} musi składać się minimum z {2} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
             public string Password { get; set; }
 
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [DataType(DataType.Password)]
             [Display(Name = "Potwierdź hasło")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Hasła różnią się od siebie.")]
             public string ConfirmPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Imię")]
             public string FirstName { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Ulica")]
             public string Street { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Miasto")]
             public string City { get; set; }
-            [Required]
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Kod pocztowy")]
             public string PostalCode { get; set; }
-           
-            
         }
 
 
@@ -128,7 +128,7 @@ namespace Merkado.Areas.Identity.Pages.Account
                     }
 
                     await _userManager.AddToRoleAsync(user, Roles.User);
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Konto zostało pomyślnie utworzone.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -139,8 +139,8 @@ namespace Merkado.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Potwierdź swój e-mail.",
+                        $"Proszę potwierdzić konto poprzez <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>kliknięcie tutaj</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -161,14 +161,6 @@ namespace Merkado.Areas.Identity.Pages.Account
             return Page();
         }
         
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
-                return Page();
-
-            TempData["Message"] = "Your form has been sent!";
-            return RedirectToPage();
-        }
         private IUserEmailStore<User> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
