@@ -1,5 +1,6 @@
 ﻿using Merkado.DAL;
 using Merkado.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace Merkado.Controllers
 {
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,7 +19,7 @@ namespace Merkado.Controllers
             _logger = logger;
             _db = db;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var productList = _db.Products
@@ -28,7 +30,7 @@ namespace Merkado.Controllers
 
             return View(productList);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();

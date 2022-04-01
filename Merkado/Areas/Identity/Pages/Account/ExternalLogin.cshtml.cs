@@ -21,7 +21,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Merkado.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;

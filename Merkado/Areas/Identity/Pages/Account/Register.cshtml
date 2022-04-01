@@ -1,11 +1,12 @@
 ﻿@page
 @model RegisterModel
-@using AspNetCore.ReCaptcha
-@Html.ReCaptcha()
+@using Microsoft.AspNetCore.Authentication.Google;
+
 @{
     ViewData["Title"] = "Rejestracja";
 }
-
+@using AspNetCore.ReCaptcha
+@Html.ReCaptcha()
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -103,7 +104,18 @@
         </form>
     </div>
 </div>
-
+<div class="col-md-6 col-md-offset-2">
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+            <div>
+                <p>
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    }
+                </p>
+            </div>
+        </form>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
