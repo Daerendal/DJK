@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model List<Product>
+
+
+<!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="utf-8" />
@@ -29,14 +32,37 @@
                                 Strona Główna
                             </a>
                         </li>
+                        <li class="nav-item col-sm-1"/>
+                        <li class="nav-item col-sm-9">
+                         <form asp-controller="Search" asp-action="Index">
+                           
+                                <div class="d-flex flex-row s">   
+
+                                    @Html.TextBox("SearchString")
+
+                                    <div class="dropdown show">
+                                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Kategorie
+                                          </a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                @foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
+                                                {
+                                                    <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
+
+                                                }
+                                        </div>
+                                        
+
+                                    </div>
+
+                                    <input class="btn btn-outline-primary col-sm-4" type="submit"  value="Wyszukaj" />
+
+                                </div>
+                            </form>
+                          </li>
                     </ul>
 
-                    <div class=" flex-end" >
-                        <form asp-controller="Search" asp-action="Index">
-                            <input type="text" name="SearchString" class="rounded" placeholder="Wpisz czego szukasz" />
-                            <input type="submit" class="btn btn-outline-primary" value="Wyszukaj" />
-                        </form>
-                    </div>
+                    
 
                     <partial name="_LoginPartial" />
                 </div>

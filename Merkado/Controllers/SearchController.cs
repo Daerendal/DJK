@@ -19,14 +19,11 @@ namespace Merkado.Controllers
             _db = db;
         }
       
-        public async Task<IActionResult> Index(string searchString, string currentFilter, string sortOrder)
+        public async Task<IActionResult> Index(string searchString, string currentFilter, string sortOrder, string category)
         {
             ViewBag.CurrentSort = sortOrder;
-
-           
-           
-           
             ViewBag.CurrentFilter = searchString;
+            ViewBag.CurrentCategory = category;
 
             var searchResult = _db.Products
                                 .Include(c => c.Category)
@@ -58,10 +55,15 @@ namespace Merkado.Controllers
                     searchResult = searchResult.OrderBy(s => s.Name).ToList();
                     break;
             }
-
+          
+            if (!String.IsNullOrEmpty(category))
+            {
+                searchResult = searchResult.Where(s => s.Category.Name.Equals(category)).ToList();
+            }
 
             return View(searchResult);
         }
+       
 
     }
 }
