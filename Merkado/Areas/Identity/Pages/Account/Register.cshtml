@@ -41,19 +41,30 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-success" data-next>Dalej</button>
                 </div>
-                
                 <div class="or-container">
                     <div class="line-separator"></div>
                     <div class="or-label">lub</div>
                     <div class="line-separator"></div>
                 </div>
-                <div class=form-group>
-                    <div class="row">
-                        <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="#">
-                            <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Zarejestruj się przez Googla!</a> 
+                   <div class="row col-md-12 col-sm-12">
+                        <div>
+                                        <p>
+                                            @foreach (var provider in Model.ExternalLogins)
+                                            {
+                                            @if(provider.DisplayName == "Google")
+                                            {     
+                                                                                                
+                                                <input type="button" id="btnGoogleLogin" class="btn btn-google btn-block text-uppercase btn-outline col-md-12 col-sm-6" name="provider" value="zaloguj sie przez @provider.Name" title="Log in using your @provider.DisplayName account">
+                                            }
+                                            @if(provider.DisplayName == "Facebook")
+                                            {
+                                                <input type="button" id="btnFacebookLogin"  class="btn btn-google btn-block text-uppercase btn-outline col-md-12 col-sm-6" name="provider" value="zaloguj sie przez @provider.Name" title="Log in using your @provider.DisplayName account"> 
+                                            }
+                                            }
+                                        </p>
+
                         </div>
-                    </div>
-                </div> 
+                    </div> 
                 <br>
                 <div class="text-inverse text-center">
                     <p>
@@ -103,22 +114,20 @@
              </div>       
         </form>
     </div>
+
 </div>
-<div class="col-md-6 col-md-offset-2">
-        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-            <div>
-                <p>
-                    @foreach (var provider in Model.ExternalLogins)
-                    {
-                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                    }
-                </p>
-            </div>
-        </form>
-</div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+            $('#btnGoogleLogin').click(function () {
+                window.location.href = "https://accounts.google.com/o/oauth2/v2/auth/identifier?response_type=code&client_id=310531049996-olju02dl8jqkcq9cgaif2th14ufcfsb3.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Flocalhost%3A44343%2Fsignin-google&scope=openid%20profile%20email&state=CfDJ8Ldq7xLYHsxOkv7FaUeiBMzu-Wn6AStRe32qxt5dr1URBru5TceZOok_wc6MImw6Nuac3yLpYyyQuIe6uJ1D78n0va4hKn2sYG8yai_fLeHDkeC9gmpvFyDagpi0WhNTCRXxcvSVZ56WB7lg1QFUDi1fhHiwgsib8G-VNZIk9X3cgSJS6EgS3LBfxQnou42HZBariC0wgELK59PMi2U4HZcH0p8bqkf7gIs9rWvYQuBBC7Guj1dHpxZ0BNJYEJaFfRvvt8ECg79DUz17NLFPej9yaHGQAULZIl2bxiMzzdVpRP3E1sgWwms_R94Dn5TzqA&flowName=GeneralOAuthFlow";
+            });
+            $('#btnFacebookLogin').click(function () {
+                window.location.href = "https://www.facebook.com/login.php?skip_api_login=1&api_key=1385642911860409&kid_directed_site=0&app_id=1385642911860409&signed_next=1&next=https%3A%2F%2Fwww.facebook.com%2Fv11.0%2Fdialog%2Foauth%3Fclient_id%3D1385642911860409%26scope%3Demail%26response_type%3Dcode%26redirect_uri%3Dhttps%253A%252F%252Flocalhost%253A44343%252Fsignin-facebook%26state%3DCfDJ8Ldq7xLYHsxOkv7FaUeiBMwbx894Uvo6Gv5RPpDLdMzLKtJwCdTdtX11Tx6lAHERTyshlwus1f2LRsgb2KrzRua3kSCvFMHPPKGcw4h8NPr0Sy460SC_6JcNs5TCJIppJhzEXtaIKZvbPC_s94HXR6vrcSD0TorUcfJA-lwkYNRIwxOwQcq3GET0HCkOePNnRgJpWmtH-aJ6c-mETDnZEFnW-IwWmePcoNnKtS-KlD9lyC4O7jxeO4mH0x66E0n1nBOc6DSwJYgyOQyH2M315jlSj4CoLJ3gVoJEpW9lR00wr20eO-_3SybetUsb0BRizg%26ret%3Dlogin%26fbapp_pres%3D0%26logger_id%3D73bdcc82-0595-47ad-b44a-ed0de6c4b0f9%26tp%3Dunspecified&cancel_url=https%3A%2F%2Flocalhost%3A44343%2Fsignin-facebook%3Ferror%3Daccess_denied%26error_code%3D200%26error_description%3DPermissions%2Berror%26error_reason%3Duser_denied%26state%3DCfDJ8Ldq7xLYHsxOkv7FaUeiBMwbx894Uvo6Gv5RPpDLdMzLKtJwCdTdtX11Tx6lAHERTyshlwus1f2LRsgb2KrzRua3kSCvFMHPPKGcw4h8NPr0Sy460SC_6JcNs5TCJIppJhzEXtaIKZvbPC_s94HXR6vrcSD0TorUcfJA-lwkYNRIwxOwQcq3GET0HCkOePNnRgJpWmtH-aJ6c-mETDnZEFnW-IwWmePcoNnKtS-KlD9lyC4O7jxeO4mH0x66E0n1nBOc6DSwJYgyOQyH2M315jlSj4CoLJ3gVoJEpW9lR00wr20eO-_3SybetUsb0BRizg%23_%3D_&display=page&locale=pl_PL&pl_dbl=0";
+            });
+    </script>
 }

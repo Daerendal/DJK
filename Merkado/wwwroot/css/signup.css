@@ -17,7 +17,6 @@
 body {
     background: #dee2e6;
 }
-
 .form-group {
     display: flex;
     flex-direction: column;
@@ -32,6 +31,15 @@ input {
     width: 50%;
     align-self: center;
 }
+    input.btn-google {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        height: max-content;
+        width: max-content;
+        align-self: center;
+    }
 button {
     align-self: center;
     background: #eff1f3;
