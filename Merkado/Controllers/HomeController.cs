@@ -27,6 +27,9 @@ namespace Merkado.Controllers
                                 .Include(i => i.Images)
                                 .Include(p => p.Providers)
                                 .ToList();
+            var categoryListy = _db.Products
+                                .Include(c => c.Category)
+                                .ToList();
 
             return View(productList);
         }
