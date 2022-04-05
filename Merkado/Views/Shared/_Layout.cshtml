@@ -1,5 +1,4 @@
-﻿@model List<Product>
-
+﻿@*@model Merkado.Models.Product*@
 
 <!DOCTYPE html>
 <html lang="pl">
@@ -32,6 +31,7 @@
                                 Strona Główna
                             </a>
                         </li>
+                        
                         <li class="nav-item col-sm-1"/>
                         <li class="nav-item col-sm-9">
                          <form asp-controller="Search" asp-action="Index">
@@ -45,11 +45,11 @@
                                             Kategorie
                                           </a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                @foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
+                                                @*@foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
                                                 {
                                                     <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
 
-                                                }
+                                                }*@
                                         </div>
                                         
 
@@ -60,6 +60,7 @@
                                 </div>
                             </form>
                           </li>
+                        
                     </ul>
 
                     
