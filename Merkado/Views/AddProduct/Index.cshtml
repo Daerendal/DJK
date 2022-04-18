@@ -1,0 +1,73 @@
+﻿@using Merkado.ViewModels
+@model AddProductVM
+
+@{
+    ViewData["Title"] = "Dodaj Produkt";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/newProduct.css" asp-append-version="true" />
+}
+
+<div class="container bg-light rounded-3 p-4">
+    <p class="text-center h1">Dodaj nowy produkt</p>
+    <form class="row" method="post">
+
+        <div class="col-md-5">
+               <div class="form-group">
+                    <label asp-for="@Model.Product.Name" class="form-label">Nazwa produktu</label>
+                    <input asp-for="@Model.Product.Name" class="form-control" aria-required="true"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Product.Price" class="form-label">Cena</label>
+                    <input asp-for="@Model.Product.Price" class="form-control" aria-required="true"/>
+                </div>
+                <div>
+                    <label asp-for="@Model.Category" class="form-label">Kategoria</label>
+                    <select class="form-control form-select" asp-for="@Model.Category" asp-items="@Model.Categories.Select(x=> new SelectListItem{Text = x.Name,Value=x.Name})"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Product.Localization" class="form-label">Lokalizacja</label>
+                    <input asp-for="@Model.Product.Localization" value=@Model.Seller.City class="form-control" aria-required="true"/>
+                </div>
+        </div>
+        
+        <div class="col ml-3 mt-3">
+            <div class="row position-relative">
+                <div>
+                    <div id="images"></div>
+                    <input type="file" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                    <label for="file-input" class="img-label">
+                        <i class="fas fa-upload"></i> &nbsp; Dodaj zdjęcia
+                    </label>
+                    <p id="num-of-files" class="text-center">Nie wybrano zdjęć</p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <label asp-for="@Model.Providers" class="form-label">Wybierz możliwe formy dostawy</label>
+                <ul>    
+                    @for (var i = 0; i < Model.Providers.Count; i++)
+                    {
+                        <li class="form-check form-check-inline">
+                            <input class="form-check-input" style="cursor:pointer" type="checkbox" id="@Model.Providers[i].Name" asp-for="@Model.Providers[i].Selected" value="@Model.Providers[i].Selected" checked="@Model.Providers[i].Selected" />
+                            <label class="form-check-label" style="cursor:pointer" for="@Model.Providers[i].Name">@Model.Providers[i].Name</label>
+                        </li>
+                     }
+                </ul> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label asp-for="@Model.Product.Description" class="form-label">Opis</label>
+                <textarea rows="4" asp-for="@Model.Product.Description" class="form-control" aria-required="true"></textarea>
+            </div>
+        </div>
+        <div class="col text-center mt-4">
+            <button type="submit" class="btn col-6 btn-success">Dodaj nowy produkt</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/addProduct.js" asp-append-version="true"></script>
+}
