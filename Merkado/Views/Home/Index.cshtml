@@ -11,7 +11,7 @@
                     @foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
                         {
                            
-                            <a class=" btn  btn-outline-secondary col-3" href="/Search?category=@item.Category.Name"> @item.Category.Name </a>
+                            <a class=" btn  btn-outline-secondary col-3 fs-5 fw-normal" href="/Search?category=@item.Category.Name"> @item.Category.Name </a>
                             
                         }
                     
