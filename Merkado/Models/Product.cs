@@ -7,41 +7,44 @@ namespace Merkado.Models
     {
         public int ProductId { get; set; }
 
-        [StringLength(64)]
-        [Required]
+        [StringLength(32, ErrorMessage = "{0} musi składać się minimum z {2} znaków.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Proszę podać nazwę produktu")]
         [Display(Name = "Nazwa")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        [Required]
+        [StringLength(64, ErrorMessage = "{0} musi składać się minimum z {2} znaków.", MinimumLength = 3)]
+        [Required(ErrorMessage = "Proszę wskazać lokalizację")]
         [Display(Name = "Lokalizacja produktu")]
-        public string Localization { get; set; }
+        public string Localization { get; set; } = string.Empty;
 
-        [Required]
+        [StringLength(900, ErrorMessage = "{0} musi składać się minimum z {2} znaków.", MinimumLength = 30)]
+        [Required(ErrorMessage = "Proszę uzupełnić opis produktu")]
         [Display(Name = "Opis")]
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [Required]
-        public string CoverURL { get; set; }
+        public string CoverURL { get; set; } = string.Empty;
 
-        [Required]
-        [Precision(18, 2)]
+        [Required(ErrorMessage = "Proszę wprowadzić cenę")]
+        [RegularExpression(@"^(\d{1,9}|\d{0,5}\.\d{1,2})$", ErrorMessage = "Niepoprawna cena")]
         [Display(Name = "Cena")]
-        public decimal Price { get; set; }
+        public decimal Price { get; set; } = 1.00m;
 
         [Required]
         [Display(Name = "Data dodania")]
         public DateTime AddedDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Proszę wybrać kategorię")]
         [Display(Name = "Kategoria")]
-        public Category Category { get; set; }
+        public Category Category { get; set; } = new Category();
 
-        [Required]
+        [Required(ErrorMessage = "Proszę wybrać sposób wysyłki")]
         [Display(Name = "Dostawa")]
-        public List<Provider> Providers { get; set; }
+        public List<Provider> Providers { get; set; } = new List<Provider>();
 
+        [Required(ErrorMessage = "Proszę dodać zdjęcie sprzedawanego przedmiotu")]
         [Display(Name = "Zdjęcia")]
-        public List<ProductImage>? Images { get; set; }
+        public List<ProductImage>? Images { get; set; } = new List<ProductImage>();
 
     }
 }

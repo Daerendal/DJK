@@ -44,17 +44,5 @@ namespace Merkado.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        public IActionResult AddProduct()
-        {
-            var list = new List<string>();
-            foreach(var category in _db.Categories)
-            {
-                list.Add(category.Name.ToString());
-            }
-            ViewBag.list = list;
-            return View();
-        }
-
     }
 }

@@ -38,7 +38,12 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().AddMvcOptions(options =>
+{
+    options.MaxModelValidationErrors = 50;
+    options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+        _=> "Pole jest wymagane");
+});
 
 builder.Services.AddReCaptcha(builder.Configuration.GetSection("GoogleReCaptcha"));
 
@@ -58,6 +63,11 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRequestLocalization(options =>
+{
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en");
+});
 
 app.MapControllerRoute(
     name: "default",

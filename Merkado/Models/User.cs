@@ -15,7 +15,7 @@ namespace Merkado.Models
         public string City { get; set; }
         [Required]
         public string PostalCode { get; set; }
-        public List<Product>? UserProducts { get; set; }
+        public List<Product>? UserProducts { get; set; } = new List<Product>();
         public List<Order>? UserOrders { get; set; }
         public List<Opinion>? Opinions { get; set; }
         public List<FavouriteSeller>? FavouriteSellers { get; set; }

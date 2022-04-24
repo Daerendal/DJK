@@ -1,0 +1,83 @@
+﻿@using Merkado.ViewModels
+@model NewProductVM
+
+@{
+    ViewData["Title"] = "Dodaj Produkt";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/newProduct.css" asp-append-version="true" />
+}
+
+<div class="container bg-light rounded-3 p-4">
+    <p class="text-center h1">Dodaj nowy produkt</p>
+    <form class="row" enctype="multipart/form-data" asp-action="AddProduct" method="post">
+
+        <div class="col-md-5">
+               <div class="form-group">
+                    <label asp-for="Product.Name" class="form-label">Nazwa produktu</label>
+                    <input asp-for="Product.Name" class="form-control" aria-required="true"/>
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>  
+                </div>
+                <div class="form-group">
+                    <label asp-for="Product.Price" class="form-label">Cena</label>
+                    <input asp-for="Product.Price" class="form-control" aria-required="true"/>
+                    <span asp-validation-for="Product.Price" class="text-danger"></span>  
+                </div>
+                <div>
+                    <label asp-for="Product.Category" class="form-label">Kategoria</label>
+                    <select class="form-control form-select" asp-for="Product.Category.CategoryId" asp-items="@(new SelectList(Model.Categories, nameof(Model.Product.Category.CategoryId), nameof(Model.Product.Category.Name)))"></select>
+                    <span asp-validation-for="Product.Category" class="text-danger"></span>  
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Product.Localization" class="form-label">Lokalizacja</label>
+                    <input asp-for="Product.Localization" value=@Model.Seller.City class="form-control" aria-required="true"/>
+                    <span asp-validation-for="Product.Localization" class="text-danger"></span>  
+                </div>
+        </div>
+        
+        <div class="col ml-3 mt-3">
+            <div class="row position-relative">
+                <div>
+                    <div id="images"></div>
+                    <input type="file" asp-for="Images" id="file-input" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                    <span asp-validation-for="Images" class="text-danger"></span>
+                    <label for="file-input" class="img-label">
+                        <i class="fas fa-upload"></i> &nbsp; Dodaj zdjęcia
+                    </label>
+                    <p id="num-of-files" class="text-center">Nie wybrano zdjęć</p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <label asp-for="@Model.Providers" class="form-label">Wybierz możliwe formy dostawy</label>
+                <ul>    
+                    @for (var i = 0; i < Model.Providers.Count; i++)
+                    {
+                        <li class="form-check form-check-inline">
+                            <input type="hidden" asp-for="Providers[i].Value"/>
+                            <input class="form-check-input" asp-for="Providers[i].Selected"/>
+                            <label class="form-check-label" style="cursor:pointer" for="Providers[i].Text">@Model.Providers[i].Text</label>
+                        </li>
+                     }
+                </ul> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label asp-for="Product.Description" class="form-label">Opis</label>
+                <textarea rows="4" asp-for="Product.Description" class="form-control" aria-required="true"></textarea>
+                <span asp-validation-for="Product.Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col text-center mt-4">
+            <button type="submit" class="btn col-6 btn-success">Dodaj nowy produkt</button>
+        </div>
+    </form> 
+</div>
+
+
+
+@section Scripts {
+    <script src="~/js/addProduct.js" asp-append-version="true"></script>
+    <partial name="_ValidationScriptsPartial"/>  
+}
