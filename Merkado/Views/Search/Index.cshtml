@@ -3,21 +3,34 @@
     ViewData["Title"] = "Search Result";
 }
 
-<form asp-controller="Search" asp-action="Index">
+<div class="text-center">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
 
-    Wpisz czego szukasz: @Html.TextBox("SearchString")
+            Obecnie szukany przedmiot : @ViewBag.CurrentFilter
+            <br/>
+            Obecnie wybrane kategorie : @ViewBag.CurrentCategory
+            <br/>
+            Obecna forma sortowania :  @ViewBag.CurrentSortName
+            <form asp-controller="Search" asp-action="Index">
 
-    <select name="sortOrder">
-        <option value="">Alfabetycznie A-Z</option>
-        <option value="name_desc">Alfabetycznie Z-A</option>
-        <option value="Date">Od Najnowszego</option>
-        <option value="date_desc">Od Najstarszego</option> 
-    </select>
+
+                <select name="sortOrder" onchange="this.form.submit()">
+                    <option selected disabled value="@ViewBag.CurrentSort">@ViewBag.CurrentSortName</option>
+                     
+                    <option value="name">Alfabetycznie A-Z</option>
+                    <option value="name_desc">Alfabetycznie Z-A</option>
+                    <option value="date">Od Najnowszego</option>
+                    <option value="date_desc">Od Najstarszego</option> 
+                </select>
 
     
-    <input type="submit" class="btn btn-outline-primary" value="Wyszukaj" />
-</form>
+ 
+            </form>
 
+        </div>
+    </section>
+</div>
 
 
 <div class="text-center">
@@ -29,19 +42,27 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @foreach (var item in Model.Take(30))
                     {
-                        <div class="main page items, rounded" style="background-color: #fff;">
+                         <div class="main page items" style="background-color: #fff;">
                         <div class="col mb-5">
                             <a class="btn mt-auto" href="#">
-                                <div class="card h-100" style="border:hidden">
+                                <div class="card h-100" style="border:hidden;">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@item.Name</h5>
                                     <!-- Product image-->
-                                    <img class="card-img-top" src="@Url.Content(item.CoverURL)" />
+                                    <img class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
                                     <!-- Product details-->
                                     <div class="card-body p-4">
-                                        <div class="text-center">
-                                            <!-- Product name-->
-                                            <h5 class="fw-bolder">@item.Name</h5>
+                                        
+                                        <div class="text-center fs-5">
                                             <!-- Product price-->
-                                            @item.Price
+                                            @item.Price zł
+                                            <br>
+                                            <div class="fs-6 fw-light">
+                                            <!-- Product date-->
+                                            @item.AddedDate.ToString("dd.MM.yyyy")
+                                            <!-- Product localization-->
+                                            @item.Localization
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
