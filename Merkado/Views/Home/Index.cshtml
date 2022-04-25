@@ -24,9 +24,10 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     @foreach (var item in Model.OrderByDescending(x => x.AddedDate).Take(8))
                     {
+
                         <div class="main page items" style="background-color: #fff;">
                         <div class="col mb-5">
-                            <a class="btn mt-auto" href="#">
+                            <a class="btn mt-auto" href="/ProductPage?item=@item.Name">
                                 <div class="card h-100" style="border:hidden;">
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">@item.Name</h5>
