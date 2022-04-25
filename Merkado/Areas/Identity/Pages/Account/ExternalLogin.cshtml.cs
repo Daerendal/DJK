@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
+
 namespace Merkado.Areas.Identity.Pages.Account
 {
     public class ExternalLoginModel : PageModel
@@ -84,6 +85,15 @@ namespace Merkado.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            [Required]
+            public string Name { get; set; }
+            [Required]
+            public string Street { get; set; }
+            [Required]
+            public string City { get; set; }
+            [Required]
+            public string PostalCode { get; set; }
+
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -131,8 +141,13 @@ namespace Merkado.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),  
+                        Name = info.Principal.FindFirstValue(ClaimTypes.Name),
+                        PostalCode = info.Principal.FindFirstValue(ClaimTypes.PostalCode),
+                        Street = info.Principal.FindFirstValue(ClaimTypes.StreetAddress),
+                        City = info.Principal.FindFirstValue(ClaimTypes.StateOrProvince),
                     };
+
                 }
                 return Page();
             }
