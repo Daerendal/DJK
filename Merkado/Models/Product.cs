@@ -26,7 +26,7 @@ namespace Merkado.Models
         public string CoverURL { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Proszę wprowadzić cenę")]
-        [RegularExpression(@"^(\d{1,9}|\d{0,5}\.\d{1,2})$", ErrorMessage = "Niepoprawna cena")]
+        [RegularExpression(@"^(\d{1,9}|\d{0,5}\.\d{1,2})$", ErrorMessage = "Niepoprawna cena, użyj kropki jako separator")]
         [Display(Name = "Cena")]
         public decimal Price { get; set; } = 1.00m;
 

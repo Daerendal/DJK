@@ -49,16 +49,18 @@
             </div>
             <div class="row text-center">
                 <label asp-for="@Model.Providers" class="form-label">Wybierz możliwe formy dostawy</label>
-                <ul>    
+                
+                
+                <ul id="ulProviders">    
                     @for (var i = 0; i < Model.Providers.Count; i++)
                     {
                         <li class="form-check form-check-inline">
                             <input type="hidden" asp-for="Providers[i].Value"/>
-                            <input class="form-check-input" asp-for="Providers[i].Selected"/>
-                            <label class="form-check-label" style="cursor:pointer" for="Providers[i].Text">@Model.Providers[i].Text</label>
+                            <input type="checkbox" value="check" class="form-check-input" id="provider" name="provider" asp-for="Providers[i].Selected"/>
+                            <label class="form-check-label" for="Providers[i].Text">@Model.Providers[i].Text</label>
                         </li>
                      }
-                </ul> 
+                </ul>
             </div>
         </div>
 
@@ -70,14 +72,34 @@
             </div>
         </div>
         <div class="col text-center mt-4">
-            <button type="submit" class="btn col-6 btn-success">Dodaj nowy produkt</button>
+            <button type="submit" class="btn col-6 btn-success" id="submit" value="Submit">Dodaj nowy produkt</button>
         </div>
     </form> 
 </div>
 
 
 
+
 @section Scripts {
+
     <script src="~/js/addProduct.js" asp-append-version="true"></script>
-    <partial name="_ValidationScriptsPartial"/>  
+    <partial name="_ValidationScriptsPartial"/>
+    
+<script>
+    document.getElementById("submit").onclick = function(e) 
+    {
+        var checked_checkboxes = $("#ulProviders input[type=checkbox]:checked");
+        if (checked_checkboxes.length == 0) 
+        {
+            e.preventDefault();
+            alert("Proszę wybrać sposób wysyłki");
+        }
+
+        if (document.getElementById("file-input").value == "") 
+        {
+            e.preventDefault();
+            alert("Proszę dodać zdjęcie sprzedawanego przedmiotu");
+        }
+    }
+</script>
 }

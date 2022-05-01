@@ -71,7 +71,7 @@ namespace Merkado.Controllers
                 AddedDate = DateTime.Now,
                 Description = model.Product.Description,
                 Images = images,
-                CoverURL = images.Select(url => url.ImageURL).FirstOrDefault()
+                CoverURL = images.Select(url => url.ImageURL).LastOrDefault()
             };
 
 
