@@ -1,10 +1,8 @@
-﻿@model List<Product>
+﻿@using Merkado.ViewModels
+@model ProductPageVM
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
 @{
-        ViewData["Title"] = "Strona przedmiotu";
+        ViewData["Title"] = @Model.CurrentProduct.Name;
 }
 <br />
 <br />
@@ -12,8 +10,7 @@
 <br />
 <div class="justify-content-center">
                     
-@foreach (var product in Model.Take(1))
-                    {
+
                         <div class="main page items" style="background-color: #fff;">
                                 <div class="row">
                                     <div class="col-sm-6" style="background-color:#dee2e6">
@@ -22,16 +19,19 @@
                                     <br/>
                                     <h5 class="fw-bolder text-center fs-3">
                                         <br/>
-                                     @product.Name
+                                     @Model.CurrentProduct.Name
                                      </h5>
                                     <!-- Product image-->
-                                    <img class="card-img-top" style="max-width:80%; margin:auto " src="@Url.Content("/images/" + product.CoverURL)" />
+                                    @foreach(var image in @Model.CurrentProduct.Images)
+                                    {
+                                        <img class="card-img-top" style="max-width:80%; margin:auto " src="@Url.Content("/images/" + image.ImageURL)" />
+                                    }
                                     <!-- Product details-->
                                     <div class="card-body">
                                         <div class="text-center fs-3 fw-normal">
                                             <!-- Product price-->
                                             Cena:
-                                            @product.Price zł
+                                            @Model.CurrentProduct.Price zł
                                             <br/>
                                             <br>
                                             
@@ -46,22 +46,22 @@
                                             <div class="card-body">
                                                  <div class="row">
                                                     <div class="col-sm-6">
-                                                    Wystawił: Administrator
+                                                    Wystawił: @Model.Seller.FirstName
                                                     
                                                     </div>
                                                     <div class="col-sm-6" style="text-align:right;">
                                                     Data dodania:
-                                                    @product.AddedDate.ToString("dd.MM.yyyy")
+                                                    @Model.CurrentProduct.AddedDate.ToString("dd.MM.yyyy")
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                     Kategoria:
-                                                    @product.Category.Name
+                                                    @Model.CurrentProduct.Category.Name
                                                     </div>
                                                     <div class="col-sm-6" style="text-align:right;">
                                                     Miejscowość:
-                                                    @product.Localization
+                                                    @Model.CurrentProduct.Localization
                                                     </div>
                                                 </div>
                                             
@@ -70,7 +70,7 @@
                                                 <br/>
                                                 <br/>
                                              <p class="fw-bold fs-5">Opis</p>
-                                             @product.Description
+                                             @Model.CurrentProduct.Description
                                             </div>
                                         </div>
                                         <br/>
@@ -93,5 +93,5 @@
 
                               </div>
                         </div>
-                        }
+                        
                         
