@@ -9,7 +9,5 @@ namespace Merkado.Models
         public int ProviderId { get; set; }
         public string Name { get; set; }
         public List<Product> Products { get; set; }
-        [NotMapped]
-        public bool Selected { get; set; }
     }
 }

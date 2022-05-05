@@ -61,7 +61,6 @@ namespace Merkado.Controllers
 
             var productCategory = _db.Categories.FirstOrDefault(x => x.CategoryId == model.Product.Category.CategoryId);
 
-
             var product = new Product()
             {
                 Name = model.Product.Name,
@@ -74,8 +73,8 @@ namespace Merkado.Controllers
                 CoverURL = images.Select(url => url.ImageURL).LastOrDefault()
             };
 
-
             var selectedProvidersId = model.Providers.Where(x => x.Selected).Select(y => y.Value);
+            
             List<Provider> providers = new List<Provider>();
             foreach (var provider in selectedProvidersId)
             {

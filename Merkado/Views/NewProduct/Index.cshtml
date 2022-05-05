@@ -49,15 +49,15 @@
             </div>
             <div class="row text-center">
                 <label asp-for="@Model.Providers" class="form-label">Wybierz możliwe formy dostawy</label>
-                
-                
+               
                 <ul id="ulProviders">    
                     @for (var i = 0; i < Model.Providers.Count; i++)
                     {
                         <li class="form-check form-check-inline">
-                            <input type="hidden" asp-for="Providers[i].Value"/>
-                            <input type="checkbox" value="check" class="form-check-input" id="provider" name="provider" asp-for="Providers[i].Selected"/>
-                            <label class="form-check-label" for="Providers[i].Text">@Model.Providers[i].Text</label>
+                            @Html.CheckBoxFor(x=>x.Providers[i].Selected)
+                            @Html.DisplayFor(x=>x.Providers[i].Text)
+                            @Html.HiddenFor(x=>x.Providers[i].Value)
+                            @Html.HiddenFor(x=>x.Providers[i].Text)
                         </li>
                      }
                 </ul>
