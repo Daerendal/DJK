@@ -24,6 +24,15 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".AdventureWorks.Session";
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddAuthentication()
     .AddGoogle(googleOptions =>
 {
@@ -64,6 +73,7 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

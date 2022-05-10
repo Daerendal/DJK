@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace Merkado.Controllers
 {
@@ -18,16 +19,19 @@ namespace Merkado.Controllers
             _logger = logger;
             _db = db;
         }
-      
-        public async Task<IActionResult> Index(string NameSearch, string currentFilter, string sortOrder, string category, string LocationSearch)
+   
+
+
+            public async Task<IActionResult> Index(string NameSearch, string currentFilter, string sortOrder, string category, string LocationSearch)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CurrentFilter = NameSearch;
             ViewBag.CurrentCategory = category;
             ViewBag.CurrentLocation = LocationSearch;
 
+            
 
-            var searchResult = _db.Products
+           var searchResult = _db.Products
                                 .Include(c => c.Category)
                                 .Include(i => i.Images)
                                 .Include(p => p.Providers)
