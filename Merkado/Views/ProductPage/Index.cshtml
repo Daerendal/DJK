@@ -1,8 +1,15 @@
 ﻿@using Merkado.ViewModels
 @model ProductPageVM
 
+
+
 @{
         ViewData["Title"] = @Model.CurrentProduct.Name;
+        <link rel="stylesheet" href="~/css/productPage.css" asp-append-version="true" />
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="~/js/productPage.js" defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 }
 <br />
 <br />
@@ -22,10 +29,32 @@
                                      @Model.CurrentProduct.Name
                                      </h5>
                                     <!-- Product image-->
-                                    @foreach(var image in @Model.CurrentProduct.Images)
+                                  
+                                    <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-interval="false">
+  <div class="carousel-inner">
+      @foreach(var image in @Model.CurrentProduct.Images)
                                     {
-                                        <img class="card-img-top" style="max-width:80%; margin:auto " src="@Url.Content("/images/" + image.ImageURL)" />
+                                        <div class="carousel-item active">
+                                        <img class="d-block w-100" style="max-width:80%; margin:auto " src="@Url.Content("/images/" + image.ImageURL)" />
+                                        </div>
                                     }
+    
+    <div class="carousel-item">
+      <img src=" " class="d-block w-100" alt=" ">
+    </div>
+    <div class="carousel-item">
+      <img src=" " class="d-block w-100" alt=" ">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" style="color:#dee2e6;" aria-hidden="true"></span>
+    <span ></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" style="color:#dee2e6;" aria-hidden="true"></span>
+    <span class="visually-hidden"></span>
+  </button>
+</div>
                                     <!-- Product details-->
                                     <div class="card-body">
                                         <div class="text-center fs-3 fw-normal">
@@ -64,8 +93,18 @@
                                                     @Model.CurrentProduct.Localization
                                                     </div>
                                                 </div>
-                                            
-                                            
+                                                    <div class="col-sm-6">
+                                                        <br/>
+                                                    Możliwości dostawy:
+                                                    <br/>
+                                                     @foreach(var item in Model.CurrentProduct.Providers)
+                                                    {
+                                                    @item.Name;
+                                                    <br />
+                                                    }
+                                                    </div>
+
+                                           
                                                
                                                 <br/>
                                                 <br/>
@@ -86,12 +125,73 @@
                                                 <br/>
                                                 <br/>
                                                 <br/>
-                                        <p class = "text-center">
-                                        <button type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 50%">Kup Teraz!</button>
+
+                                       
+                                        <div class="container">
+  <div class="row">
+    <div class="col-lg-3" style="text-align:center">
+      <div class="heart"></div>
+    </div>
+
+    <div class="col-lg-6">
+ <p class = "text-center">
+                                            
+                                        <button type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;">Kup Teraz!</button>
+
+                                        
                                         </p>
+    </div>
+    <div class="col-lg-3" style="text-align:center; color:#6c757d">
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+  <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+</svg>
+    </div>
+    
+
+    </div>
+  </div>
+</div>
                                     </div>
 
                               </div>
                         </div>
                         
+                        <div class="container px-4 px-lg-5 mt-5">
+                                                <h2 style="text-align:center">Podobne produkty od tego sprzedającego</h2>
+                                                <br/>
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                    @foreach (var item in Model.Seller.UserProducts.Take(4))
+                    {
                         
+                        <div class="main page items" style="background-color: #fff;">
+                        <div class="col mb-5">
+                            <a class="btn mt-auto" href="/ProductPage?item=@item.ProductId">
+                                <div class="card h-100" style="border:hidden;">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@item.Name</h5>
+                                    <!-- Product image-->
+                                    <img class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        
+                                        <div class="text-center fs-5">
+                                            <!-- Product price-->
+                                            @item.Price zł
+                                            <br>
+                                            <div class="fs-6 fw-light">
+                                            <!-- Product date-->
+                                            @item.AddedDate.ToString("dd.MM.yyyy")
+                                            <!-- Product localization-->
+                                            @item.Localization
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        </div>
+                    }
+                    </div>
