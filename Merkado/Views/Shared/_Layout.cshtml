@@ -28,10 +28,24 @@
                         <li class="nav-item col-sm-9">
                          <form asp-controller="Search" asp-action="Index">
                            
-                                <div class="d-flex flex-row s">   
+                                <div class="d-flex flex-row ">   
 
-                                    @Html.TextBox("NameSearch")
-                                    @Html.TextBox("LocationSearch")
+                                    @if (ViewBag.CurrentFilter == null)
+                                    {
+                                        ViewBag.CurrentFilter = "Produkt";
+                                    }
+                                    
+
+                                    @if (ViewBag.CurrentLocation == null)
+                                    {
+                                        ViewBag.CurrentLocation = "Lokalizacja";
+                                    }
+                                   
+
+                        
+                                   <input type="text" name="NameSearch" class="rounded col-4" placeholder=@ViewBag.CurrentFilter />
+                                   <input type="text" name="LocationSearch" class="rounded col-4" placeholder=@ViewBag.CurrentLocation />
+                            
 
                                     <div class="dropdown show">
                                           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
