@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Merkado.Models
 {
@@ -9,5 +10,8 @@ namespace Merkado.Models
         [Range (1,5)]
         public int Rate { get; set; }
         public string ReviewerId { get; set; }
+
+        [NotMapped]
+        public string ReviewerName { get; set; }
     }
 }

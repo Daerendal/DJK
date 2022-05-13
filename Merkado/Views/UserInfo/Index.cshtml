@@ -1,4 +1,6 @@
-﻿@{
+﻿@model User
+
+@{
     ViewData["Title"] = "Informacje o użytkowniku";
 }
 </br>
@@ -22,52 +24,27 @@
                         <div class="container px-4 px-lg-5 mt-5">
                             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     
-                                <div class="col mb-5">
-                                    <div class="card h-100">
-                                        <!-- Product image-->
-                                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                        <!-- Product details-->
-                                        <div class="card-body p-4">
-                                            <div class="text-center">
-                                                <!-- Product name-->
-                                                <h5 class="fw-bolder">Produkt 1</h5>
-                                                <!-- Product price-->
-                                                999 zł
+                                @foreach(var product in @Model.UserProducts)
+                                {
+                                    <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
+                                        <div class="col mb-5">
+                                            <div class="card h-100">
+                                                <!-- Product image-->
+                                                <img class="card-img-top" src="@Url.Content("/images/" + product.CoverURL)" />
+                                                <!-- Product details-->
+                                                <div class="card-body p-4">
+                                                    <div class="text-center">
+                                                        <!-- Product name-->
+                                                        <h5 class="fw-bolder">@product.Name</h5>
+                                                        <!-- Product price-->
+                                                        @product.Price zł
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col mb-5">
-                                    <div class="card h-100">
-                                        <!-- Product image-->
-                                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                        <!-- Product details-->
-                                        <div class="card-body p-4">
-                                            <div class="text-center">
-                                                <!-- Product name-->
-                                                <h5 class="fw-bolder">Produkt 2</h5>
-                                                <!-- Product price-->
-                                                1450 zł
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col mb-5">
-                                    <div class="card h-100">
-                                        <!-- Product image-->
-                                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                                        <!-- Product details-->
-                                        <div class="card-body p-4">
-                                            <div class="text-center">
-                                                <!-- Product name-->
-                                                <h5 class="fw-bolder">Produkt 3</h5>
-                                                <!-- Product price-->
-                                                450 zł
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </a>
+                                }
+
                             </div>
                         </div>
                     </section>
@@ -75,29 +52,29 @@
                      
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
                     <div class="col pt-2">
-                        <hr/>
-                        <blockquote class="blockquote m-2">
-                            <p style="font-size:16px;" class="mb-0">Zakupy z Krzysztofem to sama przyjemność. Umówiliśmy się na odbiór osobisty w poniedziałek a wyjechałem kolejnego dnia z bólem głowy. Polecam tego Merkadowicza.</p>
-                            <footer style="font-size:12px;" class="blockquote-footer mt-1">Komentarz wystawiony przez <cite>Bogdan</cite></footer>
-                        </blockquote>
-                        <hr/>
-                        <blockquote class="blockquote">
-                            <p style="font-size:16px;" class="mb-0">Wszystko git majonez, gra muzyka i śpiewają zastępy - polecam Merkadowicza!</p>
-                            <footer style="font-size:12px;" class="blockquote-footer mt-1">Komentarz wystawiony przez <cite>Gracjan</cite></footer>
-                        </blockquote>
-                        <hr/>
+                        @if(Model.Opinions.Any())
+                        {
+                            @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(2))
+                            {
+                                <hr/>
+                                <blockquote class="blockquote m-2">
+                                    <p style="font-size:16px;" class="mb-0">@opinion.Comment</p>
+                                    <div style="font-size:12px;" class="text-muted">
+                                        <div class="float-start">Komentarz wystawiony przez @opinion.ReviewerName</div>
+                                        <div class="float-end">Ocena klienta @opinion.Rate</div>
+                                    </div>
+                                </blockquote>
+                                <hr style="height:1pt; visibility:hidden;" />
+                            }
+                            <hr/>
+                        }
+                        else
+                        {
+                            <div class="m-2">
+                                <p class="text-justify">Brak komentarzy.</p>
+                            </div>
+                        }
 
-                        <blockquote class="blockquote">
-                            <p style="font-size:16px;" class="mb-0">Krzychu, pozdrawiam. Daje okejke.</p>
-                            <footer style="font-size:12px;" class="blockquote-footer mt-1">Komentarz wystawiony przez <cite>Zbyszek</cite></footer>
-                        </blockquote>
-                        <hr/>
-
-                        <blockquote class="blockquote">
-                            <p style="font-size:16px;" class="mb-0">Polecam wszystkim odbiór osobisty u tego sprzedawcy, jeszcze na tym zyskacie.</p>
-                            <footer style="font-size:12px;" class="blockquote-footer mt-1">Komentarz wystawiony przez <cite>Maciej</cite></footer>
-                        </blockquote>
-                        <hr/>
                     </div>
                 </div>
             </div>
@@ -105,16 +82,29 @@
 
         <div class="col-lg-3">
             <p class="h5 text-center">Informacje o użytkowniku</p>
-            <p class="h5 text-muted text-center">Krzysztof</p>
-            </br>
+            <p class="h5 text-muted text-center">@Model.FirstName</p>
+            <br/>
             <div class="d-flex flex-row justify-content-between">
               <div class="p-2">Miejscowość:</div>
-              <div class="p-2">Opole</div>
+              <div class="p-2">@Model.City</div>
             </div>
             
             <div class="d-flex flex-row justify-content-between">
-              <div class="p-2">Sprzedanych przedmiotów:</div>
-              <div class="p-2">22</div>
+              <div class="p-2">Sprzedaje przedmiotów:</div>
+              <div class="p-2">@Model.UserProducts.Count()</div>
+            </div>
+
+            <div class="d-flex flex-row justify-content-between">
+              <div class="p-2">Ocena użytkownika:</div>
+                @if(Model.Score != float.NaN && Model.Score > 0)
+                {
+                    <div class="p-2">@Model.Score</div>
+                }
+                else
+                {
+                    <div class="p-2">--</div>
+                }
+
             </div>
             <div class="d-flex flex-row justify-content-center">
                 <button type="button" class="btn btn-outline-success">Wyślij wiadomość</button>
@@ -122,15 +112,24 @@
 
             <div class="col mt-5">
                 <p class="h5 text-center">Ostatnie komentarze</p>
-                <hr/>
-                <div class="m-2 rounded-3">
-                    <p class="text-justify">Zakupy z Krzysztofem to sama przyjemność. Umówiliśmy się na odbiór osobisty w poniedziałek a wyjechałem kolejnego dnia z bólem głowy. Polecam tego Merkadowicza.</p>
-                </div>
-                <hr/>
-                <div class="mx-2 rounded-3">
-                    <p class="text-justify">Wszystko git majonez, gra muzyka i śpiewają zastępy - polecam Merkadowicza!</p>
-                </div>
-                <hr/>
+                @if(@Model.Opinions.Any())
+                {
+                    @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(2))
+                    {
+                        <hr/>
+                        <div class="m-2">
+                            <p class="text-justify">@opinion.Comment</p>
+                        </div>
+                    }
+                    <hr/>
+                }
+                else
+                {
+                    <div class="m-2">
+                        <p class="text-justify">Brak komentarzy.</p>
+                    </div>
+                }
+
             </div>
 
         </div>

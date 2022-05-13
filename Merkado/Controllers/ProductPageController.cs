@@ -19,8 +19,6 @@ namespace Merkado.Controllers
         
         public IActionResult Index(int item)
         {
-            ViewBag.CurrentItem = item;
-
             var productPageVM = new ProductPageVM();
 
             if (item > 0)

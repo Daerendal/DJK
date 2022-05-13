@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Merkado.Models
 {
@@ -20,5 +21,19 @@ namespace Merkado.Models
         public List<Opinion>? Opinions { get; set; }
         public List<FavouriteSeller>? FavouriteSellers { get; set; }
         public List<ObservedProduct>? ObservedProducts { get; set; }
+
+        [NotMapped]
+        public float Score
+        {
+            get
+            {
+                float rateSum = 0;
+
+                foreach (var opinion in Opinions)
+                    rateSum += opinion.Rate;
+
+                return rateSum / Opinions.Count();
+            }
+        }
     }
 }
