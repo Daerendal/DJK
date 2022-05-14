@@ -50,7 +50,12 @@ button {
     margin-bottom: 10px;
     float: left;
 }
+.rej {
+    align-self: center;
+    background: #eff1f3;
+    cursor: pointer;
 
+}
 .row{
     align-self:center;
     }

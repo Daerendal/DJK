@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using Merkado.DAL;
 
 namespace Merkado.Areas.Identity.Pages.Account
 {
@@ -29,6 +29,7 @@ namespace Merkado.Areas.Identity.Pages.Account
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly IEmailSender _emailSender;
+        private readonly MerkadoDbContext _merkadoDbContext;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
@@ -36,12 +37,14 @@ namespace Merkado.Areas.Identity.Pages.Account
             UserManager<User> userManager,
             IUserStore<User> userStore,
             ILogger<ExternalLoginModel> logger,
+            MerkadoDbContext merkadoDbContext,
             IEmailSender emailSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
+            _merkadoDbContext = merkadoDbContext;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -85,7 +88,25 @@ namespace Merkado.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Imię")]
+            public string FirstName { get; set; }
 
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Nazwisko")]
+            public string LastName { get; set; }
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Ulica")]
+            public string Street { get; set; }
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Miasto")]
+            public string City { get; set; }
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [Display(Name = "Kod pocztowy")]
+            public string PostalCode { get; set; }
         }
         
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -133,10 +154,12 @@ namespace Merkado.Areas.Identity.Pages.Account
                 {
                     Input = new InputModel
                     {
-                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),  
-                    };
+                        Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+
+                    };              
 
                 }
+
                 return Page();
             }
         }
@@ -154,7 +177,14 @@ namespace Merkado.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                User user = new User
+                {
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    City = Input.City,
+                    PostalCode = Input.PostalCode,
+                    Street = Input.Street
+                };
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

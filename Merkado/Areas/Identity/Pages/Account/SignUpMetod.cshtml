@@ -1,0 +1,54 @@
+﻿@page
+@model Merkado.Areas.Identity.Pages.Account.SignUpMetodModel
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+</head>
+
+
+
+</br>
+
+
+</br></br></br></br>
+<div class="row loginform form-group">
+    <div class="col-md-6 offset-md-3">
+<div class="row">
+        <div class="col-md-12 col-sm-12">
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <div>
+                        <p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+                            <div class="form-group">
+                            @if(provider.DisplayName == "Google")
+                            {
+                                <button type="submit" class="btn btn-google btn-block text-uppercase btn-outline col-md-6 col-sm-6" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img src="https://img.icons8.com/color/16/000000/google-logo.png" width="30" height="30">Googla</button> 
+                            }
+                            </div>
+                            <div class="form-group">
+                            @if(provider.DisplayName == "Facebook")
+                            {
+                                <button type="submit" class="btn btn-google btn-block text-uppercase btn-outline col-md-6 col-sm-6" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img src="https://img.icons8.com/fluency/344/facebook-new.png" width="30" height="30">Facebooka</button> 
+                            }
+                            </div>
+                            }
+                            
+                            <div class="rej">
+                            <a class="btn btn-google btn-block text-uppercase col-md-6 col-sm-6 text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-lines-fill" viewBox="-2 0 20 20">
+                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                                </svg>
+                                Rejestracja
+                            </a>
+                            </div>
+                        </p>
+                    </div>
+                </form>
+
+        </div>
+    </div>
+          </div>
+    </div>

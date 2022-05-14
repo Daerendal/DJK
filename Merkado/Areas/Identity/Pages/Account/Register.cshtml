@@ -41,31 +41,7 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-success" data-next>Dalej</button>
                 </div>
-                <div class="or-container">
-                    <div class="line-separator"></div>
-                    <div class="or-label">lub</div>
-                    <div class="line-separator"></div>
-                </div>
-                   <div class="row col-md-12 col-sm-12">
-                        <div>
-                                        <p>
-                                            @foreach (var provider in Model.ExternalLogins)
-                                            {
-                                            @if(provider.DisplayName == "Google")
-                                            {     
-                                                                                                
-                                                <input type="button" id="btnGoogleLogin" class="btn btn-google btn-block text-uppercase btn-outline col-md-12 col-sm-6" name="provider" value="zaloguj sie przez @provider.Name" title="Log in using your @provider.DisplayName account">
-                                            }
-                                            @if(provider.DisplayName == "Facebook")
-                                            {
-                                                <input type="button" id="btnFacebookLogin"  class="btn btn-google btn-block text-uppercase btn-outline col-md-12 col-sm-6" name="provider" value="zaloguj sie przez @provider.Name" title="Log in using your @provider.DisplayName account"> 
-                                            }
-                                            }
-                                        </p>
-
-                        </div>
-                    </div> 
-                <br>
+                
                 <div class="text-inverse text-center">
                     <p>
                         <a>Masz już konto?</a>
