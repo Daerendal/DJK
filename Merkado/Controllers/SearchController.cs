@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using Merkado.ViewModels;
 
 namespace Merkado.Controllers
 {
@@ -13,6 +14,7 @@ namespace Merkado.Controllers
 
         private readonly ILogger<SearchController> _logger;
         private readonly MerkadoDbContext _db;
+       // SearchVM SearchVm = new SearchVM();
 
         public SearchController(ILogger<SearchController> logger, MerkadoDbContext db)
         {
@@ -22,16 +24,55 @@ namespace Merkado.Controllers
    
 
 
-            public async Task<IActionResult> Index(string NameSearch, string currentFilter, string sortOrder, string category, string LocationSearch)
-        {
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.CurrentFilter = NameSearch;
-            ViewBag.CurrentCategory = category;
-            ViewBag.CurrentLocation = LocationSearch;
+            public IActionResult Index(string NameSearch, string sortOrder, string category, string LocationSearch)
+            {
 
+
+
+                if (LocationSearch != null)
+                {
+                    SearchVM.UsedLocation = LocationSearch;
+                    SearchVM.UsedFilter = null;
+                }
+
+                if (NameSearch != null)
+                {
+                    SearchVM.UsedFilter = NameSearch;
+
+                    if (LocationSearch == null)
+                    {
+                        SearchVM.UsedLocation = null;
+                    }
+                }
+
+                if (category != null)
+                {
+                    SearchVM.UsedCategory = category;
+                }
+                    else if (SearchVM.UsedCategory == null)
+                    {
+
+                        SearchVM.UsedCategory = "Wszystkie";
+                    }
+           
+                if (sortOrder != null)
+                {
+                    SearchVM.UsedSort = sortOrder;
+                }
             
+           
 
-           var searchResult = _db.Products
+
+
+                ViewBag.CurrentSort = SearchVM.UsedSort;
+                ViewBag.CurrentFilter = SearchVM.UsedFilter;
+                ViewBag.CurrentCategory = SearchVM.UsedCategory;
+                ViewBag.CurrentLocation = SearchVM.UsedLocation;
+
+
+
+
+            var searchResult = _db.Products
                                 .Include(c => c.Category)
                                 .Include(i => i.Images)
                                 .Include(p => p.Providers)
@@ -39,18 +80,18 @@ namespace Merkado.Controllers
 
             
 
-            if (!String.IsNullOrEmpty(NameSearch))
+            if (!String.IsNullOrEmpty(SearchVM.UsedFilter))
             {
-                searchResult = searchResult.Where(s => s.Name!.ToLower().Contains(NameSearch.Trim().ToLower())).ToList();
+                searchResult = searchResult.Where(s => s.Name!.ToLower().Contains(SearchVM.UsedFilter.Trim().ToLower())).ToList();
             }
-            if (!String.IsNullOrEmpty(LocationSearch))
+            if (!String.IsNullOrEmpty(SearchVM.UsedLocation))
             {
-                searchResult = searchResult.Where(s => s.Localization!.ToLower().Contains(LocationSearch.Trim().ToLower())).ToList();
+                searchResult = searchResult.Where(s => s.Localization!.ToLower().Contains(SearchVM.UsedLocation.Trim().ToLower())).ToList();
             }
 
 
 
-            switch (sortOrder)
+            switch (SearchVM.UsedSort)
             {
                 case "name_desc":
                     searchResult = searchResult.OrderByDescending(s => s.Name).ToList();
@@ -75,10 +116,12 @@ namespace Merkado.Controllers
                     break;
             }
           
-            if (!String.IsNullOrEmpty(category))
+            if (!String.IsNullOrEmpty(SearchVM.UsedCategory) && SearchVM.UsedCategory != "Wszystkie")
             {
-                searchResult = searchResult.Where(s => s.Category.Name.Equals(category)).ToList();
+                searchResult = searchResult.Where(s => s.Category.Name.Equals(SearchVM.UsedCategory)).ToList();
             }
+
+            SearchVM.CurrentProduct = searchResult;
 
             return View(searchResult);
         }

@@ -1,5 +1,5 @@
-﻿@model List<Product>
-@using Microsoft.AspNetCore.Http
+﻿@using Merkado.ViewModels
+@model List<Product>
 @{
     ViewData["Title"] = "Search Result";
 }
@@ -9,7 +9,10 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
 
+            
             Obecnie szukany przedmiot : @ViewBag.CurrentFilter
+            <br/>
+            Obecnie szukana lokacja : @ViewBag.CurrentLocation
             <br/>
             Obecnie wybrane kategorie : @ViewBag.CurrentCategory
             <br/>

@@ -8,6 +8,9 @@
         <div class="container px-4 px-lg-5 mt-5">
                 <div class="row row-cols-3 justify-content-evenly ">
                  
+                    
+                    
+
                     @foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
                         {
                            
