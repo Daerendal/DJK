@@ -37,14 +37,16 @@ namespace Merkado.Controllers
                 if (product != null)
                 {
                     productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
+                    return View(productPageVM);
                 }
-                
-                
-                return View(productPageVM);
+                else
+                {
+                    return NotFound();
+                }   
             }
             else
             {
-                return View("ErrorPage");
+                return NotFound();
             }
         } 
     }
