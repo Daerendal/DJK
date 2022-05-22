@@ -1,7 +1,6 @@
 ﻿@*@model Merkado.Models.Product*@
 
-<!DOCTYPE html>
-<html lang="pl">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,78 +8,75 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Merkado.styles.css" asp-append-version="true" />
-    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/images/LOGOmini.png" height="50" width="150"/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+    <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom box-shadow mb-3 sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/images/LOGOmini.png" height="50" width="150"/></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
 
                         
-                        <li class="nav-item col-sm-1"/>
-                        <li class="nav-item col-sm-9">
-                         <form asp-controller="Search" asp-action="Index">
+                    <li class="nav-item col-sm-1"/>
+                    <li class="nav-item col-sm-9">
+                        <form asp-controller="Search" asp-action="Index">
                            
-                                <div class="d-flex flex-row ">   
+                            <div class="d-flex flex-row ">   
 
-                                    @if (ViewBag.CurrentFilter == null)
-                                    {
-                                        ViewBag.CurrentFilter = "Produkt";
-                                    }
+                                @if (ViewBag.CurrentFilter == null)
+                                {
+                                    ViewBag.CurrentFilter = "Produkt";
+                                }
                                     
 
-                                    @if (ViewBag.CurrentLocation == null)
-                                    {
-                                        ViewBag.CurrentLocation = "Lokalizacja";
-                                    }
+                                @if (ViewBag.CurrentLocation == null)
+                                {
+                                    ViewBag.CurrentLocation = "Lokalizacja";
+                                }
                                    
 
                         
-                                   <input type="text" name="NameSearch" class="rounded col-4" placeholder=@ViewBag.CurrentFilter />
-                                   <input type="text" name="LocationSearch" class="rounded col-4" placeholder=@ViewBag.CurrentLocation />
+                                <input type="text" name="NameSearch" class="rounded col-4" placeholder=@ViewBag.CurrentFilter />
+                                <input type="text" name="LocationSearch" class="rounded col-4" placeholder=@ViewBag.CurrentLocation />
                             
 
-                                    <div class="dropdown show">
-                                          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Kategorie
-                                          </a>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                @*@foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
-                                                {
-                                                    <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
+                                <div class="dropdown show">
+                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Kategorie
+                                        </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            @*@foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
+                                            {
+                                                <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
 
-                                                }*@
-                                                 <a class="dropdown-item" href="/Search?category=Wszystkie">Wszystkie</a>
-                                                 <a class="dropdown-item" href="/Search?category=Telefony">Telefony</a>
-                                                 <a class="dropdown-item" href="/Search?category=Zegarki">Zegarki</a>
-                                                 <a class="dropdown-item" href="/Search?category=Laptopy">Laptopy</a>
-                                        </div>
+                                            }*@
+                                                <a class="dropdown-item" href="/Search?category=Wszystkie">Wszystkie</a>
+                                                <a class="dropdown-item" href="/Search?category=Telefony">Telefony</a>
+                                                <a class="dropdown-item" href="/Search?category=Zegarki">Zegarki</a>
+                                                <a class="dropdown-item" href="/Search?category=Laptopy">Laptopy</a>
+                                    </div>
                                         
 
-                                    </div>
-
-                                    <input class="btn btn-outline-primary col-sm-4" type="submit"  value="Wyszukaj" />
-
                                 </div>
-                            </form>
-                          </li>
+
+                                <input class="btn btn-outline-primary col-sm-4" type="submit"  value="Wyszukaj" />
+
+                            </div>
+                        </form>
+                        </li>
                         
-                    </ul>
+                </ul>
 
                     
 
-                    <partial name="_LoginPartial" />
-                </div>
+                <partial name="_LoginPartial" />
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -102,6 +98,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+
