@@ -44,7 +44,7 @@ namespace Merkado.Models
 
         [Required(ErrorMessage = "Proszę dodać zdjęcie sprzedawanego przedmiotu")]
         [Display(Name = "Zdjęcia")]
-        public List<ProductImage>? Images { get; set; } = new List<ProductImage>();
+        public List<ProductImage> Images { get; set; } = new List<ProductImage>();
 
     }
 }

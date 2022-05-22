@@ -1,7 +1,6 @@
 ﻿@using Merkado.ViewModels
 @model AdminPanelVM
-<br />
-<br />
+
 <div class="container bg-light rounded-3 p-4">
     <div class="col-12 border-bottom">
         <form method="post">
@@ -42,7 +41,7 @@
                                 <img height="25" src="~/images/@product.CoverURL" />
                             </td>
                             <td>
-                                @Html.DisplayFor(x => product.Name)
+                                <a href="/ProductPage?item=@product.ProductId"> @Html.DisplayFor(x => product.Name) </a>
                             </td>
                             <td>
                                 @Html.DisplayFor(x => product.AddedDate)
@@ -62,7 +61,7 @@
             }
             else
             {
-                <p>Brak użytkowników.</p>
+                <p>Brak ogłoszeń.</p>
             }
         </form>
     </div>
