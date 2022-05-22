@@ -1,0 +1,56 @@
+﻿@model User
+
+<div class="container bg-light rounded-3 p-4">
+    <p class="text-center h3">Opinie</p>
+    <div class="col-12 border-bottom">
+        <form method="post">
+            @if (Model.Opinions.Any())
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <p>ID opinii</p>
+                        </th>
+                        <th>
+                            <p>Komentarz</p>
+                        </th>
+                        <th>
+                            <p>Ocena</p>
+                        </th>
+                        <th>
+                            <p>ID komentującego</p>
+                        </th>
+
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var opinion in Model.Opinions)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => opinion.OpinionId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => opinion.Comment)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => opinion.Rate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => opinion.ReviewerId)
+                            </td>
+                            <td>
+                                <button asp-area="" asp-controller="AdminPanel" asp-action="DeleteUserOpinion" asp-route-opinionID="@opinion.OpinionId" onclick="return confirm('Czy na pewno chcesz usunąć komentarz?')" class="btn btn-danger btn-sm">Usuń</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Brak opinii.</p>
+            }
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+﻿@using Merkado.ViewModels
+@model AdminPanelVM
+
+
+<br />
+<br />
+<div class="container bg-light rounded-3 p-4">
+    <div class="col-12 border-bottom">
+        <form method="post">
+            @if (Model.Users.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <p>ID</p>
+                        </th>
+                        <th>
+                            <p>Email</p>
+                        </th>
+                        <th>
+                            <p>Potwierdzony email</p>
+                        </th>
+
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var user in Model.Users)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => user.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => user.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => user.EmailConfirmed)
+                            </td>
+                            <td>
+                                <button asp-area="" asp-controller="AdminPanel" asp-action="DeleteUser" asp-route-userID="@user.Id" onclick="return confirm('Czy na pewno chcesz usunąć użytkownika?')" class="btn btn-danger btn-sm">Usuń</button>
+                                <a asp-area="" asp-controller="AdminPanel" asp-action="EditUser" asp-route-id="@user.Id" class="btn btn-success btn-sm">Edytuj</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Brak użytkowników.</p>
+            }
+        </form>
+    </div>
+</div>

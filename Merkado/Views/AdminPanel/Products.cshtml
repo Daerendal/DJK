@@ -1,0 +1,69 @@
+﻿@using Merkado.ViewModels
+@model AdminPanelVM
+<br />
+<br />
+<div class="container bg-light rounded-3 p-4">
+    <div class="col-12 border-bottom">
+        <form method="post">
+            @if (Model.Products.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <p>ID</p>
+                        </th>
+                        <th>
+                            <p>Zdjęcie</p>
+                        </th>
+                        <th>
+                            <p>Nazwa</p>
+                        </th>
+                        <th>
+                            <p>Data dodania</p>
+                        </th>
+                        <th>
+                            <p>Kategoria</p>
+                        </th>
+                        <th>
+                            <p>Lokalizacja</p>
+                        </th>
+
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var product in Model.Products)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => product.ProductId)
+                            </td>
+                            <td>
+                                <img height="25" src="~/images/@product.CoverURL" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => product.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => product.AddedDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => product.Category.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => product.Localization)
+                            </td>
+                            <td>
+                                <button asp-area="" asp-controller="AdminPanel" asp-action="DeleteProduct" asp-route-productId="@product.ProductId" onclick="return confirm('Czy na pewno chcesz usunąć produkt?')" class="btn btn-danger btn-sm">Usuń</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Brak użytkowników.</p>
+            }
+        </form>
+    </div>
+</div>
