@@ -11,3 +11,33 @@
 
 
 });
+
+function addtofavourite(productId) {
+    $.ajax({
+        type: 'POST',
+        url: '/ProductPage/addtoFavourite',
+        dataType: 'json',
+        data: { productID: productId },
+        success: function (data) {
+
+        },
+        error: function (ex) {
+
+        }
+    })
+}
+
+function removefavourite(productId) {
+    $.ajax({
+        type: 'POST',
+        url: '/ProductPage/removefavourite',
+        dataType: 'json',
+        data: { productID: productId },
+        success: function (data) {
+
+        },
+        error: function (ex) {
+
+        }
+    })
+}

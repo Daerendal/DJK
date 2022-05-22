@@ -4,10 +4,12 @@
     ViewData["Title"] = "Two-factor authentication";
 }
 
+
 <h1>@ViewData["Title"]</h1>
 <hr />
+<div class="row  offset-1">
 <p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
-<div class="row">
+
     <div class="col-md-4">
         <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
             <input asp-for="RememberMe" type="hidden" />
@@ -30,12 +32,13 @@
             </div>
         </form>
     </div>
-</div>
+
+
 <p>
     Don't have access to your authenticator device? You can
     <a id="recovery-code-login" asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
 </p>
-
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }

@@ -17,8 +17,9 @@
     <div class="col-md-6 offset-md-3">
 <div class="row">
         <div class="col-md-12 col-sm-12">
+            <div>
                 <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                    <div>
+                    
                         <p>
                             @foreach (var provider in Model.ExternalLogins)
                             {
@@ -35,19 +36,20 @@
                             }
                             </div>
                             }
-                            
-                            <div class="rej">
-                            <a class="btn btn-google btn-block text-uppercase col-md-6 col-sm-6 text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-lines-fill" viewBox="-2 0 20 20">
-                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
-                                </svg>
-                                Rejestracja
-                            </a>
-                            </div>
-                        </p>
-                    </div>
-                </form>
+                            <div class="form-group">
+                        <a class="btn btn-google col-md-6 offset-3" style="margin-top:5px;" type="button" id="register" asp-area="Identity" asp-page="/Account/Register">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person-lines-fill" viewBox="-2 0 20 20">
+                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
+                            </svg>
+                            Rejestracja
+                        </a>
+                        </div>
 
+                        </p>
+                    
+                </form>
+                </div>
+                        
         </div>
     </div>
           </div>

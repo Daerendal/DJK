@@ -54,7 +54,8 @@ button {
     align-self: center;
     background: #eff1f3;
     cursor: pointer;
-
+    height: 30%;
+    width:19%;
 }
 .row{
     align-self:center;
