@@ -42,8 +42,6 @@ namespace Merkado.Controllers
                 _db.Add(ObservedProduct);
                 _db.SaveChanges();
             }
-
-
         }
 
         public void removefavourite(int  productID)

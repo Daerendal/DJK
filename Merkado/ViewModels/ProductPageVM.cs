@@ -8,6 +8,5 @@ namespace Merkado.ViewModels
         public Product CurrentProduct { get; set; }
         public User Seller { get; set; }
 
-        public ObservedProduct ObservedProduct { get; set; }
     }
 }
