@@ -12,11 +12,13 @@ namespace Merkado.Controllers
         {
             _db = db;
         }
-
-        public IActionResult Index(string user)
+        
+        public IActionResult Index(string user, string addComment)
         {
             if(user != null)
             {
+
+
                 var userInfo = _db.Users
                               .Include(p => p.UserProducts)
                               .Include(o => o.Opinions)

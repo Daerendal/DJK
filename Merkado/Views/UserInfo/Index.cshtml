@@ -3,10 +3,7 @@
 @{
     ViewData["Title"] = "Informacje o użytkowniku";
 }
-</br>
-</br>
-</br>
-</br>
+
 <div class="container bg-light rounded-3 p-4">
     <div class="row">
         <div class="col-lg-9 mb-3">
@@ -16,6 +13,9 @@
               </li>
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="comment-tab" data-bs-toggle="tab" data-bs-target="#comment" type="button" role="tab" aria-controls="comment" aria-selected="false">Wszystkie komentarze</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="addComment-tab" data-bs-toggle="tab" data-bs-target="#addComment" type="button" role="tab" aria-controls="addComment" aria-selected="false">Dodaj Komentarz</button>
               </li>
             </ul>
             <div class="tab-content" id="myTabContent">
@@ -76,6 +76,22 @@
                         }
 
                     </div>
+                </div>
+                 <div class="tab-pane fade" id="addComment" role="tabpanel" aria-labelledby="addComment-tab">
+
+                    <form asp-controller="UserInfo" asp-action="Index">
+                        <div class="col pt-2">
+                   
+                                <hr/>
+                                <textarea class="col-12" name="addComment"></textarea>
+                               
+                        </div>
+
+                        <br/>
+                        <input class="btn btn-outline-primary col-sm-12" type="submit"  value="Dodaj Komentarz" />
+                        <hr/>
+                    </form>
+
                 </div>
             </div>
         </div>
