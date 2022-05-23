@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Merkado.Controllers
 {
-    public class ProductPageController : Controller
+    public class PaymentPageController : Controller
     {
-        private readonly ILogger<ProductPageController> _logger;
+        private readonly ILogger<PaymentPageController> _logger;
         private readonly MerkadoDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public ProductPageController(ILogger<ProductPageController> logger, MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        public PaymentPageController(ILogger<PaymentPageController> logger, MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _logger = logger;
@@ -27,8 +27,8 @@ namespace Merkado.Controllers
         public void addtoFavourite(int productID)
         {
 
-            var userId= _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-            
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+
             var ifObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == productID && O.UserId == userId);
             if (ifObservedProduct)
             {
@@ -44,7 +44,7 @@ namespace Merkado.Controllers
             }
         }
 
-        public void removefavourite(int  productID)
+        public void removefavourite(int productID)
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
             var ifObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == productID && O.UserId == userId);
@@ -54,60 +54,33 @@ namespace Merkado.Controllers
                 _db.Remove(ObservedProduct);
                 _db.SaveChanges();
             }
-            else {
+            else
+            {
                 addtoFavourite(productID);
             }
         }
-        public IActionResult PaymentPage(string id)
+
+        
+
+        public IActionResult PaymentPage(int item)
         {
 
-            var user = _db.Users.Include(o => o.Opinions)
-                                .Include(p => p.UserProducts)
-                            .FirstOrDefault(u => u.Id == id);
 
-            if (user != null && User.IsInRole("Admin"))
-            {
-                return View(user);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-        }
-
-        public IActionResult Index(int item)
-        {
-            
-           
             var productPageVM = new ProductPageVM();
 
 
 
             if (item > 0)
             {
-                
+
 
                 var product = _db.Products
                                  .Include(i => i.Images)
                                  .Include(p => p.Providers)
-                                 .Include(c => c.Category)                                 
+                                 .Include(c => c.Category)
                                  .Include(i => i.Images)
                                  .Where(id => id.ProductId == item)
                                  .FirstOrDefault();
-                if(!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
-                {
-                    var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-                    var ObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == item && O.UserId == userId);
-
-                    ViewBag.IfalreadyObserved = ObservedProduct;
-                    ViewBag.hideHeart = false;
-                }
-               else
-                {
-                    ViewBag.IfalreadyObserved = false;
-                    ViewBag.hideHeart = true;
-                }
 
 
                 productPageVM.CurrentProduct = product;
@@ -116,20 +89,20 @@ namespace Merkado.Controllers
                 {
                     productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
 
-                    
+
 
                     return View(productPageVM);
                 }
-                
+
                 else
                 {
                     return NotFound();
-                }   
+                }
             }
             else
             {
                 return NotFound();
             }
-        } 
+        }
     }
 }
