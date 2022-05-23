@@ -26,29 +26,33 @@ namespace Merkado.Controllers
         {
 
             var ObservedPageVM = new ObservedPageVM();
-            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+
+            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            string userId = string.Empty;
+            
+            if (userName != null)
+            {
+                userId = _userManager.FindByNameAsync(userName).Result.Id;
+
+            }
+            if (userName != null)
+            {
+                var ObservedProducts = _db.ObservedProducts
+                    .Where(o => o.UserId == userId);
 
 
+                var productList = _db.Products
+                .Include(c => c.Category)
+                .Include(i => i.Images)
+                .Include(p => p.Providers)
+                .ToList();
 
-            var ObservedProducts = _db.ObservedProducts
-                .Where(o => o.UserId == userId);
+                ObservedPageVM.OProducts = productList;
+                ObservedPageVM.ObservedProduct = ObservedProducts.ToList();
 
-
-            var productList = _db.Products
-            .Include(c => c.Category)
-            .Include(i => i.Images)
-            .Include(p => p.Providers)
-            .ToList();
-
-            ObservedPageVM.OProducts = productList;
-            ObservedPageVM.ObservedProduct = ObservedProducts.ToList();
-
-            //productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
-            //ObservedPageVM.OProducts = _db.Products.Where(id => id.
-
-
-
-            return View(ObservedPageVM);
+                return View(ObservedPageVM);
+            }
+            return NotFound();
         }
     }
 }
