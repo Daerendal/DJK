@@ -58,24 +58,6 @@ namespace Merkado.Controllers
                 addtoFavourite(productID);
             }
         }
-        public IActionResult PaymentPage(string id)
-        {
-
-            var user = _db.Users.Include(o => o.Opinions)
-                                .Include(p => p.UserProducts)
-                            .FirstOrDefault(u => u.Id == id);
-
-            if (user != null && User.IsInRole("Admin"))
-            {
-                return View(user);
-            }
-            else
-            {
-                return NotFound();
-            }
-
-        }
-
         public IActionResult Index(int item)
         {
             

@@ -23,49 +23,10 @@ namespace Merkado.Controllers
             _db = db;
             _httpContextAccessor = httpContextAccessor;
         }
-        [Authorize]
-        public void addtoFavourite(int productID)
+            
+
+        public IActionResult Index(int item)
         {
-
-            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-
-            var ifObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == productID && O.UserId == userId);
-            if (ifObservedProduct)
-            {
-                removefavourite(productID);
-            }
-            else
-            {
-                var ObservedProduct = new ObservedProduct();
-                ObservedProduct.ProductId = productID;
-                ObservedProduct.UserId = userId;
-                _db.Add(ObservedProduct);
-                _db.SaveChanges();
-            }
-        }
-
-        public void removefavourite(int productID)
-        {
-            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-            var ifObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == productID && O.UserId == userId);
-            if (ifObservedProduct)
-            {
-                var ObservedProduct = _db.ObservedProducts.Where(O => O.ProductId == productID && O.UserId == userId).FirstOrDefault();
-                _db.Remove(ObservedProduct);
-                _db.SaveChanges();
-            }
-            else
-            {
-                addtoFavourite(productID);
-            }
-        }
-
-        
-
-        public IActionResult PaymentPage(int item)
-        {
-
-
             var productPageVM = new ProductPageVM();
 
 
