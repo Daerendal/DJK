@@ -9,7 +9,7 @@
 }
 
 body {
-    background-color: #3ecc6d;
+    background-color: #dee2e6;
 }
 
 .container {
@@ -21,8 +21,8 @@ body {
 .card.box1 {
     width: 350px;
     height: 500px;
-    background-color: #3ecc6d;
-    color: #baf0c3;
+    background-color: #ced4da;
+    color: black;
     border-radius: 0
 }
 
@@ -113,7 +113,7 @@ body {
     position: relative
 }
 
-img {
+.mastercardimg {
     width: 50px;
     height: 20px;
     object-fit: cover
@@ -135,15 +135,11 @@ img {
 }
 
 .btn-outline-primary {
-    color: black;
-    background-color: #ddd;
-    border: 1px solid #ddd
+    color: blue;
+    background-color: white;
+    border: 1px solid blue
 }
 
-    .btn-outline-primary:hover {
-        background-color: #05cf48;
-        border: 1px solid #ddd
-    }
 
     .btn-check:active + .btn-outline-primary,
     .btn-check:checked + .btn-outline-primary,
