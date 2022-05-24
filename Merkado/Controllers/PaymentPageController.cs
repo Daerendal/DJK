@@ -34,6 +34,20 @@ namespace Merkado.Controllers
             if (item > 0)
             {
 
+                var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+                string userId = string.Empty;
+
+                if (userName != null)
+                {
+                    userId = _userManager.FindByNameAsync(userName).Result.Id;
+
+                }
+
+                var user = _db.Users
+                    .Where(id => id.Id == userId)
+                    .FirstOrDefault();
+
+                productPageVM.Seller = user;
 
                 var product = _db.Products
                                  .Include(i => i.Images)
