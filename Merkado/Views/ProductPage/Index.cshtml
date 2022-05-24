@@ -169,39 +169,50 @@
 </div>
 
 <div class="container px-4 px-lg-5 mt-5">
-    <h2 style="text-align:center">Podobne produkty od tego sprzedającego</h2>
+    <h2 style="text-align:center">Podobne produkty na Merkado</h2>
     <br />
-    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-        @foreach (var item in Model.Seller.UserProducts.Take(4))
+    @if (Model.SimilarProducts.Count() > 0)
         {
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-            <div class="main page items" style="background-color: #fff;">
-                <div class="col mb-5">
-                    <a class="btn mt-auto" href="/ProductPage?item=@item.ProductId">
-                        <div class="card h-100" style="border:hidden;">
-                            <!-- Product name-->
-                        <h5 class="fw-bolder">@item.Name</h5>
-                            <!-- Product image-->
-                        <img class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
-                            <!-- Product details-->
-                        <div class="card-body p-4">
+            @foreach (var item in Model.SimilarProducts.Take(4))
+            {
 
-                                <div class="text-center fs-5">
-                                    <!-- Product price-->
-                                @item.Price zł
-                                    <br>
-                                    <div class="fs-6 fw-light">
-                                        <!-- Product date-->
-                                    @item.AddedDate.ToString("dd.MM.yyyy")
-                                        <!-- Product localization-->
-                                    @item.Localization
+                    <div class="main page items" style="background-color: #fff;">
+                    <div class="col mb-5">
+                        <a class="btn mt-auto" href="/ProductPage?item=@item.ProductId">
+                            <div class="card h-100" style="border:hidden;">
+                                <!-- Product name-->
+                            <h5 class="fw-bolder">@item.Name</h5>
+                                <!-- Product image-->
+                            <img class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
+                                <!-- Product details-->
+                            <div class="card-body p-4">
+
+                                    <div class="text-center fs-5">
+                                        <!-- Product price-->
+                                    @item.Price zł
+                                        <br>
+                                        <div class="fs-6 fw-light">
+                                            <!-- Product date-->
+                                        @item.AddedDate.ToString("dd.MM.yyyy")
+                                            <!-- Product localization-->
+                                        @item.Localization
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
+            
+            }
             </div>
         }
-    </div>
+        else
+        {
+            <div class="main page items" style="background-color: #fff;">
+                <p>Brak produktów w podobnej cenie.</p>
+            </div>
+        }   
+</div>

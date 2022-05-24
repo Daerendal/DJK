@@ -8,7 +8,7 @@ namespace Merkado.ViewModels
         public Product CurrentProduct { get; set; }
         public User Seller { get; set; }
 
-        public List<Product> ProductsList { get; set; }
+        public List<Product> SimilarProducts { get; set; } = new List<Product>();
 
 
     }

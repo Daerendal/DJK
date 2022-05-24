@@ -77,7 +77,22 @@ namespace Merkado.Controllers
                                  .Include(i => i.Images)
                                  .Where(id => id.ProductId == item)
                                  .FirstOrDefault();
-                if(!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
+
+                if (product != null)
+                {
+                    var similarProducts = _db.Products
+                                             .Include(c => c.Category)
+                                             .Where(p => p.Category == product.Category 
+                                                       && (p.Price <= decimal.Multiply(product.Price,1.2m)
+                                                       && p.ProductId != product.ProductId
+                                                       && (p.Price >= decimal.Multiply(product.Price,0.8m)))
+                                                    )
+                                             .ToList();
+
+                    productPageVM.SimilarProducts = similarProducts;
+                }
+
+                if (!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
                 {
                     var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
                     var ObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == item && O.UserId == userId);
@@ -97,7 +112,6 @@ namespace Merkado.Controllers
                 if (product != null)
                 {
                     productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
-
                     
 
                     return View(productPageVM);
