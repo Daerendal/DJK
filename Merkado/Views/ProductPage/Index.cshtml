@@ -128,31 +128,35 @@
 
 
                     <div class="row">
+                        
                         @if (!ViewBag.hideHeart)
                         {
                             <div class="col-lg-3" style="text-align:center">
-                            @if (ViewBag.IfalreadyObserved)
-                            {
-                                <div class="heart liked" onclick="removefavourite(@Model.CurrentProduct.ProductId)"></div>
-                            }
-                            else
-                            {
-                                <div class="heart" onclick="addtofavourite(@Model.CurrentProduct.ProductId)"></div>
-                            }
-                        </div>
-                        }                        
+                                @if (ViewBag.IfalreadyObserved)
+                                {
+                                    <div class="heart liked" onclick="removefavourite(@Model.CurrentProduct.ProductId)"></div>
+                                }
+                                else
+                                {
+                                    <div class="heart" onclick="addtofavourite(@Model.CurrentProduct.ProductId)"></div>
+                                }
+                            </div>
+                        }
 
 
                         <div class="col-lg-6">
                             <p class="text-center">
-                                <button type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;"><a class="btn mt-auto" href="/PaymentPage?item=@Model.CurrentProduct.ProductId">Kup teraz</a></button>
-
-                                        
-
+                                @if (Model.CurrentProduct.IsSold)
+                                {
+                                    <button disabled type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;"><a class="btn mt-auto">Kup teraz</a></button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;"><a class="btn mt-auto" href="/PaymentPage?item=@Model.CurrentProduct.ProductId">Kup teraz</a></button>
+                                }
                             </p>
                         </div>
                         <div class="col-lg-3" style="text-align:center; color:#6c757d">
-
                             <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                                 <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
