@@ -29,7 +29,7 @@ namespace Merkado.Controllers
                 
                 if (user != null && user.UserProducts != null)
                 {
-                    var products = user.UserProducts;
+                    var products = user.UserProducts.Where(s => !s.IsSold).ToList();
                     return View(products);
                 }
                 else

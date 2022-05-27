@@ -14,15 +14,12 @@ namespace Merkado.Controllers
 
         private readonly ILogger<SearchController> _logger;
         private readonly MerkadoDbContext _db;
-       // SearchVM SearchVm = new SearchVM();
 
         public SearchController(ILogger<SearchController> logger, MerkadoDbContext db)
         {
             _logger = logger;
             _db = db;
         }
-   
-
 
             public IActionResult Index(string NameSearch, string sortOrder, string category, string LocationSearch)
             {
@@ -76,6 +73,7 @@ namespace Merkado.Controllers
                                 .Include(c => c.Category)
                                 .Include(i => i.Images)
                                 .Include(p => p.Providers)
+                                .Where(s => !s.IsSold)
                                 .ToList();
 
             
