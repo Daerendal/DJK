@@ -76,6 +76,7 @@ namespace Merkado.Controllers
             var selectedProvidersId = model.Providers.Where(x => x.Selected).Select(y => y.Value);
             
             List<Provider> providers = new List<Provider>();
+
             foreach (var provider in selectedProvidersId)
             {
                 providers.Add(_db.Providers.Where(x => x.ProviderId == int.Parse(provider)).First());

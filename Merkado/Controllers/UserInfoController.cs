@@ -2,21 +2,29 @@
 using Merkado.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Merkado.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Merkado.Controllers
 {
     public class UserInfoController : Controller
     {
         private readonly MerkadoDbContext _db;
+        private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
         public static string? currentUser { get; set; }
-        public UserInfoController(MerkadoDbContext db)
+
+        public UserInfoController(MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
-            _db = db;      
+            _db = db;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
        
 
-        public IActionResult Index(string user, string addComment)
+        public IActionResult Index(string user)
         {
             if (user != null)
             {
@@ -45,20 +53,42 @@ namespace Merkado.Controllers
 
                     userInfo.Opinions = opinions;
                 }
-                if (addComment != null)
-                {
-
-
-                }
-
-
+               
                 return View(userInfo);
             }
             else
             {
                 return View("ErrorPage");
-            }
-            
+            }  
         }
+
+
+        public async Task<IActionResult> AddOpinion(string comment, int rating)
+        {
+            var lastOpinion = _db.Opinions.Include(x => x.OpinionId).OrderByDescending().Take(1);
+            var logedUser = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+            
+            if (rating == null)
+            {
+                rating = 0;
+            }
+
+            var opinion = new Opinion()
+            {
+                OpinionId = 103,
+                Comment = comment,
+                Rate = rating,
+                ReviewerId = logedUser.Id,
+                ReviewerName = logedUser.FirstName + " " + logedUser.LastName
+            };
+
+            _db.Opinions.Add(opinion);
+            await _db.SaveChangesAsync();
+
+            return Redirect("Index");
+        }
+
+
+
     }
 }

@@ -21,50 +21,50 @@ namespace Merkado.Controllers
             _db = db;
         }
 
-            public IActionResult Index(string NameSearch, string sortOrder, string category, string LocationSearch)
+        public IActionResult Index(string NameSearch, string sortOrder, string category, string LocationSearch)
+        {
+
+
+
+            if (LocationSearch != null)
             {
+                SearchVM.UsedLocation = LocationSearch;
+                SearchVM.UsedFilter = null;
+            }
 
+            if (NameSearch != null)
+            {
+                SearchVM.UsedFilter = NameSearch;
 
-
-                if (LocationSearch != null)
+                if (LocationSearch == null)
                 {
-                    SearchVM.UsedLocation = LocationSearch;
-                    SearchVM.UsedFilter = null;
+                    SearchVM.UsedLocation = null;
                 }
+            }
 
-                if (NameSearch != null)
+            if (category != null)
+            {
+                SearchVM.UsedCategory = category;
+            }
+                else if (SearchVM.UsedCategory == null)
                 {
-                    SearchVM.UsedFilter = NameSearch;
 
-                    if (LocationSearch == null)
-                    {
-                        SearchVM.UsedLocation = null;
-                    }
+                    SearchVM.UsedCategory = "Wszystkie";
                 }
-
-                if (category != null)
-                {
-                    SearchVM.UsedCategory = category;
-                }
-                    else if (SearchVM.UsedCategory == null)
-                    {
-
-                        SearchVM.UsedCategory = "Wszystkie";
-                    }
            
-                if (sortOrder != null)
-                {
-                    SearchVM.UsedSort = sortOrder;
-                }
+            if (sortOrder != null)
+            {
+                SearchVM.UsedSort = sortOrder;
+            }
             
            
 
 
 
-                ViewBag.CurrentSort = SearchVM.UsedSort;
-                ViewBag.CurrentFilter = SearchVM.UsedFilter;
-                ViewBag.CurrentCategory = SearchVM.UsedCategory;
-                ViewBag.CurrentLocation = SearchVM.UsedLocation;
+            ViewBag.CurrentSort = SearchVM.UsedSort;
+            ViewBag.CurrentFilter = SearchVM.UsedFilter;
+            ViewBag.CurrentCategory = SearchVM.UsedCategory;
+            ViewBag.CurrentLocation = SearchVM.UsedLocation;
 
 
 
