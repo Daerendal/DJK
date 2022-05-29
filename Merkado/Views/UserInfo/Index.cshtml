@@ -54,7 +54,7 @@
                     <div class="col pt-2">
                         @if(Model.Opinions.Any())
                         {
-                            @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(2))
+                            @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(10))
                             {
                                 <hr/>
                                 <blockquote class="blockquote m-2">

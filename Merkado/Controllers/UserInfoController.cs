@@ -65,24 +65,28 @@ namespace Merkado.Controllers
 
         public async Task<IActionResult> AddOpinion(string comment, int rating)
         {
-            var lastOpinion = _db.Opinions.Include(x => x.OpinionId).OrderByDescending().Take(1);
+            //var lastOpinion = _db.Opinions.Include(x => x.OpinionId).OrderByDescending().Take(1);
             var logedUser = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
-            
+            var opnionedUser = _userManager.FindByIdAsync(currentUser).Result;
+
             if (rating == null)
             {
-                rating = 0;
+                rating = 1;
             }
 
             var opinion = new Opinion()
             {
-                OpinionId = 103,
+                //OpinionId = 1,
                 Comment = comment,
                 Rate = rating,
                 ReviewerId = logedUser.Id,
-                ReviewerName = logedUser.FirstName + " " + logedUser.LastName
+                ReviewerName = logedUser.UserName
             };
 
+            opnionedUser.Opinions.Add(opinion);
+
             _db.Opinions.Add(opinion);
+            _db.Users.Update(opnionedUser);
             await _db.SaveChangesAsync();
 
             return Redirect("Index");
