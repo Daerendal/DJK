@@ -6,6 +6,7 @@ namespace Merkado.Models
     public class Product
     {
         public int ProductId { get; set; }
+        public string BuyerId { get; set; } = string.Empty;
 
         [StringLength(32, ErrorMessage = "{0} musi składać się minimum z {2} znaków.", MinimumLength = 6)]
         [Required(ErrorMessage = "Proszę podać nazwę produktu")]
