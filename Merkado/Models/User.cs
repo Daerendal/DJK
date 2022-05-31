@@ -42,5 +42,9 @@ namespace Merkado.Models
                 }
             }
         }
+
+        
+        public int OpinionCounter { get; set; }
+        public string PromoCode { get; set; }
     }
 }
