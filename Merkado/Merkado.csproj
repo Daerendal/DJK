@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\stars.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\images\stars.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.ReCaptcha" Version="1.5.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.3" />
@@ -31,6 +39,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\images\LOGO.png" />
+    <None Include="wwwroot\images\stars.svg" />
   </ItemGroup>
 
 </Project>

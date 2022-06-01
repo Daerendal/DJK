@@ -2,27 +2,43 @@
 using Merkado.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Merkado.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace Merkado.Controllers
 {
     public class UserInfoController : Controller
     {
         private readonly MerkadoDbContext _db;
-        public UserInfoController(MerkadoDbContext db)
+        private readonly UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public static string? currentUser { get; set; }
+
+        public UserInfoController(MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
+            _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
-        
-        public IActionResult Index(string user, string addComment)
+
+       
+
+        public IActionResult Index(string user)
         {
-            if(user != null)
+            if (user != null)
+            {
+                currentUser = user;
+            }
+
+            if(currentUser != null)
             {
 
 
                 var userInfo = _db.Users
                               .Include(p => p.UserProducts)
                               .Include(o => o.Opinions)
-                              .Where(i => i.Id == user)
+                              .Where(i => i.Id == currentUser)
                               .FirstOrDefault();
 
                 var opinions = userInfo.Opinions;
@@ -32,19 +48,46 @@ namespace Merkado.Controllers
                     foreach (Opinion opinion in opinions)
                     {
                         opinion.ReviewerName = _db.Users.Where(rev => rev.Id == opinion.ReviewerId).Select(n => n.FirstName).FirstOrDefault();
+                        
                     }
 
                     userInfo.Opinions = opinions;
                 }
-
-
+               
                 return View(userInfo);
             }
             else
             {
                 return View("ErrorPage");
-            }
-            
+            }  
         }
+
+
+        public async Task<IActionResult> AddOpinion(string comment, int rating)
+        {
+            //var lastOpinion = _db.Opinions.Include(x => x.OpinionId).OrderByDescending().Take(1);
+            var logedUser = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+            var opnionedUser = _userManager.FindByIdAsync(currentUser).Result;
+
+            var opinion = new Opinion()
+            {
+                //OpinionId = 1,
+                Comment = comment,
+                Rate = rating,
+                ReviewerId = logedUser.Id,
+                ReviewerName = logedUser.UserName
+            };
+
+            opnionedUser.Opinions.Add(opinion);
+
+            _db.Opinions.Add(opinion);
+            _db.Users.Update(opnionedUser);
+            await _db.SaveChangesAsync();
+
+            return Redirect("Index");
+        }
+
+
+
     }
 }
