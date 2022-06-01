@@ -69,11 +69,6 @@ namespace Merkado.Controllers
             var logedUser = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
             var opnionedUser = _userManager.FindByIdAsync(currentUser).Result;
 
-            if (rating == null)
-            {
-                rating = 1;
-            }
-
             var opinion = new Opinion()
             {
                 //OpinionId = 1,
