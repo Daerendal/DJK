@@ -12,6 +12,8 @@ using System.Text;
 
 namespace Merkado.Controllers
 {
+
+
     public class PaymentPageController : Controller
     {
         private readonly ILogger<PaymentPageController> _logger;
@@ -27,7 +29,13 @@ namespace Merkado.Controllers
             _db = db;
             _httpContextAccessor = httpContextAccessor;
         }
+
+
+        public async Task<IActionResult> SendMail(PaymentPageVM model)
+        {
             
+            return Redirect("Index");
+        }
 
         public IActionResult Index(int item)
         {
@@ -61,15 +69,12 @@ namespace Merkado.Controllers
                                  .Where(id => id.ProductId == item)
                                  .FirstOrDefault();
                 ViewBag.Andrzej = Math.Round((float)product.Price + 11.99, 2);
-
+                
                 paymentPageVM.CurrentProduct = product;
 
                 if (product != null)
                 {
                     paymentPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
-
-
-
 
                     return View(paymentPageVM);
                 }
@@ -139,5 +144,37 @@ namespace Merkado.Controllers
 
             return Redirect("Index");
         }
+        public string promocode(string promocode)
+        {
+            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            string userId = string.Empty;
+
+            if (userName != null)
+            {
+                userId = _userManager.FindByNameAsync(userName).Result.Id;
+
+            }
+            var user = _db.Users
+                   .Where(id => id.Id == userId)
+                   .FirstOrDefault();
+            var code = user.PromoCode;
+            if(promocode == code)
+            {
+                return "activecode";
+            }
+            else
+            {
+                return "inactivecode";
+            }
+       
+        }
+        protected string wartosc(string code)
+        {
+
+            {
+                return code;
+            }
+        }
     }
+
 }

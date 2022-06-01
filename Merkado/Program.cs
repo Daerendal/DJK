@@ -25,6 +25,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 
+string Base64UrlEncode(string v)
+{
+    throw new NotImplementedException();
+}
+
 builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSession(options =>
