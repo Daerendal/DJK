@@ -44,6 +44,12 @@ namespace Merkado.Controllers
             }
         }
 
+        public int countObserved(int item)
+        {
+            int count = _db.ObservedProducts.Count(o => o.ProductId == item);
+            return count;
+        }
+
         public void removefavourite(int  productID)
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
@@ -58,6 +64,8 @@ namespace Merkado.Controllers
                 addtoFavourite(productID);
             }
         }
+
+
         public IActionResult Index(int item)
         {
             
@@ -105,7 +113,8 @@ namespace Merkado.Controllers
                     ViewBag.IfalreadyObserved = false;
                     ViewBag.hideHeart = true;
                 }
-
+                var countobserved = countObserved(item);
+                ViewBag.count = countobserved;
 
                 productPageVM.CurrentProduct = product;
 
