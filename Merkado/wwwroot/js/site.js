@@ -21,3 +21,10 @@ function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
+
+function SetText(id) {
+    if (id.value == "Disable automatic page refresh") {
+        id.value = "Automatic Refresh Disabled";
+    }
+    return false;
+}

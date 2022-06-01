@@ -1,5 +1,5 @@
 ﻿@using Merkado.ViewModels
-@model ProductPageVM
+@model PaymentPageVM
 @{
     ViewData["Title"] = @Model.CurrentProduct.ProductId;
         <link rel="stylesheet" href="~/css/paymentPage.css" asp-append-version="true" />
@@ -11,7 +11,7 @@
         <div class="fw-bolder mb-4">
             <span class="fas fa-dollar-sign"></span>
             <span class="ps-1">Cena:
-                            @Model.CurrentProduct.Price zł</span></div>
+            @Model.CurrentProduct.Price zł</span></div>
             <div class="d-flex flex-column"> 
                 <div class="d-flex align-items-center justify-content-between text"> 
                     <span class="">Dostawa</span> 
@@ -21,7 +21,7 @@
                     <div class="d-flex align-items-center justify-content-between text mb-4"> 
                         <span>Razem</span> 
                         <span class="fas fa-dollar-sign">
-                            <span class="ps-1">135.44 zł</span>
+                            <span class="ps-1"> @ViewBag.Andrzej</span>
                             </span> 
                     </div> 
                     <div class="border-bottom mb-4"></div> 
@@ -29,20 +29,30 @@
                         <span class="far fa-file-alt text">
                             <span class="ps-2">Dane do wysyłki:</span>
                         </span> 
-                        <span class="ps-3">Admin</span> 
-                        <span class="ps-3">Admiński</span> 
-                        <span class="ps-3">692 137 420</span> 
-                        <span class="ps-3">45-758 Opole</span> 
-                        <span class="ps-3">ul. Prószkowska 76</span> 
+                        <span class="ps-3">@Model.Buyer.FirstName</span> 
+                        <span class="ps-3">@Model.Buyer.LastName</span> 
+                        <span class="ps-3">@Model.Buyer.PhoneNumber</span> 
+                        <span class="ps-3">@Model.Buyer.PostalCode</span> 
+                        <span class="ps-3">@Model.Buyer.Street, @Model.Buyer.City</span> 
                         </div> <div class="d-flex flex-column mb-5">
                             <span class="far fa-calendar-alt text">
                                 <span class="ps-2">Metoda dostawy:</span>
-                            </span> <span class="ps-3">@foreach (var item in Model.CurrentProduct.Providers)
+                            </span> <span class="ps-3">
+                                @foreach (var item in Model.CurrentProduct.Providers)
                             {
                                 @item.Name
                                 ;
                                 <br />
                             }
+                            <div >
+                                <button ID="Button2" class="btn btn-primary w-100"  text="Kod promocyjny" OnClick="Button2_Click" OnClientClick="return SetText(this)" ></button>
+                            </div>
+                            <div class="ps-2">
+                                <input asp-for="Buyer.PromoCode" class="form-control" aria-required="true"/>
+                            </div>
+                            
+                            
+                            
 <br/></span> 
                           
                         </div> 
@@ -111,10 +121,12 @@
                            </div> 
                        </div> 
                        <div class="col-12 px-md-5 px-4 mt-3"> 
-                           <div class="btn btn-primary w-100">Zapłać 123.45 zł</div> 
+                           <div class="btn btn-primary w-100">@ViewBag.Andrzej zł</div> 
                            </div> 
                            </div> 
                            </form> 
                            </div> 
                            </div>
                            <br/><br/><br/>
+
+

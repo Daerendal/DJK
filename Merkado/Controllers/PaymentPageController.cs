@@ -27,7 +27,7 @@ namespace Merkado.Controllers
 
         public IActionResult Index(int item)
         {
-            var productPageVM = new ProductPageVM();
+            var paymentPageVM = new PaymentPageVM();
 
 
 
@@ -47,26 +47,27 @@ namespace Merkado.Controllers
                     .Where(id => id.Id == userId)
                     .FirstOrDefault();
 
-                productPageVM.Seller = user;
+                paymentPageVM.Buyer = user;
 
                 var product = _db.Products
                                  .Include(i => i.Images)
                                  .Include(p => p.Providers)
                                  .Include(c => c.Category)
-                                 .Include(i => i.Images)
+                                 .Include(i => i.Images)                                
                                  .Where(id => id.ProductId == item)
                                  .FirstOrDefault();
+                ViewBag.Andrzej = Math.Round((float)product.Price + 11.99, 2);
 
-
-                productPageVM.CurrentProduct = product;
+                paymentPageVM.CurrentProduct = product;
 
                 if (product != null)
                 {
-                    productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
+                    paymentPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
 
 
 
-                    return View(productPageVM);
+
+                    return View(paymentPageVM);
                 }
 
                 else
