@@ -30,13 +30,6 @@ namespace Merkado.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-
-        public async Task<IActionResult> SendMail(PaymentPageVM model)
-        {
-            
-            return Redirect("Index");
-        }
-
         public IActionResult Index(int item)
         {
             var paymentPageVM = new PaymentPageVM();
