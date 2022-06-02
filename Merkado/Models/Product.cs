@@ -36,6 +36,7 @@ namespace Merkado.Models
         public DateTime AddedDate { get; set; }
 
         public bool IsSold { get; set; }
+        public int Views { get; set; }
 
         [Required(ErrorMessage = "Proszę wybrać kategorię")]
         [Display(Name = "Kategoria")]
