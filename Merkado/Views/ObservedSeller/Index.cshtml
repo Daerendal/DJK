@@ -1,0 +1,85 @@
+﻿@using Merkado.ViewModels
+@model ObservedSellerVM
+
+@{
+    ViewData["Title"] = "Obserwowani Sprzedawcy";
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/newProduct.css" asp-append-version="true" />
+}
+
+
+
+
+    <div class="container bg-light rounded-3 p-4">
+    <h2>Twoje Obserwacje</h2>
+    <div class="col-12 border-bottom">
+        <form method="post">
+            @if (Model.FavouriteSeller.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <p>Zdjęcie</p>
+                        </th>
+                        <th>
+                            <p>Nazwa</p>
+                        </th>
+                        <th>
+                            <p>Data dodania</p>
+                        </th>
+                        <th>
+                            <p>Kategoria</p>
+                        </th>
+                        <th>
+                            <p>Lokalizacja</p>
+                        </th>
+
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach(var item2 in Model.FavouriteSeller)       
+                         {
+                    @foreach (var item in Model.ObservedSeller)
+                    {
+                        @if (item2.SellerId == item.Id)
+                        {
+                             <tr>
+                            <td>
+                                <img height="60" src="~/images/@item.FirstName" />
+                            </td>
+                            <td>
+@*                                <a href="/ProductPage?item=@item.ProductId"> @Html.DisplayFor(x => item.Name) </a>  *@ 
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.City)
+                            </td>
+                            <td>
+                                <button asp-area="" asp-controller="ObservedSeller" asp-action="StopObserved" asp-route-Id="@item.Id" onclick="return confirm('Czy na pewno chcesz przestać obserwować sprzedawce?')" class="btn btn-danger btn-sm">Przestań obserwować</button>
+
+                            </td>
+                        </tr>    
+                            }
+                       
+                    }
+                    }
+                </table>
+            }
+            else
+            {
+                <p>Nie masz aktualnie żadnych ogłoszeń.</p>
+            }
+        </form>
+    </div>
+</div>
+
+
+
+
+

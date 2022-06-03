@@ -115,7 +115,13 @@ namespace Merkado.Controllers
                 }
                 var countobserved = countObserved(item);
                 ViewBag.count = countobserved;
-
+                
+                var countVisit = product.Views;
+                countVisit += 1;
+                ViewBag.ViewsCount = countVisit;
+                product.Views = countVisit;
+                _db.Products.Update(product);
+                _db.SaveChanges();
                 productPageVM.CurrentProduct = product;
 
                 if (product != null)
