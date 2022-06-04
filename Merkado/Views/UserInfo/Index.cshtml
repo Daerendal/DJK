@@ -1,7 +1,9 @@
-﻿@model User
+﻿@using Merkado.ViewModels
+@model ObservedSellerVM;
 
 @{
     ViewData["Title"] = "Informacje o użytkowniku";
+        <script src="~/js/UserInfo.js" defer></script>
 }
 
 <div class="container bg-light rounded-3 p-4">
@@ -24,7 +26,7 @@
                         <div class="container px-4 px-lg-5 mt-5">
                             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     
-                                @foreach(var product in @Model.UserProducts)
+                                @foreach(var product in @Model.Seller.UserProducts)
                                 {
                                     <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
                                         <div class="col mb-5">
@@ -52,9 +54,9 @@
                      
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">
                     <div class="col pt-2">
-                        @if(Model.Opinions.Any())
+                        @if(Model.Seller.Opinions.Any())
                         {
-                            @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(10))
+                            @foreach (var opinion in Model.Seller.Opinions.OrderByDescending(x => x.OpinionId).Take(10))
                             {
                                 <hr/>
                                 <blockquote class="blockquote m-2">
@@ -111,23 +113,23 @@
 
         <div class="col-lg-3">
             <p class="h5 text-center">Informacje o użytkowniku</p>
-            <p class="h5 text-muted text-center">@Model.FirstName</p>
+            <p class="h5 text-muted text-center">@Model.Seller.FirstName</p>
             <br/>
             <div class="d-flex flex-row justify-content-between">
               <div class="p-2">Miejscowość:</div>
-              <div class="p-2">@Model.City</div>
+              <div class="p-2">@Model.Seller.City</div>
             </div>
             
             <div class="d-flex flex-row justify-content-between">
               <div class="p-2">Sprzedaje przedmiotów:</div>
-              <div class="p-2">@Model.UserProducts.Count()</div>
+              <div class="p-2">@Model.Seller.UserProducts.Count()</div>
             </div>
 
             <div class="d-flex flex-row justify-content-between">
               <div class="p-2">Ocena użytkownika:</div>
-                @if(Model.Score != float.NaN && Model.Score > 0)
+                @if(Model.Seller.Score != float.NaN && Model.Seller.Score > 0)
                 {
-                    <div class="p-2">@Model.Score</div>
+                    <div class="p-2">@Model.Seller.Score</div>
                 }
                 else
                 {
@@ -137,13 +139,29 @@
             </div>
             <div class="d-flex flex-row justify-content-center">
                 <button type="button" class="btn btn-outline-success">Wyślij wiadomość</button>
+
+                         @if (!ViewBag.hideHeart)
+                        {
+                            <div class="col-lg-3" style="text-align:center">
+                                @if (ViewBag.IfalreadyObserved)
+                                {
+                                    <div class="hearte liked" onclick="removefavouriteSeller('@Model.Seller.Id')"></div>
+                                }
+                                else
+                                {
+                                    <div class="hearte" onclick="addtofavouriteSeller('@Model.Seller.Id')"></div>
+                                }
+                                
+                            </div>
+                        }
             </div>
 
+                        
             <div class="col mt-5">
                 <p class="h5 text-center">Ostatnie komentarze</p>
-                @if(@Model.Opinions.Any())
+                @if(@Model.Seller.Opinions.Any())
                 {
-                    @foreach (var opinion in Model.Opinions.OrderByDescending(x => x.OpinionId).Take(2))
+                    @foreach (var opinion in Model.Seller.Opinions.OrderByDescending(x => x.OpinionId).Take(2))
                     {
                         <hr/>
                         <div class="m-2">

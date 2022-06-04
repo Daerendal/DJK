@@ -5,7 +5,7 @@
     });
 
     /*when the animation is over, remove the class*/
-    $(".heart").on('animationend', function () {
+    $(".hearte").on('animationend', function () {
         $(this).toggleClass('is_animating');
     });
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Merkado.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Merkado.Controllers
 {
@@ -22,10 +23,45 @@ namespace Merkado.Controllers
             _userManager = userManager;
         }
 
-       
+        [Authorize]
+        public void addtoFavouritee(string UserId)
+        {
+
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+
+            var ifObservedSeller = _db.FavouriteSeller.Any(O => O.SellerId == UserId && O.UserID == userId);
+            if (ifObservedSeller)
+            {
+                removefavourite(UserId);
+            }
+            else
+            {
+                var ObservedSeller = new FavouriteSeller();
+                ObservedSeller.SellerId = UserId;
+                ObservedSeller.UserID = userId;
+                _db.Add(ObservedSeller);
+                _db.SaveChanges();
+            }
+        }
+        public void removefavourite(string UserId)
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+            var ifObservedSeller = _db.FavouriteSeller.Any(O => O.SellerId == UserId && O.UserID == userId);
+            if (ifObservedSeller)
+            {
+                var ObservedSeller = _db.FavouriteSeller.Where(O => O.SellerId == UserId && O.UserID == userId).FirstOrDefault();
+                _db.Remove(ObservedSeller);
+                _db.SaveChanges();
+            }
+            else
+            {
+                addtoFavouritee(UserId);
+            }
+        }
 
         public IActionResult Index(string user)
         {
+            ObservedSellerVM observedSellerVM = new ObservedSellerVM();
             if (user != null)
             {
                 currentUser = user;
@@ -42,7 +78,23 @@ namespace Merkado.Controllers
                               .FirstOrDefault();
 
                 var opinions = userInfo.Opinions;
-
+                if (!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
+                {
+                    var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+                    var ObservedSeller = _db.FavouriteSeller.Any(O => O.SellerId == user && O.UserID == userId);
+                    var sameUser = userId == user;
+                    ViewBag.IfalreadyObserved = ObservedSeller;
+                    ViewBag.hideHeart = false;
+                    if(sameUser)
+                    {
+                        ViewBag.hideHeart = true;
+                    }
+                }
+                else
+                {
+                    ViewBag.IfalreadyObserved = false;
+                    ViewBag.hideHeart = true;
+                }
                 if (opinions != null && opinions.Count > 0)
                 {
                     foreach (Opinion opinion in opinions)
@@ -53,8 +105,8 @@ namespace Merkado.Controllers
 
                     userInfo.Opinions = opinions;
                 }
-               
-                return View(userInfo);
+                observedSellerVM.Seller = userInfo;
+                return View(observedSellerVM);
             }
             else
             {
