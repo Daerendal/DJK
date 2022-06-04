@@ -145,37 +145,37 @@ namespace Merkado.Controllers
                 return code;
             }
         }
-        public string promocode(string promocode)
-        {
-            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
-            string userId = string.Empty;
+        //public string promocode(string promocode)
+        //{
+        //    var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+        //    string userId = string.Empty;
 
-            if (userName != null)
-            {
-                userId = _userManager.FindByNameAsync(userName).Result.Id;
+        //    if (userName != null)
+        //    {
+        //        userId = _userManager.FindByNameAsync(userName).Result.Id;
 
-            }
-            var user = _db.Users
-                   .Where(id => id.Id == userId)
-                   .FirstOrDefault();
-            var code = user.PromoCode;
-            if(promocode == code)
-            {
-                return "activecode";
-            }
-            else
-            {
-                return "inactivecode";
-            }
+        //    }
+        //    var user = _db.Users
+        //           .Where(id => id.Id == userId)
+        //           .FirstOrDefault();
+        //    var code = user.PromoCode;
+        //    if(promocode == code)
+        //    {
+        //        return "activecode";
+        //    }
+        //    else
+        //    {
+        //        return "inactivecode";
+        //    }
        
-        }
-        protected string wartosc(string code)
-        {
+        //}
+        //protected string wartosc(string code)
+        //{
 
-            {
-                return code;
-            }
-        }
+        //    {
+        //        return code;
+        //    }
+        //}
     }
 
 }

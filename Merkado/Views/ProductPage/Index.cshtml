@@ -150,11 +150,11 @@
                             <p class="text-center">
                                 @if (Model.CurrentProduct.IsSold)
                                 {
-                                    <button disabled type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;"><a class="btn mt-auto">Kup teraz</a></button>
+                                    <button disabled type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;">Kup teraz</button>
                                 }
                                 else
                                 {
-                                    <button type="button" class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%;"><a class="btn mt-auto" href="/PaymentPage?item=@Model.CurrentProduct.ProductId">Kup teraz</a></button>
+                                    <a class="btn btn-secondary fs-4 fw-bold text-center" style="width: 100%" href="/PaymentPage?item=@Model.CurrentProduct.ProductId">Kup teraz</a>
                                 }
                             </p>
                         </div>
