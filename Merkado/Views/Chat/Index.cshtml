@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<User>
+
+@{
     ViewData["Title"] = "Wiadomości";
 }
 
@@ -6,24 +8,34 @@
      <div class="row" enctype="multipart/form-data" asp-action="AddProduct" method="post">
 
         <div class="col-md-3 mb-3">
-            <div class="btn card mt-1 mb-1">
-              <div class="card-body">
-                    nazwauzytkownika@merkado.pl
-              </div>
-            </div>
-
-            <div class="btn card mt-1 mb-1">
-              <div class="card-body">
-                    nazwauzytkownika@merkado.pl
-              </div>
-            </div>
+                @if(Model.Capacity == 0 || Model == null)
+                {
+                        <p>Brak kontaktów.</p>
+                }
+                else
+                {
+                    @foreach (var user in Model)
+                    {
+                        <button value=@user.Id class="btn card mt-1 mb-1" id="userBtn">
+                          <div class="card-body">
+                                @user.FirstName @user.LastName
+                          </div>
+                        </button>
+                    }
+                }
         </div>
-
-
         
-        <div class="col ml-3">
-            <partial name="Messages" />
-        </div>
+        <div class="col ml-3" id="partialMessages">
+
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("userBtn").onclick = function () { myFunction() };
+    
+    function myFunction() {
+        let userid = document.getElementById("userBtn").value;
+        $("#partialMessages").load('@Url.Action("Messages","Chat")/' + userid);
+    }
+</script>

@@ -1,29 +1,45 @@
-﻿@{
+﻿@using Merkado.ViewModels
+@model ChatVM
+
+@{
+}
+<form method="post">
+
+@foreach (var message in Model.Messages)
+{
+    if(Model.Messages.Capacity == 0 || Model == null)
+    {
+            <p>Brak wiadomości.</p>
+    }
+
+    if(message.FromUser == null)
+    {
+        <div class="d-flex flex-row justify-content-start">
+            <div>
+            <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">@message.Message</p>
+            <p class="small ms-3 mb-3 rounded-3 text-muted">@message.CreatedDate.ToShortTimeString()</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="d-flex flex-row justify-content-end mb-4 pt-1">
+            <div>
+                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">@message.Message</p>
+                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">@message.CreatedDate.ToShortTimeString()</p>
+            </div>
+        </div>
+    }
 }
 
-<div class="d-flex flex-row justify-content-start">
-    <div>
-    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Cze</p>
-    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Oferta aktualna?</p>
-    <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">???</p>
-    <p class="small ms-3 mb-3 rounded-3 text-muted">23:58</p>
-    </div>
-</div> 
-
-
-<div class="d-flex flex-row justify-content-end mb-4 pt-1">
-    <div>
-    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Cze</p>
-    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Tak</p>
-    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">A skąd klikasz? xDD</p>
-    <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:06</p>
-    </div>
-</div>
-
 <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-    <input type="text" class="form-control form-control-lg" placeholder="Napisz wiadomość...">
-    <a class="ms-3" href="#!"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+    <input type="hidden" asp-for="ToUser" value="@Model.Messages.Where(x=>x.FromUser == null).Select(z=>z.FromUserId).FirstOrDefault()" />
+    <input class="form-control" asp-for="@Model.NewMessege" placeholder="Napisz wiadomość...">
+    <button asp-area="" asp-controller="Chat" asp-action="SendMessage" type="submit" class="ms-3 border-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
         <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
-                                </svg>
+                                </svg> 
+    </button>
     </a>
 </div>
+
+</form>
