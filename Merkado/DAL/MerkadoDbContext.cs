@@ -55,5 +55,6 @@ namespace Merkado.DAL
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<ObservedProduct> ObservedProducts { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
     }
 }

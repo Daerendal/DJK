@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Wiadomości";
+}
+
+<div class="container bg-light rounded-3 p-4">
+     <div class="row" enctype="multipart/form-data" asp-action="AddProduct" method="post">
+
+        <div class="col-md-3 mb-3">
+            <div class="btn card mt-1 mb-1">
+              <div class="card-body">
+                    nazwauzytkownika@merkado.pl
+              </div>
+            </div>
+
+            <div class="btn card mt-1 mb-1">
+              <div class="card-body">
+                    nazwauzytkownika@merkado.pl
+              </div>
+            </div>
+        </div>
+
+
+        
+        <div class="col ml-3">
+            <partial name="Messages" />
+        </div>
+        </div>
+    </div>
+</div>
