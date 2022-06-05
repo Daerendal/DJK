@@ -29,7 +29,7 @@ namespace Merkado.Controllers
             _db = db;
             _httpContextAccessor = httpContextAccessor;
         }
-
+        [Authorize]
         public IActionResult Index(int item)
         {
             var paymentPageVM = new PaymentPageVM();
@@ -85,14 +85,22 @@ namespace Merkado.Controllers
                 return NotFound();
             }
         }
-        public async Task<IActionResult> SendMail(PaymentPageVM model)
+        public async Task<IActionResult> SendMails(string SellerId, int idprod)
         {
-            string to = "aleksanderjokiel@gmail.com"; //To address    
+            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+            string to = userName; //To address    
             string from = "MerkadoP4D2@gmail.com"; //From address    
             MailMessage message = new MailMessage(from, to);
 
-            string mailbody = "OLEK TO DZIAŁA";
-            message.Subject = "Sending Email Using Asp.Net & C#";
+            var user = _db.Users
+                    .Where(o => o.Id== SellerId)
+                    .FirstOrDefault();
+            var prod = _db.Products
+                .Where(id => id.ProductId == idprod)
+                .FirstOrDefault();
+
+            string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email);
+            message.Subject = String.Format("Potwierdzenie Zakupu {0}, od sprzedawcy {1}", prod.Name, user.FirstName);
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
@@ -105,15 +113,18 @@ namespace Merkado.Controllers
             try
             {
                 client.Send(message);
-            }
+                prod.IsSold = true;
+                _db.Products.Update(prod);
+                _db.SaveChanges();
 
+            }
             catch (Exception ex)
             {
                 throw ex;
             }
-
-            return Redirect("Index");
+            return Redirect("/Home/Index");
         }
+
         public string promocode(string promocode)
         {
             var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;

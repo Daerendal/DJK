@@ -38,7 +38,8 @@ namespace Merkado.Controllers
             if (userName != null)
             {
                 var ObservedProducts = _db.ObservedProducts
-                    .Where(o => o.UserId == userId);
+                    .Where(o => o.UserId == userId)
+                    .ToList();
 
 
                 var productList = _db.Products
@@ -46,13 +47,31 @@ namespace Merkado.Controllers
                 .Include(i => i.Images)
                 .Include(p => p.Providers)
                 .ToList();
+                  
+               
+
 
                 ObservedPageVM.OProducts = productList;
-                ObservedPageVM.ObservedProduct = ObservedProducts.ToList();
+                ObservedPageVM.ObservedProduct = ObservedProducts;
 
                 return View(ObservedPageVM);
             }
             return NotFound();
+        }
+        public IActionResult DeleteObservedProduct(int productId)
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+            var ifObservedProduct = _db.ObservedProducts.Where(O => O.ProductId == productId && O.UserId == userId).FirstOrDefault();
+            if (userId != null)
+            {
+                    _db.ObservedProducts.Remove(ifObservedProduct);
+                    _db.SaveChanges();
+                    return Redirect("/ObservedProduct/Index");
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

@@ -61,3 +61,16 @@ function topFunction() {
 }
 
 
+function SendMail(Id, pId) {
+    $.ajax({
+        type: 'POST',
+        url: '/PaymentPage/SendMails',
+        data: { SellerId: Id, idprod:pId},
+        success: function (data) {
+
+        },
+        error: function (ex) {
+
+        }
+    })
+}

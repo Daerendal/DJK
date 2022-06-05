@@ -125,13 +125,12 @@
                            </div> 
                        </div> 
                        <div class="col-12 px-md-5 px-4 mt-3"> 
-                           <div class="btn btn-primary w-100 ">@ViewBag.Andrzej zł</div> 
+                           <div class="btn btn-primary w-100" onclick="SendMail('@Model.Seller.Id', @Model.CurrentProduct.ProductId)">@ViewBag.Andrzej zł</div> 
                            </div>                            </div> 
 
 
-                           <form asp-action="SendMail"  method="post">
-                          <button type="submit" class="btn col-6 btn-success" id="submit" value="Submit">Wyslij maila</button>
-                           </form>
+
+                  
                            </div> 
                            </div>
 

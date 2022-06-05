@@ -8,67 +8,73 @@
 }
 
 <div class="container bg-light rounded-3 p-4">
+    <h2>Twoje ogłoszenia</h2>
+    <div class="col-12 border-bottom">
+        <form method="post">
+            @if (Model.ObservedProduct.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            <p>Zdjęcie</p>
+                        </th>
+                        <th>
+                            <p>Nazwa</p>
+                        </th>
+                        <th>
+                            <p>Data dodania</p>
+                        </th>
+                        <th>
+                            <p>Kategoria</p>
+                        </th>
+                        <th>
+                            <p>Lokalizacja</p>
+                        </th>
 
-    
+                        <th>
 
-    @if(Model.ObservedProduct.Count() == 0)
-                {
-                    <div class="container col-6 offset-4">
-                    <h5 class="fw-bolder">Brak Obserwowanych przedmiotów</h5>
-                    </div>
-                   
-                }
-                else
-                {
-                    @foreach(var item2 in Model.ObservedProduct)       
-                         {
-                    @foreach (var item in Model.OProducts)
-                    {
-                        @if (item2.ProductId == item.ProductId)
-                        {
-        <div class="container bg-light rounded-3 mt-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                            <div class="main page items" style="background-color: #fff;">
-                                <div class="col mb-5">
-                                    <a class="btn mt-auto" href="/ProductPage?item=@item.ProductId">
-                                        <div class="card h-100" style="border:hidden;">
-                                            <!-- Product name-->
-                                    <h5 class="fw-bolder">@item.Name</h5>
-                                            <!-- Product image-->
-                                    <img width="580" height="280"  class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
-                                            <!-- Product details-->
-                                    <div class="card-body p-4">
+                        </th>
+                    </tr>
+                     @foreach(var item in Model.ObservedProduct)
+                            {
+                            @foreach(var product in Model.OProducts)
+                                {
+                                    @if(item.ProductId == product.ProductId)
+                                    {
+                                    <tr>
+                                        <td>
+                                            <img height="25" src="~/images/@product.CoverURL" />
+                                        </td>
+                                        <td>
+                                            <a href="/ProductPage?item=@product.ProductId"> @Html.DisplayFor(x => product.Name) </a>   
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(x => product.AddedDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(x => product.Category.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(x => product.Localization)
+                                        </td>
+                                        <td>
+                                            <button asp-area="" asp-controller="ObservedProduct" asp-action="DeleteObservedProduct" asp-route-productId="@product.ProductId" onclick="return confirm('Czy na pewno chcesz usunąć ogłszenie?')" class="btn btn-danger btn-sm">Usuń</button>
 
-                                                <div class="text-center fs-5">
-                                                    <!-- Product price-->
-                                            @item.Price zł
-                                                    <br>
-                                                    <div class="fs-6 fw-light">
-                                                        <!-- Product date-->
-                                            @item.AddedDate.ToString("dd.MM.yyyy")
-                                                        <!-- Product localization-->
-                                            @item.Localization
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                                    
-                            </div>
-                            </div>   
-                            </div>
-                        }
-                    }
-                }
-              }           
-
-         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                                        </td>
+                                    </tr>
+                                    }                                
+                                    }
+                                }
+                            
+                          </table>
+            }
+                                                else
+                                    {
+                                        <p>Nie masz aktualnie żadnych ogłoszeń.</p>
+                                    }
+        </form>
     </div>
-
-
-
-
+</div>
 
 
 
