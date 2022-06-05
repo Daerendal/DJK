@@ -9,6 +9,7 @@
 <div class="container bg-light d-md-flex align-items-center"> 
     <div class="card box1 shadow-sm p-md-5 p-md-5 p-4"> 
         <div class="fw-bolder mb-4">
+
             <span class="fas fa-dollar-sign"></span>
             <span class="ps-1">Cena:
             @Model.CurrentProduct.Price zł</span></div>
@@ -39,11 +40,11 @@
                             <span class="far fa-calendar-alt text">
                                 <span class="ps-2">Metoda dostawy:</span>
                             </span> <span class="ps-3">
-                                @foreach (var item in Model.CurrentProduct.Providers)
+                            @foreach (var item in Model.CurrentProduct.Providers)
                             {
-                                @item.Name
-                                ;
-                                <br />
+                                <label>
+                                <input type="radio" class="radio" value="@item.ProviderId" aria-required="true" onclick="checkboxvalue(@item.ProviderId)" name="fooby[1][]" />@item.Name</label>
+    
                             }
 
                             <div>
@@ -125,8 +126,10 @@
                            </div> 
                        </div> 
                        <div class="col-12 px-md-5 px-4 mt-3"> 
-                           <div class="btn btn-primary w-100" onclick="SendMail('@Model.Seller.Id', @Model.CurrentProduct.ProductId)">@ViewBag.Andrzej zł</div> 
-                           </div>                            </div> 
+                           <a class="btn btn-primary w-100" asp-controller="PaymentPage" asp-action="SendMails" asp-route-checked="" asp-route-SellerId="@Model.Seller.Id" asp-route-idprod="@Model.CurrentProduct.ProductId">@ViewBag.Andrzej zł</a>
+
+                           </div>                            
+                           </div> 
 
 
 

@@ -61,11 +61,11 @@ function topFunction() {
 }
 
 
-function SendMail(Id, pId) {
+function SendMails(id) {
     $.ajax({
         type: 'POST',
-        url: '/PaymentPage/SendMails',
-        data: { SellerId: Id, idprod:pId},
+        url: '/PaymentPage/ValueBox',
+        data: { checkboxId: id},
         success: function (data) {
 
         },
@@ -74,3 +74,19 @@ function SendMail(Id, pId) {
         }
     })
 }
+
+$("input:checkbox").on('click', function () {
+    // in the handler, 'this' refers to the box clicked on
+    var $box = $(this);
+    if ($box.is(":checked")) {
+        // the name of the box is retrieved using the .attr() method
+        // as it is assumed and expected to be immutable
+        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        // the checked state of the group/box on the other hand will change
+        // and the current value is retrieved using .prop() method
+        $(group).prop("checked", false);
+        $box.prop("checked", true);
+    } else {
+        $box.prop("checked", false);
+    }
+});

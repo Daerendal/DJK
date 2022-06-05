@@ -85,10 +85,15 @@ namespace Merkado.Controllers
                 return NotFound();
             }
         }
+
+        public int ValueBox(int checkboxId)
+        {
+            return (checkboxId);
+        }
         public async Task<IActionResult> SendMails(string SellerId, int idprod)
         {
-            var userName = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
-            string to = userName; //To address    
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+            string to = userId.Email; //To address    
             string from = "MerkadoP4D2@gmail.com"; //From address    
             MailMessage message = new MailMessage(from, to);
 
@@ -98,8 +103,9 @@ namespace Merkado.Controllers
             var prod = _db.Products
                 .Where(id => id.ProductId == idprod)
                 .FirstOrDefault();
-
-            string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email);
+            int chec = 1;
+            ValueBox(chec);
+            string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. {3},Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email, chec);
             message.Subject = String.Format("Potwierdzenie Zakupu {0}, od sprzedawcy {1}", prod.Name, user.FirstName);
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
@@ -114,6 +120,7 @@ namespace Merkado.Controllers
             {
                 client.Send(message);
                 prod.IsSold = true;
+                prod.BuyerId = userId.Id;
                 _db.Products.Update(prod);
                 _db.SaveChanges();
 

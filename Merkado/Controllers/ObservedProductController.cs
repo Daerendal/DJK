@@ -46,6 +46,7 @@ namespace Merkado.Controllers
                 .Include(c => c.Category)
                 .Include(i => i.Images)
                 .Include(p => p.Providers)
+                .Where(s => s.IsSold == false)
                 .ToList();
                   
                

@@ -1,5 +1,5 @@
 ﻿using Merkado.Models;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Merkado.ViewModels
 {
@@ -11,6 +11,6 @@ namespace Merkado.ViewModels
 
         public User Buyer { get; set; }
 
-
+        public  Provider provider{ get; set; } 
     }
 }
