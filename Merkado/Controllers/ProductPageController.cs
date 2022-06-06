@@ -72,7 +72,7 @@ namespace Merkado.Controllers
            
             var productPageVM = new ProductPageVM();
 
-
+            string userId;
 
             if (item > 0)
             {
@@ -102,7 +102,7 @@ namespace Merkado.Controllers
                 
                 if (!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
                 {
-                    var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+                    userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
                     var ObservedProduct = _db.ObservedProducts.Any(O => O.ProductId == item && O.UserId == userId);
 
                     ViewBag.IfalreadyObserved = ObservedProduct;
@@ -127,11 +127,17 @@ namespace Merkado.Controllers
                 if (product != null)
                 {
                     productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
-                    var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-                    if(userId ==productPageVM.Seller.Id)
+                    if (!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
                     {
-                        ViewBag.andrzej = true;
+                        userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+                        if (userId == productPageVM.Seller.Id)
+                        {
+                            ViewBag.andrzej = true;
+                        }
                     }
+
+
+
                     return View(productPageVM);
                 }
                 
