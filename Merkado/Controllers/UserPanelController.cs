@@ -1,5 +1,6 @@
 ﻿using Merkado.DAL;
 using Merkado.Models;
+using Merkado.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,14 +11,27 @@ namespace Merkado.Controllers
     {
         private readonly MerkadoDbContext _db;
         private UserManager<User> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserPanelController(MerkadoDbContext db, UserManager<User> userManager)
+
+        public UserPanelController(MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
+            _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
         }
+        public IActionResult PurchaseHistory()
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
 
-        public IActionResult Index()
+            var userInfo = _db.Users
+                              .Include(p => p.UserProducts.Where(s => s.IsSold == true))
+                              .Where(i => i.Id == userId).FirstOrDefault(); 
+
+            return View(userInfo);
+        }
+
+            public IActionResult Index()
         {
             var loggedUser = _userManager.GetUserAsync(User);
             

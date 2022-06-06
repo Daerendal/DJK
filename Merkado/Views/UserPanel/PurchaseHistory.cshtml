@@ -1,0 +1,50 @@
+﻿@model User
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="text-center">
+     <h1>Twoja Historia Sprzedanych Przedmiotów: </h1>
+    <section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+
+                
+
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                    @foreach (var item in @Model.UserProducts)
+                    {
+                         <div class="main page items" style="background-color: #fff;">
+                        <div class="col mb-5">
+                            <a class="btn mt-auto" href="#">
+                                <div class="card h-100" style="border:hidden;">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder">@item.Name</h5>
+                                    <!-- Product image-->
+                                    <img width="580" height="280"  class="card-img-top" src="@Url.Content("/images/" + item.CoverURL)" />
+                                    <!-- Product details-->
+                                    <div class="card-body p-4">
+                                        
+                                        <div class="text-center fs-5">
+                                            <!-- Product price-->
+                                            @item.Price zł
+                                            <br>
+                                            <div class="fs-6 fw-light">
+                                            <!-- Product date-->
+                                            @item.AddedDate.ToString("dd.MM.yyyy")
+                                            <!-- Product localization-->
+                                            @item.Localization
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        </div>
+                    }
+                </div>
+            </div>         
+    </section>
+</div>

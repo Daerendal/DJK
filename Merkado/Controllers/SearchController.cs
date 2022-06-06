@@ -45,6 +45,8 @@ namespace Merkado.Controllers
             if (category != null)
             {
                 SearchVM.UsedCategory = category;
+                SearchVM.UsedFilter = null;
+                SearchVM.UsedLocation = null;
             }
                 else if (SearchVM.UsedCategory == null)
                 {
