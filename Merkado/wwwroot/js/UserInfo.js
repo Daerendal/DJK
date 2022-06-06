@@ -39,3 +39,16 @@ function removefavouriteSeller(Id) {
             }
         })
     }
+function SendMail(id) {
+    $.ajax({
+        type: 'POST',
+        url: '/PaymentPage/ValueBox',
+        data: { checkboxId: id },
+        success: function (data) {
+
+        },
+        error: function (ex) {
+
+        }
+    })
+}

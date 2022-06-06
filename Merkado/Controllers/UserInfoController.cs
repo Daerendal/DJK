@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Merkado.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Mail;
+using System.Text;
 
 namespace Merkado.Controllers
 {
@@ -67,7 +69,7 @@ namespace Merkado.Controllers
                 currentUser = user;
             }
 
-            if(currentUser != null)
+            if (currentUser != null)
             {
 
 
@@ -85,7 +87,7 @@ namespace Merkado.Controllers
                     var sameUser = userId == user;
                     ViewBag.IfalreadyObserved = ObservedSeller;
                     ViewBag.hideHeart = false;
-                    if(sameUser)
+                    if (sameUser)
                     {
                         ViewBag.hideHeart = true;
                     }
@@ -100,7 +102,7 @@ namespace Merkado.Controllers
                     foreach (Opinion opinion in opinions)
                     {
                         opinion.ReviewerName = _db.Users.Where(rev => rev.Id == opinion.ReviewerId).Select(n => n.FirstName).FirstOrDefault();
-                        
+
                     }
 
                     userInfo.Opinions = opinions;
@@ -111,10 +113,10 @@ namespace Merkado.Controllers
             else
             {
                 return View("ErrorPage");
-            }  
+            }
         }
 
-
+        [Authorize]
         public async Task<IActionResult> AddOpinion(string comment, int rating)
         {
             //var lastOpinion = _db.Opinions.Include(x => x.OpinionId).OrderByDescending().Take(1);
@@ -130,6 +132,8 @@ namespace Merkado.Controllers
                 ReviewerName = logedUser.UserName
             };
 
+            PromoCodeGenerator();
+
             opnionedUser.Opinions.Add(opinion);
 
             _db.Opinions.Add(opinion);
@@ -138,6 +142,85 @@ namespace Merkado.Controllers
 
             return Redirect("Index");
         }
+
+        public void PromoCodeGenerator()
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+            var promocodeCount = _db.Users.Where(id => id.Id == userId.Id).FirstOrDefault();
+            if (promocodeCount.OpinionCounter == 3)
+            {
+                var n = 10; var k = 10;
+                promocodeCount.OpinionCounter = 0;
+                Random rand = new Random();
+                // wypełnianie tablicy liczbami 1,2...n
+                int[] numbers = new int[n];
+                for (int i = 0; i < n; i++)
+                    numbers[i] = i + 1;
+                // losowanie k liczb
+
+                for (int i = 0; i < k; i++)
+                {
+                    // tworzenie losowego indeksu pomiędzy 0 i n - 1
+                    int r = rand.Next(n);
+
+                    // wybieramy element z losowego miejsca
+                    Console.WriteLine(numbers[r]);
+
+                    // przeniesienia ostatniego elementu do miejsca z którego wzięliśmy
+                    numbers[r] = numbers[n - 1];
+                    n--;
+                }
+                var st = "";
+                for(int i = 0; i < k; i++)
+                {
+                    st += numbers[i].ToString();
+                }
+                promocodeCount.PromoCode = st;
+
+                    SendMail(st);
+            }
+            else
+            {
+                promocodeCount.OpinionCounter += 1;
+            }
+            _db.Users.Update(promocodeCount);
+            _db.SaveChanges();
+            
+        }
+
+        public void SendMail(string st)
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
+            string to = userId.Email; //To address    
+            string from = "MerkadoP4D2@gmail.com"; //From address    
+            MailMessage message = new MailMessage(from, to);
+
+            var user = _db.Users
+                    .Where(o => o.Id == userId.Id)
+                    .FirstOrDefault();
+
+            string mailbody = String.Format("Oto twój kod promocyjny {0}", st);
+            message.Subject = String.Format("Promocyjny kod za 4 komentarz na dostawy na Merkado");
+            message.Body = mailbody;
+            message.BodyEncoding = Encoding.UTF8;
+            message.IsBodyHtml = true;
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
+            System.Net.NetworkCredential basicCredential1 = new
+            System.Net.NetworkCredential("MerkadoP4D2", "ucxj srmh gxcy pmer");
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = basicCredential1;
+            try
+            {
+                client.Send(message);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
 
 

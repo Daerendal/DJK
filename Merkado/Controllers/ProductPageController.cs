@@ -99,7 +99,7 @@ namespace Merkado.Controllers
 
                     productPageVM.SimilarProducts = similarProducts;
                 }
-
+                
                 if (!String.IsNullOrEmpty(_httpContextAccessor.HttpContext?.User.Identity?.Name))
                 {
                     var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
@@ -123,12 +123,15 @@ namespace Merkado.Controllers
                 _db.Products.Update(product);
                 _db.SaveChanges();
                 productPageVM.CurrentProduct = product;
-
+                ViewBag.andrzej = false;
                 if (product != null)
                 {
                     productPageVM.Seller = _db.Users.Where(id => id.UserProducts.Contains(product)).FirstOrDefault();
-                    
-
+                    var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+                    if(userId ==productPageVM.Seller.Id)
+                    {
+                        ViewBag.andrzej = true;
+                    }
                     return View(productPageVM);
                 }
                 

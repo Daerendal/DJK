@@ -128,8 +128,9 @@
 
 
                     <div class="row">
-                        
-                        @if (!ViewBag.hideHeart)
+                        @if(!ViewBag.andrzej)
+                        {
+                            @if (!ViewBag.hideHeart)
                         {
                             <div class="col-lg-3" style="text-align:center">
                                 @if (ViewBag.IfalreadyObserved)
@@ -165,6 +166,9 @@
                             </svg>
                             @ViewBag.ViewsCount
                         </div>
+                        }
+                        
+                       
 
                         
                     </div>
