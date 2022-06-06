@@ -19,6 +19,9 @@
               <li class="nav-item" role="presentation">
                 <button class="nav-link" id="addComment-tab" data-bs-toggle="tab" data-bs-target="#addComment" type="button" role="tab" aria-controls="addComment" aria-selected="false">Dodaj Komentarz</button>
               </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sellHistory-tab" data-bs-toggle="tab" data-bs-target="#sellHistory" type="button" role="tab" aria-controls="sellHistory" aria-selected="false">Historia Sprzedazy</button>
+              </li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="product-tab">
@@ -28,31 +31,73 @@
                     
                                 @foreach(var product in @Model.Seller.UserProducts)
                                 {
-                                    <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
-                                        <div class="col mb-5">
-                                            <div class="card h-100">
-                                                <div style="height:16rem">
-                                                    <img class="image" src="@Url.Content("/images/" + product.CoverURL)" />
-                                                </div>
-                                                <!-- Product details-->
-                                                <div class="text-center" style="height:5rem;">
-                                                    <div style=" display:flex; flex-direction:column; flex:1;" class="h-100">
-                                                        <h5 class="fw-bolder">@product.Name</h5>
-
-                                                        <div style="margin-top: auto;">
-                                                            @product.Price zł
-                                                        </div>
+                                    @if (product.IsSold == false)
+                                    {
+                                        <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
+                                            <div class="col mb-5">
+                                                <div class="card h-100">
+                                                    <div style="height:16rem">
+                                                        <img class="image" src="@Url.Content("/images/" + product.CoverURL)" />
                                                     </div>
+                                                    <!-- Product details-->
+                                                    <div class="text-center" style="height:5rem;">
+                                                        <div style=" display:flex; flex-direction:column; flex:1;" class="h-100">
+                                                            <h5 class="fw-bolder">@product.Name</h5>
 
+                                                            <div style="margin-top: auto;">
+                                                                @product.Price zł
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    }
                                 }
 
                             </div>
                         </div>
                     </section>
+                </div>
+
+                <div class="tab-pane fade" id="sellHistory" role="tabpanel" aria-labelledby="sellHistory-tab">
+                    <section class="py-2">
+                        <div class="container px-4 px-lg-5 mt-5">
+                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                    
+                                @foreach(var product in @Model.Seller.UserProducts)
+                                {
+                                    @if (product.IsSold == true)
+                                    {
+                                        <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
+                                            <div class="col mb-5">
+                                                <div class="card h-100">
+                                                    <div style="height:16rem">
+                                                        <img class="image" src="@Url.Content("/images/" + product.CoverURL)" />
+                                                    </div>
+                                                    <!-- Product details-->
+                                                    <div class="text-center" style="height:5rem;">
+                                                        <div style=" display:flex; flex-direction:column; flex:1;" class="h-100">
+                                                            <h5 class="fw-bolder">@product.Name</h5>
+
+                                                            <div style="margin-top: auto;">
+                                                                @product.Price zł
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                    </section>
+
+
                 </div>
                      
                 <div class="tab-pane fade" id="comment" role="tabpanel" aria-labelledby="comment-tab">

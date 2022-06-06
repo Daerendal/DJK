@@ -72,7 +72,7 @@ namespace Merkado.Controllers
 
 
                 var userInfo = _db.Users
-                              .Include(p => p.UserProducts.Where(s=>s.IsSold == false))
+                              .Include(p => p.UserProducts)
                               .Include(o => o.Opinions)
                               .Where(i => i.Id == currentUser)
                               .FirstOrDefault();
