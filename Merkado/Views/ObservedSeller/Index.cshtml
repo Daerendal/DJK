@@ -19,21 +19,14 @@
                 <table class="table table-striped border">
                     <tr class="table-secondary">
                         <th>
-                            <p>Zdjęcie</p>
+                            <p>E-mail</p>
                         </th>
                         <th>
-                            <p>Nazwa</p>
+                            <p>Imię</p>
                         </th>
                         <th>
-                            <p>Data dodania</p>
+                            <p>Miejscowość</p>
                         </th>
-                        <th>
-                            <p>Kategoria</p>
-                        </th>
-                        <th>
-                            <p>Lokalizacja</p>
-                        </th>
-
                         <th>
 
                         </th>
@@ -46,23 +39,16 @@
                         {
                              <tr>
                             <td>
-                                <img height="60" src="~/images/@item.FirstName" />
+                                <a href="/UserInfo?user=@item.Id"> @Html.DisplayFor(x => item.Email) </a>   
                             </td>
                             <td>
-@*                                <a href="/ProductPage?item=@item.ProductId"> @Html.DisplayFor(x => item.Name) </a>  *@ 
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.Email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(x => item.LastName)
+                                @Html.DisplayFor(x => item.FirstName)
                             </td>
                             <td>
                                 @Html.DisplayFor(x => item.City)
                             </td>
                             <td>
                                 <button asp-area="" asp-controller="ObservedSeller" asp-action="StopObserved" asp-route-Id="@item.Id" onclick="return confirm('Czy na pewno chcesz przestać obserwować sprzedawce?')" class="btn btn-danger btn-sm">Przestań obserwować</button>
-
                             </td>
                         </tr>    
                             }
@@ -73,7 +59,7 @@
             }
             else
             {
-                <p>Nie masz aktualnie żadnych ogłoszeń.</p>
+                <p>Nie obserwujesz aktualnie żadnego sprzedawcy.</p>
             }
         </form>
     </div>
