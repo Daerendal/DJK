@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Informacje o użytkowniku";
-        <script src="~/js/UserInfo.js" defer></script>
+    <script src="~/js/UserInfo.js" defer></script>
 }
 
 <div class="container bg-light rounded-3 p-4">
@@ -31,16 +31,19 @@
                                     <a class="btn mt-auto" href="/ProductPage?item=@product.ProductId">
                                         <div class="col mb-5">
                                             <div class="card h-100">
-                                                <!-- Product image-->
-                                                <img class="card-img-top" src="@Url.Content("/images/" + product.CoverURL)" />
+                                                <div style="height:16rem">
+                                                    <img class="image" src="@Url.Content("/images/" + product.CoverURL)" />
+                                                </div>
                                                 <!-- Product details-->
-                                                <div class="card-body p-4">
-                                                    <div class="text-center">
-                                                        <!-- Product name-->
+                                                <div class="text-center" style="height:5rem;">
+                                                    <div style=" display:flex; flex-direction:column; flex:1;" class="h-100">
                                                         <h5 class="fw-bolder">@product.Name</h5>
-                                                        <!-- Product price-->
-                                                        @product.Price zł
+
+                                                        <div style="margin-top: auto;">
+                                                            @product.Price zł
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
