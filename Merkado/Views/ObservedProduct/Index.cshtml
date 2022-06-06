@@ -43,7 +43,9 @@
                                     {
                                     <tr>
                                         <td>
-                                            <img height="25" src="~/images/@product.CoverURL" />
+                                            <div style="height: 40px; width: 40px">
+                                                <img class="image" src="~/images/@product.CoverURL" />
+                                            </div>
                                         </td>
                                         <td>
                                             <a href="/ProductPage?item=@product.ProductId"> @Html.DisplayFor(x => product.Name) </a>   
