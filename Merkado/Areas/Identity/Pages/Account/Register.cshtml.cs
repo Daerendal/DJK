@@ -87,6 +87,7 @@ namespace Merkado.Areas.Identity.Pages.Account
 
             [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [Display(Name = "Kod pocztowy")]
+            [RegularExpression(@"\d{2}-\d{3}", ErrorMessage = "Niepoprawny kod pocztowy")]
             public string PostalCode { get; set; }
         }
 
