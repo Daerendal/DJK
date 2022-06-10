@@ -75,6 +75,10 @@ function SendMails(id) {
     })
 }
 
+
+function checkboxvalue(deliveryvaluejs) {
+    document.getElementById("deliveryValue").value = deliveryvaluejs;
+}
 $("input:checkbox").on('click', function () {
     // in the handler, 'this' refers to the box clicked on
     var $box = $(this);

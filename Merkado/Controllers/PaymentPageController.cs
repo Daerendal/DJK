@@ -90,7 +90,7 @@ namespace Merkado.Controllers
         {
             return (checkboxId);
         }
-        public async Task<IActionResult> SendMails(string SellerId, int idprod)
+        public async Task<IActionResult> SendMails(string SellerId, int idprod, int deliveryValue)
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
             string to = userId.Email; //To address    
@@ -103,8 +103,8 @@ namespace Merkado.Controllers
             var prod = _db.Products
                 .Where(id => id.ProductId == idprod)
                 .FirstOrDefault();
-            int chec = 1;
-            ValueBox(chec);
+            var prov = _db.Providers.Where()
+
             string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. {3},Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email, chec);
             message.Subject = String.Format("Potwierdzenie Zakupu {0}, od sprzedawcy {1}", prod.Name, user.FirstName);
             message.Body = mailbody;
