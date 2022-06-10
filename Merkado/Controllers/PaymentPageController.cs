@@ -103,9 +103,11 @@ namespace Merkado.Controllers
             var prod = _db.Products
                 .Where(id => id.ProductId == idprod)
                 .FirstOrDefault();
-            var prov = _db.Providers.Where()
+            var prov = _db.Providers
+                .Where(v => v.ProviderId == deliveryValue)
+                .FirstOrDefault();
 
-            string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. {3},Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email, chec);
+            string mailbody = String.Format("Oto twoje potwierdzenie kupna przemiotu {0} od uzytkownika {1}, {2}. Metoda dostawy to: {3},Oceń sprzedawce aby otrzymać darmowe dostawy.", prod.Name, user.FirstName, user.Email, prov.Name);
             message.Subject = String.Format("Potwierdzenie Zakupu {0}, od sprzedawcy {1}", prod.Name, user.FirstName);
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
