@@ -45,14 +45,13 @@ namespace Merkado.Controllers
             if (category != null)
             {
                 SearchVM.UsedCategory = category;
-                SearchVM.UsedFilter = null;
-                SearchVM.UsedLocation = null;
-            }
-                else if (SearchVM.UsedCategory == null)
-                {
 
-                    SearchVM.UsedCategory = "Wszystkie";
-                }
+            }
+            else if (SearchVM.UsedCategory == null)
+            {
+
+                SearchVM.UsedCategory = "Wszystkie";
+            }
            
             if (sortOrder != null)
             {
