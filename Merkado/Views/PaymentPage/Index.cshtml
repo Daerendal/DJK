@@ -26,7 +26,7 @@
             <div class="d-flex align-items-center justify-content-between text mb-4">
                 <span>Razem</span>
                 <span class="fas fa-dollar-sign">
-                    <span id="AllPrice" style="display:block" class="ps-1 "> @ViewBag.Andrzej</span>
+                    <span id="AllPrice" style="display:block" class="ps-1 "> @ViewBag.Andrzej zł</span>
                     <span id="AllPrice2" style="display:none" class="ps-1 "> @Model.CurrentProduct.Price zł</span>
                 </span>
             </div>
@@ -77,15 +77,15 @@
                 <span class="fas fa-bars"></span>
             </div>
         </div>
-        <ul class="nav nav-tabs mb-3 px-md-4 px-2">
-            <li class="nav-item">
-                <a class="nav-link px-2 active" aria-current="page" href="#">Karta Kredytowa</a>
+        <ul class="nav nav-tabs mb-3 px-md-4 px-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link px-2 active" id="card-tab" data-bs-toggle="tab" data-bs-target="#card" type="button" role="tab" aria-controls="card" aria-selected="true">Karta Kredytowa</button>
             </li>
-            <li class="nav-item">
-                <a class="nav-link px-2" href="#">Przelew</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link px-2" id="transfer-tab" data-bs-toggle="tab" data-bs-target="#transfer" type="button" role="tab" aria-controls="transfer" aria-selected="false">Przelew</button>
             </li>
-            <li class="nav-item ms-auto">
-                <a class="nav-link px-2" href="#">Przy odbiorze</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link px-2" id="pickup-tab" data-bs-toggle="tab" data-bs-target="#pickup" type="button" role="tab" aria-controls="pickup" aria-selected="false">Przy odbiorze</button>
             </li>
         </ul>
         <div class="px-md-5 px-4 mb-4 d-flex align-items-center">
@@ -95,8 +95,9 @@
 
             </div>
         </div>
-
-        <div class="row">
+        <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="card" role="tabpanel" aria-labelledby="card-tab">
+                           <div class="row">
             <div class="col-12">
                 <div class="d-flex flex-column px-md-5 px-4 mb-4">
                     <span>Numer karty</span> <div class="inputWithIcon">
@@ -132,6 +133,77 @@
                     </div>
                 </div>
             </div>
+       </div>
+       </div>
+       <div class="tab-pane fade" id="transfer" role="tabpanel" aria-labelledby="transfer-tab">
+           <div class="row">
+                                    <div class="col-12">
+                                            <div class="d-flex flex-column px-md-5 px-4 mb-4">
+                                               <span class="fw-bold">Dane do przelewu</span> 
+                                               <div>
+                                                Merkado
+                                                Opole ul. Prószkowska 76, 45-758 Opole
+                                               </div>
+                                               
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                                       <div class="d-flex flex-column ps-md-5 px-md-0 px-4 mb-4">
+                                                          <span class="fw-bold">Kwota:</span> 
+                                                 <span id="AllPrice" style="display:block" class="ps-1 "> @ViewBag.Andrzej zł</span>
+                                                 <span id="AllPrice2" style="display:none" class="ps-1 "> @Model.CurrentProduct.Price zł</span>
+                                            
+                                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                                       <div class="d-flex flex-column pe-md-5 px-md-0 px-4 mb-4">
+                                                    <span class="fw-bold">Tytułem:</span> 
+                                                    <div>Opłata za zakup</div>
+                                                       </div>
+                                    </div>
+                                    <div class="col-12">
+                                            <div class="d-flex flex-column px-md-5 px-4 mb-4">
+                                                <span class="fw-bold">Numer rachunku:</span>
+                                                <div>69 4200 2137 1111 2222 3333 0000</div>
+                                            </div>
+                                    </div>
+                                    </div>
+       </div>
+       <div class="tab-pane fade" id="pickup" role="tabpanel" aria-labelledby="pickup-tab">
+                                                <div class="row">
+                                    <div class="col-12">
+                                            <div class="d-flex flex-column px-md-5 px-4 mb-4">
+                                               <span class="fw-bold">Dane nadawcy</span> 
+                                               <div>
+                                                Merkado
+                                                Opole ul. Prószkowska 76, 45-758 Opole
+                                               </div>
+                                               
+                                            </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                                       <div class="d-flex flex-column ps-md-5 px-md-0 px-4 mb-4">
+                                                          <span class="fw-bold">Kwota:</span> 
+                                                          <span id="AllPrice" style="display:block" class="ps-1 "> @ViewBag.Andrzej zł</span>
+                                                 <span id="AllPrice2" style="display:none" class="ps-1 "> @Model.CurrentProduct.Price zł</span>
+                                                       </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                                       <div class="d-flex flex-column pe-md-5 px-md-0 px-4 mb-4">
+                                                    <span class="fw-bold">Uwaga:</span> 
+                                                          <span>Należy mieć wyliczonę kwotę dla kuriera</span>
+                                                       </div>
+                                    </div>
+                                    <div class="col-12">
+                                            <div class="d-flex flex-column px-md-5 px-4 mb-4">
+                                                <span class="fw-bold">W przypadku problemów zadzwoń:</span>
+                                                <div>692 137 420</div>
+                                            </div>
+                                    </div>
+                                    </div>
+       </div>
+        </div>
+        
             <div class="col-12 px-md-5 px-4 mt-3">
                 <form class="row" asp-action="SendMails"  asp-controller="PaymentPage" method="post">                
                 <input hidden name="deliveryValue" id="deliveryValue" />
