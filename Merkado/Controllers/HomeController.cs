@@ -1,20 +1,20 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
+﻿using DJK.DAL;
+using DJK.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger, MerkadoDbContext db)
+        public HomeController(ILogger<HomeController> logger, DJKDbContext db)
         {
             _logger = logger;
             _db = db;

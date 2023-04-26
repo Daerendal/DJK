@@ -1,6 +1,6 @@
-﻿using Merkado.Models;
+﻿using DJK.Models;
 
-namespace Merkado.ViewModels
+namespace DJK.ViewModels
 {
 #nullable disable
     public static class SearchVM

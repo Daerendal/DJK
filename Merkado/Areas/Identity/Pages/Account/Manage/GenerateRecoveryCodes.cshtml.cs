@@ -5,13 +5,13 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace Merkado.Areas.Identity.Pages.Account.Manage
+namespace DJK.Areas.Identity.Pages.Account.Manage
 {
     public class GenerateRecoveryCodesModel : PageModel
     {

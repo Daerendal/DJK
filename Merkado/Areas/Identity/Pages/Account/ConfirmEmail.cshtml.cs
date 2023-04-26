@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Merkado.Areas.Identity.Pages.Account
+namespace DJK.Areas.Identity.Pages.Account
 {
     public class ConfirmEmailModel : PageModel
     {

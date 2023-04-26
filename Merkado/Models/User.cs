@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Merkado.Models
+namespace DJK.Models
 {
     public class User : IdentityUser
     {

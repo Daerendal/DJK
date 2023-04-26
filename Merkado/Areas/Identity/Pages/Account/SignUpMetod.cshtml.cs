@@ -1,10 +1,10 @@
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Merkado.Areas.Identity.Pages.Account
+namespace DJK.Areas.Identity.Pages.Account
 {
     public class SignUpMetodModel : PageModel
     {

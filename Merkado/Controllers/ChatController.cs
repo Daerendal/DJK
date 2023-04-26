@@ -1,19 +1,19 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
-using Merkado.ViewModels;
+﻿using DJK.DAL;
+using DJK.Models;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class ChatController : Controller
     {
 
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private UserManager<User> _userManager;
 
-        public ChatController(MerkadoDbContext db, UserManager<User> userManager)
+        public ChatController(DJKDbContext db, UserManager<User> userManager)
         {
             _db = db;
             _userManager = userManager;

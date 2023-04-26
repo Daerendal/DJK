@@ -3,7 +3,6 @@ using System;
 using DJK.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,10 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DJK.Migrations
 {
     [DbContext(typeof(DJKDbContext))]
-    [Migration("20230426162807_AlmostFullDatabase")]
-    partial class AlmostFullDatabase
+    partial class DJKDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

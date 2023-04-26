@@ -1,4 +1,4 @@
-﻿namespace Merkado.ViewModels
+﻿namespace DJK.ViewModels
 
 {
     public class OpinionVM

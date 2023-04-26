@@ -1,28 +1,28 @@
-﻿using Merkado.DAL;
+﻿using DJK.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Merkado.ViewModels;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
 
 
     public class PaymentPageController : Controller
     {
         private readonly ILogger<PaymentPageController> _logger;
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public PaymentPageController(ILogger<PaymentPageController> logger, MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        public PaymentPageController(ILogger<PaymentPageController> logger, DJKDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _logger = logger;
@@ -94,7 +94,7 @@ namespace Merkado.Controllers
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
             string to = userId.Email; //To address    
-            string from = "MerkadoP4D2@gmail.com"; //From address    
+            string from = "DJKP4D2@gmail.com"; //From address    
             MailMessage message = new MailMessage(from, to);
 
             var user = _db.Users
@@ -114,7 +114,7 @@ namespace Merkado.Controllers
             message.IsBodyHtml = true;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("MerkadoP4D2", "ucxj srmh gxcy pmer");
+            System.Net.NetworkCredential("DJKP4D2", "ucxj srmh gxcy pmer");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;

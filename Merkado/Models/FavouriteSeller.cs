@@ -1,4 +1,4 @@
-﻿namespace Merkado.Models
+﻿namespace DJK.Models
 {
     public class FavouriteSeller
     {

@@ -1,7 +1,7 @@
-﻿using Merkado.Models;
+﻿using DJK.Models;
 #nullable disable
 
-namespace Merkado.ViewModels
+namespace DJK.ViewModels
 {
     public class AdminPanelVM
     {

@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Merkado": {
+    "DJK": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

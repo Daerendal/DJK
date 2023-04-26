@@ -1,4 +1,4 @@
-﻿namespace Merkado.Utility
+﻿namespace DJK.Utility
 {
     public class Roles
     {

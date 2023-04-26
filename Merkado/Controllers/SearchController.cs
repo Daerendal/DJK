@@ -1,21 +1,21 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
+﻿using DJK.DAL;
+using DJK.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
-using Merkado.ViewModels;
+using DJK.ViewModels;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class SearchController : Controller
     {
 
         private readonly ILogger<SearchController> _logger;
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
 
-        public SearchController(ILogger<SearchController> logger, MerkadoDbContext db)
+        public SearchController(ILogger<SearchController> logger, DJKDbContext db)
         {
             _logger = logger;
             _db = db;

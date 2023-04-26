@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Merkado.Models
+namespace DJK.Models
 {
     public enum OrderState
     {

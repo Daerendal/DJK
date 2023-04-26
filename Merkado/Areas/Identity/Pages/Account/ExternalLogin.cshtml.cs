@@ -11,16 +11,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using Merkado.DAL;
+using DJK.DAL;
 
-namespace Merkado.Areas.Identity.Pages.Account
+namespace DJK.Areas.Identity.Pages.Account
 {
     public class ExternalLoginModel : PageModel
     {
@@ -29,7 +29,7 @@ namespace Merkado.Areas.Identity.Pages.Account
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
         private readonly IEmailSender _emailSender;
-        private readonly MerkadoDbContext _merkadoDbContext;
+        private readonly DJKDbContext _DJKDbContext;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
@@ -37,14 +37,14 @@ namespace Merkado.Areas.Identity.Pages.Account
             UserManager<User> userManager,
             IUserStore<User> userStore,
             ILogger<ExternalLoginModel> logger,
-            MerkadoDbContext merkadoDbContext,
+            DJKDbContext DJKDbContext,
             IEmailSender emailSender)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
-            _merkadoDbContext = merkadoDbContext;
+            _DJKDbContext = DJKDbContext;
             _logger = logger;
             _emailSender = emailSender;
         }

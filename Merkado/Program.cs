@@ -1,14 +1,14 @@
-using Merkado.DAL;
+using DJK.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Merkado.Models;
+using DJK.Models;
 using AspNetCore.ReCaptcha;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
-string connectionString = builder.Configuration.GetConnectionString("MerkadoConnectionString");
+string connectionString = builder.Configuration.GetConnectionString("DJKConnectionString");
 
-builder.Services.AddDbContext<MerkadoDbContext>(options =>
+builder.Services.AddDbContext<DJKDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 builder.Services.AddIdentity<User, IdentityRole>(options => {
@@ -21,7 +21,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
     options.Password.RequiredUniqueChars = 0;
     options.User.RequireUniqueEmail = true;
 })
-    .AddEntityFrameworkStores<MerkadoDbContext>()
+    .AddEntityFrameworkStores<DJKDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 

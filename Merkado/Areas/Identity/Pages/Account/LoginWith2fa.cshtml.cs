@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 
 
-namespace Merkado.Areas.Identity.Pages.Account
+namespace DJK.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {

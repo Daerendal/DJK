@@ -1,20 +1,20 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
-using Merkado.ViewModels;
+﻿using DJK.DAL;
+using DJK.Models;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class UserPanelController : Controller
     {
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
 
-        public UserPanelController(MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        public UserPanelController(DJKDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _httpContextAccessor = httpContextAccessor;

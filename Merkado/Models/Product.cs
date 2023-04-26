@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace Merkado.Models
+namespace DJK.Models
 {
     public class Product
     {

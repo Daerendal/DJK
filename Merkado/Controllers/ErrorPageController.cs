@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     [Route("ErrorPage/{statuscode}")]
     public class ErrorPageController : Controller

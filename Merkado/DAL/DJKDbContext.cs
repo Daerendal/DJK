@@ -1,15 +1,15 @@
-﻿using Merkado.Models;
+﻿using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Merkado.DAL
+namespace DJK.DAL
 {
-    public class MerkadoDbContext : IdentityDbContext
+    public class DJKDbContext : IdentityDbContext
     {
 
 
-        public MerkadoDbContext(DbContextOptions<MerkadoDbContext> options) : base(options)
+        public DJKDbContext(DbContextOptions<DJKDbContext> options) : base(options)
         {
         }
 

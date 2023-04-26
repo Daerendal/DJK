@@ -1,7 +1,7 @@
-﻿using Merkado.Models;
+﻿using DJK.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Merkado.ViewModels
+namespace DJK.ViewModels
 {
 #nullable disable
     public class PaymentPageVM

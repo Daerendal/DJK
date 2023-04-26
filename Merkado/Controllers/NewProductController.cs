@@ -1,18 +1,18 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
-using Merkado.ViewModels;
+﻿using DJK.DAL;
+using DJK.Models;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class NewProductController : Controller
     {
         private readonly ILogger<NewProductController> _logger;
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment webHostEnvironment;
@@ -21,7 +21,7 @@ namespace Merkado.Controllers
 
 
         public NewProductController(ILogger<NewProductController> logger, 
-                                    MerkadoDbContext db, 
+                                    DJKDbContext db, 
                                     UserManager<User> userManager, 
                                     IHttpContextAccessor httpContextAccessor,
                                     IWebHostEnvironment hostEnvironment)

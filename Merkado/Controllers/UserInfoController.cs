@@ -1,24 +1,24 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
+﻿using DJK.DAL;
+using DJK.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Merkado.ViewModels;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Mail;
 using System.Text;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class UserInfoController : Controller
     {
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public static string? currentUser { get; set; }
 
-        public UserInfoController(MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        public UserInfoController(DJKDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _httpContextAccessor = httpContextAccessor;
@@ -192,7 +192,7 @@ namespace Merkado.Controllers
         {
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result;
             string to = userId.Email; //To address    
-            string from = "MerkadoP4D2@gmail.com"; //From address    
+            string from = "DJKP4D2@gmail.com"; //From address    
             MailMessage message = new MailMessage(from, to);
 
             var user = _db.Users
@@ -200,13 +200,13 @@ namespace Merkado.Controllers
                     .FirstOrDefault();
 
             string mailbody = String.Format("Oto twój kod promocyjny {0}", st);
-            message.Subject = String.Format("Promocyjny kod za 4 komentarz na dostawy na Merkado");
+            message.Subject = String.Format("Promocyjny kod za 4 komentarz na dostawy na DJK");
             message.Body = mailbody;
             message.BodyEncoding = Encoding.UTF8;
             message.IsBodyHtml = true;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587); //Gmail smtp    
             System.Net.NetworkCredential basicCredential1 = new
-            System.Net.NetworkCredential("MerkadoP4D2", "ucxj srmh gxcy pmer");
+            System.Net.NetworkCredential("DJKP4D2", "ucxj srmh gxcy pmer");
             client.EnableSsl = true;
             client.UseDefaultCredentials = false;
             client.Credentials = basicCredential1;

@@ -4,17 +4,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using Merkado.DAL;
-using Merkado.Utility;
+using DJK.DAL;
+using DJK.Utility;
 using AspNetCore.ReCaptcha;
 
-namespace Merkado.Areas.Identity.Pages.Account
+namespace DJK.Areas.Identity.Pages.Account
 {
     //[ValidateReCaptcha]
     public class RegisterModel : PageModel
@@ -25,7 +25,7 @@ namespace Merkado.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<User> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly MerkadoDbContext _merkadoDbContext;
+        private readonly DJKDbContext _DJKDbContext;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
@@ -34,7 +34,7 @@ namespace Merkado.Areas.Identity.Pages.Account
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            MerkadoDbContext merkadoDbContext,
+            DJKDbContext DJKDbContext,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -43,7 +43,7 @@ namespace Merkado.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _merkadoDbContext = merkadoDbContext;
+            _DJKDbContext = DJKDbContext;
             _roleManager = roleManager;
         }
 

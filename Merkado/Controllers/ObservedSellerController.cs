@@ -1,21 +1,21 @@
-﻿using Merkado.DAL;
+﻿using DJK.DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Merkado.ViewModels;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class ObservedSellerController : Controller
     {
         private readonly ILogger<ObservedSellerController> _logger;
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ObservedSellerController(ILogger<ObservedSellerController> logger, MerkadoDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+        public ObservedSellerController(ILogger<ObservedSellerController> logger, DJKDbContext db, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
         {
             _userManager = userManager;
             _logger = logger;

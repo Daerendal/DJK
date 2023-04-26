@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Merkado.Models;
+using DJK.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Merkado.Areas.Identity.Pages.Account.Manage
+namespace DJK.Areas.Identity.Pages.Account.Manage
 {
     public class EmailModel : PageModel
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Merkado.Migrations
+namespace DJK.Migrations
 {
     public partial class AlmostFullDatabase : Migration
     {

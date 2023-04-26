@@ -1,18 +1,18 @@
-﻿using Merkado.DAL;
-using Merkado.Models;
-using Merkado.ViewModels;
+﻿using DJK.DAL;
+using DJK.Models;
+using DJK.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Merkado.Controllers
+namespace DJK.Controllers
 {
     public class AdminPanelController : Controller
     {
-        private readonly MerkadoDbContext _db;
+        private readonly DJKDbContext _db;
         private UserManager<User> _userManager;
 
-        public AdminPanelController(MerkadoDbContext db, UserManager<User> userManager)
+        public AdminPanelController(DJKDbContext db, UserManager<User> userManager)
         {
             _db = db;
             _userManager = userManager;
