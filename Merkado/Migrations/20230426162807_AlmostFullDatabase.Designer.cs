@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Merkado.Migrations
 {
     [DbContext(typeof(MerkadoDbContext))]
-    [Migration("20220602182254_Product_Views")]
-    partial class Product_Views
+    [Migration("20230426162807_AlmostFullDatabase")]
+    partial class AlmostFullDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,36 @@ namespace Merkado.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Merkado.Models.ChatMessage", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("FromUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ToUserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FromUserId");
+
+                    b.HasIndex("ToUserId");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("Merkado.Models.FavouriteSeller", b =>
                 {
                     b.Property<int>("FavouriteSellerId")
@@ -47,12 +77,13 @@ namespace Merkado.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserID")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("FavouriteSellerId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserID");
 
                     b.ToTable("FavouriteSeller");
                 });
@@ -476,11 +507,32 @@ namespace Merkado.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("Merkado.Models.ChatMessage", b =>
+                {
+                    b.HasOne("Merkado.Models.User", "FromUser")
+                        .WithMany()
+                        .HasForeignKey("FromUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Merkado.Models.User", "ToUser")
+                        .WithMany()
+                        .HasForeignKey("ToUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FromUser");
+
+                    b.Navigation("ToUser");
+                });
+
             modelBuilder.Entity("Merkado.Models.FavouriteSeller", b =>
                 {
                     b.HasOne("Merkado.Models.User", null)
                         .WithMany("FavouriteSellers")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Merkado.Models.ObservedProduct", b =>
