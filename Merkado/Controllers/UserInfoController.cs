@@ -24,13 +24,33 @@ namespace DJK.Controllers
             _httpContextAccessor = httpContextAccessor;
             _userManager = userManager;
         }
-
+        
         [Authorize]
+        [Route("/UserInfo/sendMessage")]
+        public IActionResult sendMessage(string ToUser, string NewMessege)
+        {
+            var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
+            var fromUserId = _userManager.GetUserAsync(User).Result.Id;
+            var message = new ChatMessage();
+            message.CreatedDate = DateTime.Now;
+            message.ToUserId = ToUser;
+            message.Message = NewMessege;
+            message.FromUserId = fromUserId;
+
+            _db.ChatMessages.Add(message);
+            _db.SaveChanges();
+
+            var myObject = new { userId, NewMessege, fromUserId };
+            return Json(myObject);
+        }
+        
+        [Authorize]
+
         public void addtoFavouritee(string UserId)
         {
 
             var userId = _userManager.FindByNameAsync(_httpContextAccessor.HttpContext?.User.Identity?.Name).Result.Id;
-
+            
             var ifObservedSeller = _db.FavouriteSeller.Any(O => O.SellerId == UserId && O.UserID == userId);
             if (ifObservedSeller)
             {

@@ -2,13 +2,28 @@
 
 @{
     ViewData["Title"] = "Wiadomości";
+    <link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
+    <script>
+        function selectUser(userId) {
+        const items = document.querySelectorAll('#userBtn');
+        $("#partialMessages").load('@Url.Action("Messages","Chat")/' + userId);
+        items.forEach(item => {
+            if(item.dataset.itemId === userId) {
+                item.classList.add('selected');
+            }
+            else {
+                item.classList.remove('selected');
+            }
+        })
+    }
+    </script>
 }
 
 <div class="container bg-light rounded-3 p-4">
      <div class="row" enctype="multipart/form-data" asp-action="AddProduct" method="post">
 
-        <div class="col-md-3 mb-3">
-                @if(Model.Capacity == 0 || Model == null)
+        <div class="col-md-3 mb-3" id="users">
+                @if( Model.Capacity == 0 || Model == null)
                 {
                         <p>Brak kontaktów.</p>
                 }
@@ -16,8 +31,8 @@
                 {
                     @foreach (var user in Model)
                     {
-                        <button value=@user.Id class="btn card mt-1 mb-1" id="userBtn">
-                          <div class="card-body">
+                        <button value=@user.Id class="btn card mt-1 mb-1" id="userBtn" onclick="selectUser('@user.Id')" data-item-id="@user.Id">
+                          <div class="card-body" id="reloader">
                                 @user.FirstName @user.LastName
                           </div>
                         </button>
@@ -32,10 +47,21 @@
 </div>
 
 <script>
-    document.getElementById("userBtn").onclick = function () { myFunction() };
-    
-    function myFunction() {
-        let userid = document.getElementById("userBtn").value;
-        $("#partialMessages").load('@Url.Action("Messages","Chat")/' + userid);
-    }
+
+    window.addEventListener('load', () => {
+        if(!!window.location.search) {
+            const params = window.location.search.split('=');
+            if(params.length >1) {
+                const userId = params[1];
+                const item = document.querySelector(`[data-item-id='${userId}']`);
+
+                if (item) {
+                    item.click();
+                }
+
+            }
+        }
+
+    })
+
 </script>

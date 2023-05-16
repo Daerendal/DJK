@@ -52,3 +52,7 @@ function SendMail(id) {
         }
     })
 }
+
+function sendMessage(Id) {
+    window.location.pathname = `Chat`;
+}

@@ -9,10 +9,12 @@ mybutton = document.getElementById("GoTop");
 window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-        mybutton.style.display = "block";
-    } else {
-        mybutton.style.display = "none";
+    if(mybutton) {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
     }
 }
 let btnchange = document.querySelector('#Button2');
@@ -21,6 +23,7 @@ let Price2 = document.querySelector('#AllPrice');
 let Price3 = document.querySelector('#AllPrice2');
 let Price4 = document.querySelector('#inactive');
 let inputcode = document.querySelector("#andrzej");
+if(btnchange) {
     btnchange.addEventListener('click', () => {
         var promocode = $("#andrzej").val();
         $.ajax({
@@ -46,7 +49,7 @@ let inputcode = document.querySelector("#andrzej");
         })
 
     });
-
+}
 
 
 //function promocode() {

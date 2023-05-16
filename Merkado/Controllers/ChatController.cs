@@ -1,6 +1,7 @@
 ﻿using DJK.DAL;
 using DJK.Models;
 using DJK.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -22,8 +23,12 @@ namespace DJK.Controllers
         {
             try
             {
+                string idValue = Request.Query["user"];
+                // TODO: Trzeba jakoś wysłać userId jako ?user= by mógł się on wyświetlić na liście wiadomości, dzięki czemu będzie można wchodząc w kogoś profil wysyłać wiadomość
+                // (będzie nas przekirowywało do czatu z tym użytkownikiem)
+
                 var loggedUser = _userManager.GetUserAsync(User).Result;
-                var myMessageSendersID = _db.ChatMessages.Where(x => x.ToUserId == loggedUser.Id).Select(s => s.FromUserId).ToList();
+                var myMessageSendersID = _db.ChatMessages.Where(x => x.ToUserId == loggedUser.Id || x.FromUserId == loggedUser.Id || (idValue != null && (x.FromUserId == idValue && x.ToUserId == loggedUser.Id) || (x.FromUserId == loggedUser.Id && x.ToUserId == idValue))).Select(s => s.ToUserId == loggedUser.Id ? s.FromUserId : s.ToUserId).Where(k => !k.Equals(loggedUser.Id)).ToList();
                 myMessageSendersID = myMessageSendersID.Distinct().ToList();
 
                 var sendersDetails = new List<User>();
@@ -50,16 +55,13 @@ namespace DJK.Controllers
         {
             var loggedUser = _userManager.GetUserAsync(User).Result;
 
-            var messagesFrom = _db.ChatMessages.Where(x => x.FromUserId == id && x.ToUserId == loggedUser.Id).ToList();
-            var messagesTo = _db.ChatMessages.Where(x => x.ToUserId == id && x.FromUserId == loggedUser.Id).ToList();
-
-            messagesFrom.AddRange(messagesTo);
+            var messagesFrom = _db.ChatMessages.Where(x => (x.FromUserId == id || x.ToUserId == id) && (x.FromUserId == loggedUser.Id || x.ToUserId == loggedUser.Id ) ).ToList();
 
             var allMessages = messagesFrom.OrderBy(x => x.CreatedDate).ToList();
 
             ChatVM chatVM = new ChatVM();
             chatVM.Messages = allMessages;
-
+            chatVM.ToUser = id;
             if (allMessages != null)
             {
                 return PartialView(chatVM);
@@ -69,7 +71,8 @@ namespace DJK.Controllers
                 return NotFound();
             }
         }
-
+        [Authorize]
+        [Route("/Chat/SendMessage")]
         public IActionResult SendMessage(ChatVM chatVM)
         {
             try
@@ -85,7 +88,7 @@ namespace DJK.Controllers
                     _db.ChatMessages.Add(message);
                     _db.SaveChanges();
                 }
-                return Redirect("Index");
+                return Json(chatVM);
             }
             catch (Exception)
             {
