@@ -28,7 +28,8 @@ namespace DJK.Controllers
                 // (będzie nas przekirowywało do czatu z tym użytkownikiem)
 
                 var loggedUser = _userManager.GetUserAsync(User).Result;
-                var myMessageSendersID = _db.ChatMessages.Where(x => x.ToUserId == loggedUser.Id || x.FromUserId == loggedUser.Id || (idValue != null && (x.FromUserId == idValue && x.ToUserId == loggedUser.Id) || (x.FromUserId == loggedUser.Id && x.ToUserId == idValue))).Select(s => s.ToUserId == loggedUser.Id ? s.FromUserId : s.ToUserId).Where(k => !k.Equals(loggedUser.Id)).ToList();
+                //var myMessageSendersID = _db.ChatMessages.Where(x => x.ToUserId == loggedUser.Id || x.FromUserId == loggedUser.Id || (idValue != null && (x.FromUserId == idValue && x.ToUserId == loggedUser.Id) || (x.FromUserId == loggedUser.Id && x.ToUserId == idValue))).Select(s => s.ToUserId == loggedUser.Id ? s.FromUserId : s.ToUserId).Where(k => !k.Equals(loggedUser.Id)).ToList();
+                var myMessageSendersID = _db.Users.Select(x => x.Id).ToList();
                 myMessageSendersID = myMessageSendersID.Distinct().ToList();
 
                 var sendersDetails = new List<User>();
