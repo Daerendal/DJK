@@ -120,7 +120,7 @@ namespace DJK.Controllers
             client.Credentials = basicCredential1;
             try
             {
-                client.Send(message);
+                //client.Send(message);
                 prod.IsSold = true;
                 prod.BuyerId = userId.Id;
                 _db.Products.Update(prod);

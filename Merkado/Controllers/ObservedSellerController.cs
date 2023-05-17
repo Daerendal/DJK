@@ -31,6 +31,7 @@ namespace DJK.Controllers
                 var ObservedUser = _db.FavouriteSeller.Where(O => O.SellerId == Id && O.UserID == userId).FirstOrDefault();
                 _db.Remove(ObservedUser);
                 _db.SaveChanges();
+                _db.Update(ObservedUser);
             }
 
             return Redirect("/ObservedSeller/Index");
