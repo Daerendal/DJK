@@ -32,6 +32,9 @@ body {
     display:flex;
     flex-wrap:wrap;
 }
+.navbar .nav-item form {
+    align-self: center;
+}
 .imagepost{
     margin:6px;
 }
