@@ -12,62 +12,62 @@
 
     <nav class="navbar navbar-expand-md navbar-light bg-white border-bottom box-shadow mb-3 sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="" height="50" width="150"/></a>
+        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/LOGODJK.png" height="50" width="110" /></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+            <ul class="navbar-nav flex-grow-1 justify-content-center">
 
-                        
-                    <li class="nav-item col-sm-9">
-                        <form asp-controller="Search" asp-action="Index">
-                           
-                            <div class="d-flex flex-row ">   
 
-                                @if (ViewBag.CurrentFilter == null)
-                                {
-                                    ViewBag.CurrentFilter = "Produkt";
-                                }
-                                    
+                <li class="nav-item col-sm-6 d-flex" style="margin-top: 10px; margin-bottom: -5px">
+                    <form asp-controller="Search" asp-action="Index">
+                        <div class="d-flex flex-row ">
 
-                                @if (ViewBag.CurrentLocation == null)
-                                {
-                                    ViewBag.CurrentLocation = "Lokalizacja";
-                                }
-                                   
+                            @if (ViewBag.CurrentFilter == null)
+                            {
+                                ViewBag.CurrentFilter = "Produkt";
+                            }
 
-                        
-                                <input type="text" name="NameSearch" class="rounded col-4" placeholder=@ViewBag.CurrentFilter />
-                                <input type="text" name="LocationSearch" class="rounded col-4" placeholder=@ViewBag.CurrentLocation />
-                            
 
-                                <div class="dropdown show">
-                                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Kategorie
-                                        </a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            @*@foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
-                                            {
-                                                <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
+                            @if (ViewBag.CurrentLocation == null)
+                            {
+                                ViewBag.CurrentLocation = "Lokalizacja";
+                            }
 
-                                            }*@
-                                                <a class="dropdown-item" href="/Search?category=Wszystkie">Wszystkie</a>
-                                                <a class="dropdown-item" href="/Search?category=Zabytki">Zabytki</a>
-                                                <a class="dropdown-item" href="/Search?category=Elektronika">Elektronika</a>
-                                                <a class="dropdown-item" href="/Search?category=Kosmetyki">Kosmetyki</a>
-                                                <a class="dropdown-item" href="/Search?category=Sport%20i%20Rekreacja">Sport I Rekreacja</a>
-                                    </div>
-                                        
 
+
+                            <input type="text" name="NameSearch" class="rounded col-4" placeholder=@ViewBag.CurrentFilter />
+                            <input type="text" name="LocationSearch" class="rounded col-4" placeholder=@ViewBag.CurrentLocation />
+
+
+                            <div class="dropdown show">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Kategorie
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    @*@foreach (var item in Model.GroupBy(x => x.Category.CategoryId).Select(y => y.First()) )
+                                    {
+                                    <a class="dropdown-item" href="/Search?category=@item.Category.Name">@item.Category.Name</a>
+
+                                    }*@
+                                    <a class="dropdown-item" href="/Search?category=Wszystkie">Wszystkie</a>
+                                    <a class="dropdown-item" href="/Search?category=Zabytki">Zabytki</a>
+                                    <a class="dropdown-item" href="/Search?category=Elektronika">Elektronika</a>
+                                    <a class="dropdown-item" href="/Search?category=Kosmetyki">Kosmetyki</a>
+                                    <a class="dropdown-item" href="/Search?category=Sport%20i%20Rekreacja">Sport I Rekreacja</a>
                                 </div>
 
-                                <input class="btn btn-outline-primary col-sm-4" type="submit"  value="Wyszukaj" />
 
                             </div>
-                        </form>
-                        </li>
+
+                            <input class="btn btn-outline-primary col-sm-4" type="submit" value="Wyszukaj" />
+
+                        </div>
+                    </form>
+                </li>
+
                         
                 </ul>
 
@@ -83,9 +83,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+<footer class="border-top footer text-muted justify-content-center" style="margin-left:16%">
         <br/>
-        <div class=" container row row-cols-6 text-center">
+    <div class=" container row row-cols-5 text-center" >
             <a>&copy; 2022 - DJK </a>
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Regulamin</a>
             <a asp-area="" asp-controller="Home" asp-action="About">O nas</a>
